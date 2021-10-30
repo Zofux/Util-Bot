@@ -21,11 +21,11 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
 
 (async () => {
     for (file of functions) {
-        require(`./functions/${file}`)(client);
+        require(`./src/functions/${file}`)(client);
     }
 
     client.handleEvents(eventFiles, "./src/events");
     client.handleCommands(commandFolders, "./src/commands")
     client.login(process.env.token)
-    require('./database')()
+    require('./src/database')()
 })();

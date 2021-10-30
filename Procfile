@@ -1,1 +1,1 @@
-node src/bot.js
+node bot.js
