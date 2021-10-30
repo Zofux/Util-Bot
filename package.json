@@ -21,6 +21,9 @@
     "randomstring": "^1.2.1",
     "unix-time": "^1.0.1"
   },
+  "engines": {
+    "node": "16.8.0"
+  },
   "devDependencies": {
     "@types/node": "^16.11.6"
   }
