@@ -45,7 +45,7 @@ module.exports = async (interaction, client) => {
         const logChannel = interaction.guild.channels.cache.get("896370391247896616")
         let logEmbed = new MessageEmbed()
             .setDescription(`📩 <@${interaction.user.id}> Created a ticket`)
-            .addField("Ticket", `<#${interaction.channel.id}>`)
+            .addField("Ticket", `<#${channel.id}>`)
             .setColor('#00ff74')
             .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
         logChannel.send({ embeds: [logEmbed] })
