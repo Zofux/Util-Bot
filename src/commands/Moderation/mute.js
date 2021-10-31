@@ -8,7 +8,7 @@ module.exports = {
         .addUserOption(option =>
             option.setName("user").setDescription("The user that should get muted").setRequired(true))
         .addStringOption(option =>
-            option.setName("time").setDescription("How long the mute should last (example: 2h)")).setRequired(true)
+            option.setName("time").setDescription("How long the mute should last (example: 2h)").setRequired(true))
         .addStringOption(option =>
             option.setName("reason").setDescription("The reason for the kick").setRequired(true)),
     async execute(interaction) {
