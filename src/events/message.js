@@ -43,7 +43,22 @@ module.exports = {
                 message.channel.send({ embeds: [confirm] })
     
                 guild.channels.create(message.author.id, {
-                    parent: guild.channels.cache.get("903743105122046012")
+                    parent: guild.channels.cache.get("903743105122046012"),
+                    permissionOverwrites: [
+                        {
+                            id: '892751160182730772',
+                            deny: ["VIEW_CHANNEL"],
+                            allow: ["EMBED_LINKS"]
+                        },
+                        {
+                            id: '904317722362540102',
+                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
+                        },
+                        {
+                            id: message.author.id,
+                            allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
+                        },
+                    ]
                 }).then(x => {
                     let embed = new Discord.MessageEmbed()
                         .setDescription(`<@${message.author.id}>\n─────────────\n${message.content}`)

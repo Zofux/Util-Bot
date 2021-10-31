@@ -11,7 +11,7 @@ module.exports = {
             let embed = new Discord.MessageEmbed()
                 .setDescription(`:inbox_tray: <@${member.user.id}> Joined the server`)
                 .addField(`Account created`, `${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`)
-                .setColor('#43d490')
+                .setColor('#00ff74')
                 .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
             logChannel.send({ embeds: [embed] })
         }
