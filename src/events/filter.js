@@ -41,12 +41,12 @@ module.exports = {
                             userId: message.author.id,
                             guildId: message.guild.id,
                             infractions: [
-                                { type: "kick", date: unixTime(new Date()), reason: "Continues infractions", id: id, moderator: `${client.user.username}#${client.user.discriminator}` }
+                                { type: "mute", date: unixTime(new Date()), reason: "Continues infractions", id: id, moderator: `${client.user.username}#${client.user.discriminator}` }
                             ]
                         }).save()
                     } else {
                         const infraction = {
-                            type: "kick", date: unixTime(new Date()), reason: "Continues infractions", id: id, moderator: `${client.user.username}#${client.user.discriminator}`
+                            type: "mute", date: unixTime(new Date()), reason: "Continues infractions", id: id, moderator: `${client.user.username}#${client.user.discriminator}`
                         }
                         await warns.findOneAndUpdate({
                             guildId: message.guild.id, userId: message.author.id
