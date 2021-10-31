@@ -7,7 +7,7 @@ module.exports = {
     async execute(message, client) {
         if (message.author.bot || !message.guild) return;
 
-        const blacklisted = ["fuck", "bitch", "whore", "retard", "nigg", "neger", "negger", "dick", "cock", "cunt", "porn", "put that meat in my mouth"]
+        const blacklisted = ["fuck", "bitch", "whore", "retard", "nigg", "neger", "negger", "dick", "cock", "cunt", "porn", "put that meat in my mouth", "pussy"]
 
         let found = false
         for (let i in blacklisted) {
