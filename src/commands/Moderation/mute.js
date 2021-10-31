@@ -134,7 +134,6 @@ module.exports = {
                         logChannel.send({ embeds: [logEmbed] });
                         user.send({ embeds: [logEmbed] })
 
-                        await interaction.guild.members.cache.get(user.id).kick()
                         const embed = new Discord.MessageEmbed()
                             .setDescription(`<:check:896045976039608320> Successfully **Muted** <@${user.id}> with id \`${id}\``)
                             .setColor("#43d490")
@@ -170,7 +169,6 @@ module.exports = {
                         logChannel.send({ embeds: [logEmbed] });
                         user.send({ embeds: [logEmbed] })
 
-                        await interaction.guild.members.cache.get(user.id).kick()
                         const embed = new Discord.MessageEmbed()
                             .setDescription(`<:check:896045976039608320> Successfully **Muted** <@${user.id}> with id \`${id}\``)
                             .setColor("#43d490")
