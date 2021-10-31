@@ -102,8 +102,8 @@ module.exports = {
                 const muted = interaction.guild.roles.cache.get("903991654074167357")
                 const member = interaction.guild.roles.cache.get("892756988335898634")
 
-                message.member.roles.add(muted)
-                message.member.roles.remove(member)
+                interaction.member.roles.add(muted)
+                interaction.member.roles.remove(member)
 
 
                 const db = require('../../models/infractions')
