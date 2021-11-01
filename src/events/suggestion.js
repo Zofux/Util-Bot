@@ -16,7 +16,7 @@ module.exports = async (message, client) => {
             const Discord = require('discord.js')
             let embed = new Discord.MessageEmbed()
                .addFields([
-                   {name: "💡 | Suggestion", value: content}
+                   {name: "Suggestion", value: content}
                ])
                .setAuthor(message.author.username, message.author.displayAvatarURL())
                .setFooter(id)

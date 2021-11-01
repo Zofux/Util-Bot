@@ -43,8 +43,8 @@ module.exports = {
                 .setThumbnail(interaction.user.displayAvatarURL())
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .addFields([
-                    { name: '💡 | Suggestion', value: res.suggestion },
-                    { name: '🛠️ | Staff Reply', value: `${reply}` },
+                    { name: 'Suggestion', value: res.suggestion },
+                    { name: 'Staff Reply', value: `${reply}` },
                 ])
             channel.send({ embeds: [embed] })
             await interaction.editReply("<:check:896045976039608320>").then(async () => {
