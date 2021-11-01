@@ -4,6 +4,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(message, client) {
         if (message.author.bot) return;
+        await require('./suggestion')(message, client)
         if (message.guild) {
             if (message.channel.parent.id == "903743105122046012") {
                 if (isNaN(message.channel.name)) return;
