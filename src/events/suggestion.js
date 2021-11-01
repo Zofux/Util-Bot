@@ -1,8 +1,7 @@
 module.exports = async (message, client) => {
     if (message.channel.id === "904788215028920321") {
         const content = message.content;
-        await message.delete()
-        
+       
         const db = require('../models/suggestions')
 
         var randomstring = require("randomstring");
@@ -24,6 +23,7 @@ module.exports = async (message, client) => {
             const msg = await message.channel.send({ embeds: [embed] })
             await msg.react("👍").then(async () => {
                 await msg.react("👎")
+                await message.delete()
             })
         })
     }
