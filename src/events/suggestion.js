@@ -12,7 +12,7 @@ module.exports = async (message, client) => {
             userId: message.author.id,
             suggestion: content,
             id: id,
-        }).then(async () => {
+        }).save().then(async () => {
             const Discord = require('discord.js')
             let embed = new Discord.MessageEmbed()
                .addFields([

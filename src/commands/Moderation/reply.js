@@ -47,6 +47,9 @@ module.exports = {
                     { name: '🛠️ | Staff Reply', value: `${reply}` },
                 ])
             channel.send({ embeds: [embed] })
+            await interaction.editReply("<:check:896045976039608320>").then(async () => {
+                await db.findOneAndDelete({ id: id })
+            })
         }
     }
 }
