@@ -6,7 +6,7 @@ module.exports = {
         .setName("status")
         .setDescription("Get a status update of the server"),
     async execute(interaction) {
-        await interaction.deferReply({ ephemeral: true })
+        await interaction.deferReply()
         const util = require('minecraft-server-util')
 
         util.status("cactuscraft.apexmc.co").then(async res => {
