@@ -10,7 +10,7 @@ module.exports = {
         .addStringOption(option =>
             option.setName("reply").setDescription("The message you want to reply with").setRequired(true)),
     async execute(interaction) {
-        interaction.deferReply({ ephemeral: true })
+        await interaction.deferReply({ ephemeral: true })
 
         const id = interaction.options.getString("id")
         const reply = interaction.options.getString("reply")
