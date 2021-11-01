@@ -1,6 +1,5 @@
 module.exports = async (message, client) => {
-    if (!message.channel.id === "904788215028920321") return;
-    else {
+    if (message.channel.id === "904788215028920321") {
         const content = message.content;
         await message.delete()
         
@@ -27,5 +26,8 @@ module.exports = async (message, client) => {
                 await msg.react("👎")
             })
         })
+    }
+    else {
+       return;
     }
 }
