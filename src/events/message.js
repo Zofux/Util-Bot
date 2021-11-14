@@ -6,7 +6,7 @@ module.exports = {
     async execute(message, client) {
         if (message.guild) return;
         if (message.author.bot) return;
-        const member = client.guilds.cache.get("892751160182730772").members.get(message.author.id)
+        const member = client.guilds.cache.get("892751160182730772").members.cache.get(message.author.id)
         if (!member) return;
         const res = await db.findOne({ userId: message.author.id })
         if (!res) {

@@ -21,17 +21,20 @@ module.exports = async (member, client) => {
     date.setMinutes(date.getMinutes() + 15)
 
     const db = require('../../models/captchas')
-    new db({
-        userId: member.user.id,
-        code: captcha.text,
-        expiers: date
-    }).save().then(() => {
-        let embed = new MessageEmbed()
-            .setAuthor("Welcome to Cactus Craft")
-            .setDescription('Please send the captcha code here.\n\n**Why?**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:' + unixTime(date) + ':R>\n\n**Your Captcha:**')
-            .setFooter("NOTE: This is Case Sensitive")
-            .setColor("#5797ff")
-            .setImage("attachment://captcha.png")
-        member.send({ embeds: [embed], files: [attachment] })
+    await db.findOneAndDelete({ userId: member.user.id }).then(async () => {
+        new db({
+            userId: member.user.id,
+            code: captcha.text,
+            expiers: date
+        }).save().then(() => {
+            let embed = new MessageEmbed()
+                .setAuthor("Welcome to Cactus Craft")
+                .setDescription('Please send the captcha code here.\n\n**Why?**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:' + unixTime(date) + ':R>\n\n**Your Captcha:**')
+                .setFooter("NOTE: This is Case Sensitive")
+                .setColor("#5797ff")
+                .setImage("attachment://captcha.png")
+            member.send({ embeds: [embed], files: [attachment] })
+        })
     })
+
 }
