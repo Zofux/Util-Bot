@@ -4,8 +4,12 @@ const db = require('../models/captchas')
 module.exports = {
     name: 'messageCreate',
     async execute(message, client) {
-        if (message.guild) return;
         if (message.author.bot) return;
+        if (message.channel.id === "909502038516326500") {
+            await message.delete()
+        }
+
+        if (message.guild) return;
         console.log(message.author.id)
         const member = client.guilds.cache.get("892751160182730772").members.cache.get(message.author.id)
         if (!member) return;
@@ -30,7 +34,7 @@ module.exports = {
                     member.roles.add("892756988335898634").then(() => {
                         const embed = new Discord.MessageEmbed()
                             .setDescription(`<:check:896045976039608320> You have been verified`)
-                            .setColor("#5797ff")
+                            .setColor("#00ff74")
                             .setAuthor("Thank you!")
                         message.author.send({ embeds: [embed] })
                     })

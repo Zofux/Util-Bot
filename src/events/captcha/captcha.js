@@ -8,9 +8,9 @@ module.exports = async (member, client) => {
 
     const captcha = new CaptchaGenerator()
         .setDimension(70, 250)
-        .setCaptcha({ text: id, size: 45, color: "#5797ff" })
+        .setCaptcha({ text: id, size: 45, color: "#00ff74" })
         .setDecoy({ opacity: 0.7 })
-        .setTrace({ color: "#5797ff" })
+        .setTrace({ color: "#00ff74" })
     const image = captcha.generateSync();
 
     const attachment = new MessageAttachment()
@@ -31,7 +31,7 @@ module.exports = async (member, client) => {
                 .setAuthor("Welcome to Cactus Craft")
                 .setDescription('Please send the captcha code here.\n\n**Why?**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:' + unixTime(date) + ':R>\n\n**Your Captcha:**')
                 .setFooter("NOTE: This is Case Sensitive")
-                .setColor("#5797ff")
+                .setColor("#00ff74")
                 .setImage("attachment://captcha.png")
             member.send({ embeds: [embed], files: [attachment] })
         })
