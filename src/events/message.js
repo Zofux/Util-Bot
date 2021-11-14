@@ -26,13 +26,16 @@ module.exports = {
                     message.author.send({ embeds: [embed] })
                 })
             } else {
-                member.roles.add("892756988335898634").then(() => {
-                    const embed = new Discord.MessageEmbed()
-                        .setDescription(`<:check:896045976039608320> You have been verified`)
-                        .setColor("#5797ff")
-                        .setAuthor("Thank you!")
-                    message.author.send({ embeds: [embed] })
+                await db.findOneAndDelete({ userId: message.author.id }).then(() => {
+                    member.roles.add("892756988335898634").then(() => {
+                        const embed = new Discord.MessageEmbed()
+                            .setDescription(`<:check:896045976039608320> You have been verified`)
+                            .setColor("#5797ff")
+                            .setAuthor("Thank you!")
+                        message.author.send({ embeds: [embed] })
+                    })
                 })
+
             }
         }
     }

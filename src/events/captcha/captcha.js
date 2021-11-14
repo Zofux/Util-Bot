@@ -25,7 +25,7 @@ module.exports = async (member, client) => {
         new db({
             userId: member.user.id,
             code: captcha.text,
-            expiers: date
+            expires: date
         }).save().then(() => {
             let embed = new MessageEmbed()
                 .setAuthor("Welcome to Cactus Craft")
