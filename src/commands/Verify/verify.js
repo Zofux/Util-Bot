@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("verify")
         .setDescription("Start the verification progress"),
-    async execute(interaction, cleint) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         if (interaction.member.roles.cache.has("892756988335898634")) {
             const embed = new Discord.MessageEmbed()
