@@ -34,7 +34,7 @@ module.exports = async (member, client) => {
                 .setColor("#00ff74")
                 .setImage("attachment://captcha.png")
             member.send({ embeds: [embed], files: [attachment] }).catch(() => {
-                client.channels.cache.get("909502038516326500").send({ content: `<@${member.user.id}> You need to enable your dm's for the verification`, ephemeral: true })
+                client.guilds.cache.get("892751160182730772").channels.cache.get("909502038516326500").send({ content: `<@${member.user.id}> You need to enable your dm's for the verification`, ephemeral: true })
             })
         })
     })
