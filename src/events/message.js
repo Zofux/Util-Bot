@@ -6,7 +6,11 @@ module.exports = {
     async execute(message, client) {
         if (message.author.bot) return;
         if (message.channel.id === "909502038516326500") {
-            await message.delete()
+            let embed = new Discord.MessageEmbed()
+                .setDescription(message.content)
+                .setColor("#00ff74")
+            message.channel.send({ embeds: [embed] })
+            //await message.delete()
         }
 
         if (message.guild) return;
