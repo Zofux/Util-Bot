@@ -6,7 +6,7 @@ module.exports = {
     async execute(member) {
         if (member.guild.id === "892751160182730772") {
 
-            await require('./captcha/captcha')(member, client)
+            await require('./captcha/captcha')(member)
 
             const logChannel = member.guild.channels.cache.get("896370391247896616")
             let embed = new Discord.MessageEmbed()

@@ -5,7 +5,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("verify")
         .setDescription("Start the verification progress"),
-    async execute(interaction, client) {
+    async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         if (interaction.member.roles.cache.has("892756988335898634")) {
             const embed = new Discord.MessageEmbed()
@@ -35,7 +35,7 @@ module.exports = {
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
             await interaction.editReply({ embeds: [embed] }).then(() => {
-                require('../../events/captcha/captcha')(interaction.member, client)
+                require('../../events/captcha/captcha')(interaction.member)
             })
         }
     }
