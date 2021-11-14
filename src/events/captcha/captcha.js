@@ -17,7 +17,7 @@ module.exports = async (member, client) => {
         .setFile(await image)
         .setName("captcha.png")
 
-    let date = new Date()
+    const date = new Date()
     date.setMinutes(date.getMinutes() + 15)
 
     const db = require('../../models/captchas')
