@@ -20,19 +20,23 @@ module.exports = {
         const db = require('../../models/captchas')
         const res = await db.findOne({ userId: interaction.user.id })
         if (res) {
-            const embed = new Discord.MessageEmbed()
-                .setDescription("<:cross:896045962940780555> You currently have a pending captcha")
-                .setColor("#ff7575")
-                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                .setFooter(interaction.guild.name)
-                .setTimestamp()
-            return await interaction.editReply({ embeds: [embed], ephemeral: true })
+            await db.findOneAndDelete({ userId: interaction.user.id }).then(async () => {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`<:check:896045976039608320> Starting a new captcha in our dm's (I removed the one you had from before)`)
+                    .setColor("#43d490")
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("If it doesn't work you need to open your dms")
+                    .setTimestamp()
+                await interaction.editReply({ embeds: [embed] }).then(() => {
+                    require('../../events/captcha/captcha')(interaction.member, client)
+                })
+            })
         } else if (!res) {
             const embed = new Discord.MessageEmbed()
-                .setDescription(`<:check:896045976039608320> Starting a captcha in our dm's, if it doesn't work you need to open your dms`)
+                .setDescription(`<:check:896045976039608320> Starting a captcha in our dm's`)
                 .setColor("#43d490")
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                .setFooter(interaction.guild.name)
+                .setFooter("If it doesn't work you need to open your dms")
                 .setTimestamp()
             await interaction.editReply({ embeds: [embed] }).then(() => {
                 require('../../events/captcha/captcha')(interaction.member, client)
