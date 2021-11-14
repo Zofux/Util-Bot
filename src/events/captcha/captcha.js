@@ -2,7 +2,7 @@ const { Captcha, CaptchaGenerator } = require('captcha-canvas');
 const { MessageAttachment, MessageEmbed } = require('discord.js')
 const unixTime = require("unix-time")
 
-module.exports = async (member, client) => {
+module.exports = async (member) => {
     const random = require('randomstring')
     const id = random.generate(7)
 
@@ -33,9 +33,7 @@ module.exports = async (member, client) => {
                 .setFooter("NOTE: This is Case Sensitive")
                 .setColor("#00ff74")
                 .setImage("attachment://captcha.png")
-            member.send({ embeds: [embed], files: [attachment] }).catch(() => {
-                client.guilds.cache.get("892751160182730772").channels.cache.get("909502038516326500").send({ content: `<@${member.user.id}> You need to enable your dm's for the verification`, ephemeral: true })
-            })
+            member.send({ embeds: [embed], files: [attachment] })
         })
     })
 
