@@ -9,7 +9,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true })
         var randomstring = require("randomstring");
         const id = randomstring.generate(7)
-        const user = interaction.options.getUser("user")
+        const user = interaction.user
 
         const { Captcha } = require('captcha-canvas')
         const captcha = new Captcha()
