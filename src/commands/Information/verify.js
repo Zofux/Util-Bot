@@ -27,7 +27,7 @@ module.exports = {
         const res = await db.findOne({ userId: user.id })
         const unixTime = require('unix-time');
         const date = new Date()
-        date.setHours(date.getHours + 1)
+        date.setHours(date.getHours() + 1)
 
         if (res) {
             const embed = new Discord.MessageEmbed()
@@ -46,7 +46,7 @@ module.exports = {
                     .setAuthor("Welcome to our server!")
                     .setDescription(`Please send the captcha code back to me (<@892754578162982922>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
                     .setImage('attachment://captcha.png')
-                    .setColor('#34eb3a')
+                    .setColor('#43d490')
                     .setFooter("NOTE: This is Case Sensitive (Made by Zofux)")
 
                 await user.send({
@@ -56,7 +56,7 @@ module.exports = {
                     const answerEmbed = new Discord.MessageEmbed()
                     .setAuthor("Captcha Control")
                     .setDescription(`<:check:896045976039608320> I've gone ahead and sent you a captcha code in your dm's`)
-                    .setColor('#34eb3a')
+                    .setColor('#43d490')
                     .setFooter("Made by Zofux")
                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                 })
