@@ -7,7 +7,7 @@ module.exports = {
             const logChannel = member.guild.channels.cache.get("896697011255017493")
             let embed = new Discord.MessageEmbed()
                 .setDescription(`:inbox_tray: <@${member.user.id}> Left the server`)
-                .addField(`Joined at`, `${moment(member.joinedAt).format('LT')} ${moment(member.joinedAt).format('LL')} ${moment(member.joinedAt).fromNow()}`)
+                //.addField(`Joined at`, `${moment(member.joinedAt).format('LT')} ${moment(member.joinedAt).format('LL')} ${moment(member.joinedAt).fromNow()}`)
                 .setColor('#eb3a34')
                 .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
             logChannel.send({ embeds: [embed] })
