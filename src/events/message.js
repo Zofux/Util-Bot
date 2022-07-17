@@ -5,10 +5,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(message, client) {
         if (message.author.bot) return;
-        if (message.channel.id === "909502038516326500") {
-            await message.delete()
-        }
-
+        
         if (message.guild) return;
         console.log(message.author.id)
         const member = client.guilds.cache.get("892751160182730772").members.cache.get(message.author.id)
