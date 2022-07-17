@@ -26,6 +26,7 @@ module.exports = {
                 })
             } else {
                 await db.findOneAndDelete({ userId: message.author.id }).then(() => {
+                    await client.guilds.cache.get("892751160182730772").members.fetch();
                     const member = client.guilds.cache.get("892751160182730772").members.cache.get("359681648322805761")
                     member.roles.add("892756988335898634").then(() => {
                         const embed = new Discord.MessageEmbed()
