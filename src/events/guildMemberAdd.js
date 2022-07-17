@@ -36,7 +36,7 @@ module.exports = {
         if (res) {
             return
         } else if (!res) {
-            if (interaction.member.roles.cache.some(role => role.id === "892756988335898634")) {
+            if (member.roles.cache.some(role => role.id === "892756988335898634")) {
                 return
             }
             new db({
