@@ -8,8 +8,6 @@ module.exports = {
 
         if (message.guild) return;
         console.log(message.author.id)
-        const member = client.guilds.cache.get("892751160182730772").members.cache.get(message.author.id)
-        if (!member) return message.author.send("Not a member");
         const res = await db.findOne({ userId: message.author.id })
         if (!res) {
             const embed = new Discord.MessageEmbed()
