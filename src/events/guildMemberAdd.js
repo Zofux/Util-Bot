@@ -28,7 +28,7 @@ module.exports = {
         )
 
         const db = require('../models/captchas')
-        const res = await db.findOne({ userId: user.id })
+        const res = await db.findOne({ userId: member.user.id })
         const unixTime = require('unix-time');
         const date = new Date()
         date.setHours(date.getHours() + 1)
@@ -40,7 +40,7 @@ module.exports = {
                 return
             }
             new db({
-                userId: user.id,
+                userId: member.user.id,
                 expiers: date,
                 code: id
             }).save().then(async () => {
