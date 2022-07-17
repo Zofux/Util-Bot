@@ -4,7 +4,7 @@ const Discord = require('discord.js')
 module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
-        const logChannel = member.guild.channels.cache.get("896370391247896616")
+        const logChannel = member.guild.channels.cache.get("896697011255017493")
         let embed = new Discord.MessageEmbed()
             .setDescription(`:inbox_tray: <@${member.user.id}> Joined the server`)
             .addField(`Account created`, `${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`)
