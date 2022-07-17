@@ -41,7 +41,7 @@ module.exports = {
                 userId: user.id,
                 expiers: date,
                 code: id
-            }).then(() => {
+            }).then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor("Welcome to our server!")
                     .setDescription(`Please send the captcha code back to me (<@892754578162982922>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
