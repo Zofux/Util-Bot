@@ -37,6 +37,14 @@ module.exports = {
                 .setFooter("Made by Zofux")
             return interaction.editReply({ embeds: [embed], ephemeral: true })
         } else if (!res) {
+            if (interaction.member.roles.cache.some(role => role.id === "892756988335898634")) {
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor("Already verified")
+                    .setDescription("<:cross:896045962940780555> You are currently verified")
+                    .setColor("#ff7575")
+                    .setFooter("Made by Zofux")
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
             new db({
                 userId: user.id,
                 expiers: date,
@@ -54,10 +62,10 @@ module.exports = {
                     embeds: [embed]
                 }).then(() => {
                     const answerEmbed = new Discord.MessageEmbed()
-                    .setAuthor("Captcha Control")
-                    .setDescription(`<:check:896045976039608320> I've gone ahead and sent you a captcha code in your dm's`)
-                    .setColor('#43d490')
-                    .setFooter("Made by Zofux")
+                        .setAuthor("Captcha Control")
+                        .setDescription(`<:check:896045976039608320> I've gone ahead and sent you a captcha code in your dm's`)
+                        .setColor('#43d490')
+                        .setFooter("Made by Zofux")
                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                 })
             })
