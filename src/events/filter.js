@@ -1,13 +1,14 @@
 const Discord = require("discord.js")
 const db = require('../models/autoInfractions')
 const unixTime = require('unix-time');
+const config = require("../../config.json")
 
 module.exports = {
     name: 'messageCreate',
     async execute(message, client) {
         if (message.author.bot || !message.guild) return;
 
-        const blacklisted = ["fuck", "bitch", "whore", "retard", "nigg", "neger", "negger", "dick", "cock", "cunt", "porn", "put that meat in my mouth", "pussy"]
+        const blacklisted = ["fuck", "bitch", "whore", "retard", "nigg", "neger", "negger", "dick", "cock", "cunt", "porn", "put that meat in my mouth", "pussy", "faan", "faen"]
 
         let found = false
         for (let i in blacklisted) {
@@ -19,8 +20,8 @@ module.exports = {
 
             const infractions = await db.find({ userId: message.author.id })
             if (infractions.length >= 2) {
-                const muted = message.guild.roles.cache.get("903991654074167357")
-                const member = message.guild.roles.cache.get("892756988335898634")
+                const muted = message.guild.roles.cache.get(config.muteRole)
+                const member = message.guild.roles.cache.get(config.memberRole)
 
                 await db.deleteMany({ userId: message.author.id })
                 const mute = require('../models/mutes')
@@ -61,7 +62,7 @@ module.exports = {
                     message.member.roles.add(muted)
                     message.member.roles.remove(member)
 
-                    const logChannel = message.guild.channels.cache.get("896697011255017493")
+                    const logChannel = message.guild.channels.cache.get(config.log)
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor("#ffdd33")
                         .addFields([
@@ -86,7 +87,7 @@ module.exports = {
                     expiers: date,
                     reason: reason
                 }).save().then(async () => {
-                    const logChannel = message.guild.channels.cache.get("896697011255017493")
+                    const logChannel = message.guild.channels.cache.get(config.log)
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor("#ffdd33")
                         .addFields([

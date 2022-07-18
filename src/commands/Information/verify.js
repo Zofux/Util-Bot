@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
+const config = require("../../../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -37,7 +38,7 @@ module.exports = {
                 .setFooter("Made by Zofux")
             return interaction.editReply({ embeds: [embed], ephemeral: true })
         } else if (!res) {
-            if (interaction.member.roles.cache.some(role => role.id === "892756988335898634")) {
+            if (interaction.member.roles.cache.some(role => role.id === config.memberRole)) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor("Already verified")
                     .setDescription("<:cross:896045962940780555> You are currently verified")
@@ -51,8 +52,8 @@ module.exports = {
                 code: id
             }).save().then(async () => {
                 const embed = new Discord.MessageEmbed()
-                    .setAuthor("Welcome to our server!")
-                    .setDescription(`Please send the captcha code back to me (<@892754578162982922>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
+                    .setAuthor(`Welcome to ${interaction.guild.name}!`)
+                    .setDescription(`Please send the captcha code back to me (<@${config.clientId}>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
                     .setImage('attachment://captcha.png')
                     .setColor('#43d490')
                     .setFooter("NOTE: This is Case Sensitive (Made by Zofux)")

@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const config = require("../../../config.json")
 
 module.exports = async (client) => {
 
@@ -18,17 +19,17 @@ module.exports = async (client) => {
             for (const result of results) {
                 const { userId } = result
 
-                const guild = client.guilds.cache.get('892751160182730772')
+                const guild = client.guilds.cache.get(config.guild)
                 const member = (await guild.members.fetch()).get(userId)
                 if (member) {
-                    const muted = guild.roles.cache.get("903991654074167357")
-                    const main = guild.roles.cache.get("892756988335898634")
+                    const muted = guild.roles.cache.get(config.muteRole)
+                    const main = guild.roles.cache.get(config.memberRole)
 
                     member.roles.add(main)
                     member.roles.remove(muted)
 
 
-                    const logChannel = guild.channels.cache.get("896697011255017493")
+                    const logChannel = guild.channels.cache.get(config.log)
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor("#43d490")
                         .addFields([

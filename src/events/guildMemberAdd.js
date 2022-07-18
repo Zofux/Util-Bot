@@ -1,10 +1,11 @@
 const moment = require("moment")
 const Discord = require('discord.js')
+const config = require("../../config.json")
 
 module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
-        const logChannel = member.guild.channels.cache.get("896697011255017493")
+        const logChannel = member.guild.channels.cache.get(config.log)
         let embed = new Discord.MessageEmbed()
             .setDescription(`:inbox_tray: <@${member.user.id}> Joined the server`)
             //.addField(`Account created`, `${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`)
@@ -36,7 +37,7 @@ module.exports = {
         if (res) {
             return
         } else if (!res) {
-            if (member.roles.cache.some(role => role.id === "892756988335898634")) {
+            if (member.roles.cache.some(role => role.id === config.memberRole)) {
                 return
             }
             new db({
@@ -46,7 +47,7 @@ module.exports = {
             }).save().then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor("Welcome to our server!")
-                    .setDescription(`Please send the captcha code back to me (<@892754578162982922>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
+                    .setDescription(`Please send the captcha code back to me (<@${config.clientId}>).\n\n**Why**\nThis is to protect the server against targeted attacks using bots\n\n**Expiers**\n<t:${unixTime(date)}:R>\n\n**Your Captcha:**`)
                     .setImage('attachment://captcha.png')
                     .setColor('#43d490')
                     .setFooter("NOTE: This is Case Sensitive (Made by Zofux)")

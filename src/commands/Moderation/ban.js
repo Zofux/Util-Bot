@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
+const config = require("../../../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,7 +16,7 @@ module.exports = {
         const target = interaction.options.getMember("user")
         const reason = interaction.options.getString("reason")
 
-        if (interaction.guild.roles.cache.get("896032767220015144").position >= interaction.member.roles.highest.position) {
+        if (interaction.guild.roles.cache.get(config.moderatorRole).position >= interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
                 .setDescription("<:cross:896045962940780555> You can't use this command")
                 .setColor("#ff7575")
@@ -69,7 +70,7 @@ module.exports = {
                     { type: "ban", date: unixTime(new Date()), reason: reason, id: id, moderator: `${interaction.user.username}#${interaction.user.discriminator}` }
                 ]
             }).save().then(async () => {
-                const logChannel = interaction.guild.channels.cache.get("896697011255017493")
+                const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor("#ff7575")
                     .addFields([
@@ -104,7 +105,7 @@ module.exports = {
                 new: true,
                 upsert: true
             }).then(async () => {
-                const logChannel = interaction.guild.channels.cache.get("896697011255017493")
+                const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor("#ff7575")
                     .addFields([

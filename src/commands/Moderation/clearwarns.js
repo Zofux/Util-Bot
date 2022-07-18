@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
+const config = require("../../../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true })
         const user = interaction.options.getUser("user")
 
-        if (interaction.guild.roles.cache.get("896032414378364958").position > interaction.member.roles.highest.position) {
+        if (interaction.guild.roles.cache.get(config.moderatorRole).position > interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
                 .setDescription("<:cross:896045962940780555> You can't use this command")
                 .setColor("#ff7575")

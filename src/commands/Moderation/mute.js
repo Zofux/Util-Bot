@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const ms = require("ms")
+const config = require("../../../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
         .addStringOption(option =>
             option.setName("time").setDescription("How long the mute should last (example: 2h)").setRequired(true))
         .addStringOption(option =>
-            option.setName("reason").setDescription("The reason for the kick").setRequired(true)),
+            option.setName("reason").setDescription("The reason for the mute").setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         const user = interaction.options.getUser("user")
@@ -19,7 +20,7 @@ module.exports = {
         const rawTime = interaction.options.getString("time")
         const reason = interaction.options.getString("reason")
 
-        if (interaction.guild.roles.cache.get("896032767220015144").position > interaction.member.roles.highest.position) {
+        if (interaction.guild.roles.cache.get(config.moderatorRole).position > interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
                 .setDescription("<:cross:896045962940780555> You can't use this command")
                 .setColor("#ff7575")
@@ -41,7 +42,7 @@ module.exports = {
 
         if (target.roles.highest.position >= interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
-                .setDescription(`<:cross:896045962940780555> You **can't** kick <@${user.id}>`)
+                .setDescription(`<:cross:896045962940780555> You **can't** mute <@${user.id}>`)
                 .setColor("#ff7575")
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
@@ -99,8 +100,8 @@ module.exports = {
                 userId: user.id,
                 expires: date
             }).save().then(async () => {
-                const muted = interaction.guild.roles.cache.get("903991654074167357")
-                const member = interaction.guild.roles.cache.get("892756988335898634")
+                const muted = interaction.guild.roles.cache.get(config.muteRole)
+                const member = interaction.guild.roles.cache.get(config.memberRole)
 
                 target.roles.add(muted)
                 target.roles.remove(member)
@@ -119,7 +120,7 @@ module.exports = {
                             { type: "mute", date: unixTime(date), reason: reason, id: id, moderator: `${interaction.user.username}#${interaction.user.discriminator}` }
                         ]
                     }).save().then(async () => {
-                        const logChannel = interaction.guild.channels.cache.get("896697011255017493")
+                        const logChannel = interaction.guild.channels.cache.get(config.log)
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor("#ffdd33")
                             .addFields([
@@ -154,7 +155,7 @@ module.exports = {
                         new: true,
                         upsert: true
                     }).then(async () => {
-                        const logChannel = interaction.guild.channels.cache.get("896697011255017493")
+                        const logChannel = interaction.guild.channels.cache.get(config.log)
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor("#ffdd33")
                             .addFields([
