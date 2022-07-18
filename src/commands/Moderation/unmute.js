@@ -4,7 +4,7 @@ const config = require("../../../config.json")
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("mute")
+        .setName("unmute")
         .setDescription("Mutes a given user")
         .addUserOption(option =>
             option.setName("user").setDescription("The user that should get unmuted").setRequired(true))
