@@ -47,15 +47,15 @@ module.exports = {
                 .setTimestamp()
             return interaction.editReply({ embeds: [embed], ephemeral: true })
         } if (isMuted) {
-            const muted = guild.roles.cache.get(config.muteRole)
-            const main = guild.roles.cache.get(config.memberRole)
+            const muted = interaction.guild.roles.cache.get(config.muteRole)
+            const main = interaction.guild.roles.cache.get(config.memberRole)
 
             await mutes.findOneAndDelete({ userId: user.id }).then(async () => {
                 target.roles.add(main)
                 target.roles.remove(muted)
 
 
-                const logChannel = guild.channels.cache.get(config.log)
+                const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor("#43d490")
                     .addFields([
