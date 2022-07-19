@@ -82,6 +82,7 @@ module.exports = {
                     db.findOne({ userId: newState.member.user.id }, (err, res) => {
                         if (res) {
                             const channel = client.guilds.cache.get(config.guild).channels.cache.get(res.voiceChannel)
+                            return console.log(res.voiceChannel)
                             return newState.member.voice.setChannel(channel);
                         } else if (!res) {
                             client.guilds.cache.get(config.guild).channels.create(`${newState.member.user.username}'s channel`, {
