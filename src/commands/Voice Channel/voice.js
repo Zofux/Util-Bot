@@ -57,6 +57,12 @@ module.exports = {
                             },
                         ]).then(async () => {
                             interaction.member.voice.channel.setName(`🔒｜${interaction.user.username}'s channel`)
+                            const answerEmbed = new Discord.MessageEmbed()
+                            .setAuthor(`Voice Channel Locked`)
+                            .setDescription(`🔒 I've locked your voice channel for you`)
+                            .setColor('#43d490')
+                            .setFooter(`Made by Zofux`)
+                        return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
                     } else if (interaction.member.voice.channel.name.includes("🔒")) {
                         interaction.member.voice.channel.permissionOverwrites.set([
@@ -73,7 +79,13 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "CONNECT"],
                             },
                         ]).then(async () => {
-                            interaction.member.voice.channel.setName(`🔒｜${interaction.user.username}'s channel`)
+                            interaction.member.voice.channel.setName(`🔓｜${interaction.user.username}'s channel`)
+                            const answerEmbed = new Discord.MessageEmbed()
+                                .setAuthor(`Voice Channel Unlocked`)
+                                .setDescription(`🔓 I've unlocked your voice channel for you`)
+                                .setColor('#43d490')
+                                .setFooter(`Made by Zofux`)
+                            return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
                     }
                 }
