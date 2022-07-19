@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
 
-        if (!intreaction.member.voice) {
+        if (!interaction.member.voice) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`Captcha Active`)
                 .setDescription(`${config.crossEmoji} You are not currently in any voice channel`)
