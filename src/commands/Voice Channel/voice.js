@@ -40,7 +40,7 @@ module.exports = {
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (interaction.member.voice.channelId === res.voiceChannel) {
-                    if (!res.loced) {
+                    if (res.locked == false) {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
@@ -71,7 +71,7 @@ module.exports = {
                             .setFooter(`Made by Zofux`)
                         return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
-                    } else if (res.locked) {
+                    } else if (res.locked == true) {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
