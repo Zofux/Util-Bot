@@ -44,8 +44,8 @@ module.exports = {
                                     allow: ["VIEW_CHANNEL", "CONNECT"],
                                 }
                             ]
-                        }).then(channel => {
-                            newState.member.voice.setChannel(channel);
+                        }).then(newChannel => {
+                            newState.member.voice.setChannel(newChannel);
                             new db({
                                 voiceChannel: channel.id,
                                 userId: newState.member.user.id
