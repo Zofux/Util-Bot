@@ -45,11 +45,11 @@ module.exports = {
                                 }
                             ]
                         }).then(newChannel => {
-                            newState.member.voice.setChannel(newChannel);
                             new db({
-                                voiceChannel: channel.id,
+                                voiceChannel: newChannel.id,
                                 userId: newState.member.user.id
                             }).save()
+                            newState.member.voice.setChannel(newChannel);
                         })
                     }
                 })
