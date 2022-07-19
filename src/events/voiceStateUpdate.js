@@ -30,7 +30,7 @@ module.exports = {
                         const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
                         return newState.member.voice.setChannel(channel);
                     } else if (!res) {
-                        client.guilds.cache.get(config.guild).channels.create(`🔓｜${newState.member.user.username}'s channel`, {
+                        client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                             type: 'GUILD_VOICE',
                             parent: config.joinToCreateVoiceChannelCategory,
                             permissionOverwrites: [
@@ -47,7 +47,8 @@ module.exports = {
                            
                            new db({
                                 voiceChannel: newChannel.id,
-                                userId: newState.member.user.id
+                                userId: newState.member.user.id,
+                                locked: false
                             }).save()
                             newState.member.voice.setChannel(newChannel);
                         })
@@ -84,7 +85,7 @@ module.exports = {
                             const channel = client.guilds.cache.get(config.guild).channels.cache.get(res.voiceChannel)
                             return newState.member.voice.setChannel(channel);
                         } else if (!res) {
-                            client.guilds.cache.get(config.guild).channels.create(`${newState.member.user.username}'s channel`, {
+                            client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                                 type: 'voice',
                                 parent: config.joinToCreateVoiceChannelCategory,
                                 permissionOverwrites: [
@@ -101,7 +102,8 @@ module.exports = {
                                 newState.member.voice.setChannel(channel);
                                 new db({
                                     voiceChannel: channel.id,
-                                    userId: newState.member.user.id
+                                    userId: newState.member.user.id,
+                                    locked: false
                                 }).save()
                             })
                         }

@@ -40,7 +40,7 @@ module.exports = {
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (interaction.member.voice.channelId === res.voiceChannel) {
-                    if (interaction.member.voice.channel.name.includes("🔓")) {
+                    if (!res.loced) {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
@@ -56,7 +56,6 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "CONNECT"],
                             },
                         ]).then(async () => {
-                            interaction.member.voice.channel.setName(`🔒｜${interaction.user.username}'s channel`)
                             const answerEmbed = new Discord.MessageEmbed()
                             .setAuthor(`Voice Channel Locked`)
                             .setDescription(`🔒 I've locked your voice channel for you`)
@@ -64,7 +63,7 @@ module.exports = {
                             .setFooter(`Made by Zofux`)
                         return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
-                    } else if (interaction.member.voice.channel.name.includes("🔒")) {
+                    } else if (res.locked) {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
@@ -79,7 +78,6 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "CONNECT"],
                             },
                         ]).then(async () => {
-                            interaction.member.voice.channel.setName(`🔓｜${interaction.user.username}'s channel`)
                             const answerEmbed = new Discord.MessageEmbed()
                                 .setAuthor(`Voice Channel Unlocked`)
                                 .setDescription(`🔓 I've unlocked your voice channel for you`)
