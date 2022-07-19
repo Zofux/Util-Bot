@@ -44,16 +44,16 @@ module.exports = {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
-                                deny: [Permissions.FLAGS.VIEW_CHANNEL],
+                                deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
                             },
                             {
                                 id: config.memberRole,
-                                deny: [Permissions.FLAGS.VIEW_CONNECT],
-                                allow: [Permissions.FLAGS.VIEW_CHANNEL]
+                                deny: [Discord.Permissions.FLAGS.VIEW_CONNECT],
+                                allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL]
                             },
                             {
                                 id: interaction.user.id,
-                                allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.VIEW_CONNECT],
+                                allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL, Discord.Permissions.FLAGS.VIEW_CONNECT],
                             },
                         ]).then(async () => {
                             interaction.member.voice.channel.setName(`🔒｜${interaction.user.username}'s channel`)
@@ -62,15 +62,15 @@ module.exports = {
                         interaction.member.voice.channel.permissionOverwrites.set([
                             {
                                 id: config.guild,
-                                deny: [Permissions.FLAGS.VIEW_CHANNEL],
+                                deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL],
                             },
                             {
                                 id: config.memberRole,
-                                allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.VIEW_CONNECT]
+                                allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL, Discord.Permissions.FLAGS.VIEW_CONNECT]
                             },
                             {
                                 id: interaction.user.id,
-                                allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.VIEW_CONNECT],
+                                allow: [Permissions.FLAGS.VIEW_CHANNEL, Discord.Permissions.FLAGS.VIEW_CONNECT],
                             },
                         ]).then(async () => {
                             interaction.member.voice.channel.setName(`🔒｜${interaction.user.username}'s channel`)

@@ -36,11 +36,11 @@ module.exports = {
                             permissionOverwrites: [
                                 {
                                     id: config.guild,
-                                    deny: [Permissions.FLAGS.VIEW_CHANNEL]
+                                    deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL]
                                 },
                                 {
                                     id: config.memberRole,
-                                    allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.VIEW_CONNECT],
+                                    allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL, Discord.Permissions.FLAGS.VIEW_CONNECT],
                                 }
                             ]
                         }).then(newChannel => {
@@ -82,7 +82,6 @@ module.exports = {
                     db.findOne({ userId: newState.member.user.id }, (err, res) => {
                         if (res) {
                             const channel = client.guilds.cache.get(config.guild).channels.cache.get(res.voiceChannel)
-                            return console.log(res.voiceChannel)
                             return newState.member.voice.setChannel(channel);
                         } else if (!res) {
                             client.guilds.cache.get(config.guild).channels.create(`${newState.member.user.username}'s channel`, {
@@ -91,11 +90,11 @@ module.exports = {
                                 permissionOverwrites: [
                                     {
                                         id: config.guild,
-                                        deny: [Permissions.FLAGS.VIEW_CHANNEL]
+                                        deny: [Discord.Permissions.FLAGS.VIEW_CHANNEL]
                                     },
                                     {
                                         id: config.memberRole,
-                                        allow: [Permissions.FLAGS.VIEW_CHANNEL, "CONNECT"],
+                                        allow: [Discord.Permissions.FLAGS.VIEW_CHANNEL, Discord.Permissions.FLAGS.CONNECT],
                                     }
                                 ]
                             }).then(channel => {
