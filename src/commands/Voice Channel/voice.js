@@ -56,6 +56,14 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "CONNECT"],
                             },
                         ]).then(async () => {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                locked: true
+                            }, {
+                                new: true,
+                                upsert: true
+                            })
                             const answerEmbed = new Discord.MessageEmbed()
                             .setAuthor(`Voice Channel Locked`)
                             .setDescription(`🔒 I've locked your voice channel for you`)
@@ -78,6 +86,14 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "CONNECT"],
                             },
                         ]).then(async () => {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                locked: false
+                            }, {
+                                new: true,
+                                upsert: true
+                            })
                             const answerEmbed = new Discord.MessageEmbed()
                                 .setAuthor(`Voice Channel Unlocked`)
                                 .setDescription(`🔓 I've unlocked your voice channel for you`)
