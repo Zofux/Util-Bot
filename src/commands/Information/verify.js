@@ -5,7 +5,7 @@ const config = require(`../../../config.json`)
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`verify`)
-        .setDescription(`Verifiser deg, slik at du kan bruke serveren!`),
+        .setDescription(`Verify yourself and gain access to the server!`),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         var randomstring = require(`randomstring`);

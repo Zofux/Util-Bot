@@ -36,11 +36,11 @@ module.exports = {
                             permissionOverwrites: [
                                 {
                                     id: config.guild,
-                                    deny: ["VIEW_CHANNEL"]
+                                    deny: [Permissions.FLAGS.VIEW_CHANNEL]
                                 },
                                 {
                                     id: config.memberRole,
-                                    allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    allow: [Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.VIEW_CONNECT],
                                 }
                             ]
                         }).then(newChannel => {
@@ -91,11 +91,11 @@ module.exports = {
                                 permissionOverwrites: [
                                     {
                                         id: config.guild,
-                                        deny: ["VIEW_CHANNEL"]
+                                        deny: [Permissions.FLAGS.VIEW_CHANNEL]
                                     },
                                     {
                                         id: config.memberRole,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                        allow: [Permissions.FLAGS.VIEW_CHANNEL, "CONNECT"],
                                     }
                                 ]
                             }).then(channel => {
