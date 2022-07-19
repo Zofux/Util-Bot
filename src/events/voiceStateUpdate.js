@@ -5,7 +5,6 @@ const db = require('../models/joinToCreate')
 module.exports = {
     name: 'voiceStateUpdate',
     async execute(oldState, newState, client) {
-        console.log("HEY")
 
         let joinToCreate = config.joinToCreateVoiceChannel
 
