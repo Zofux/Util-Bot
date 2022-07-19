@@ -31,7 +31,7 @@ module.exports = {
                         const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
                         return newState.member.voice.setChannel(channel);
                     } else if (!res) {
-                        client.guilds.cache.get(config.guild).channels.create(`${newState.member.user.username}'s channel`, {
+                        client.guilds.cache.get(config.guild).channels.create(`🔓｜${newState.member.user.username}'s channel`, {
                             type: 'GUILD_VOICE',
                             parent: config.joinToCreateVoiceChannelCategory,
                             permissionOverwrites: [
