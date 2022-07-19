@@ -32,7 +32,7 @@ module.exports = {
                         return newState.member.voice.setChannel(channel);
                     } else if (!res) {
                         client.guilds.cache.get(config.guild).channels.create(`${newState.member.user.username}'s channel`, {
-                            type: 'voice',
+                            type: 'GUILD_VOICE',
                             parent: config.joinToCreateVoiceChannelCategory,
                             permissionOverwrites: [
                                 {
@@ -45,12 +45,12 @@ module.exports = {
                                 }
                             ]
                         }).then(newChannel => {
-                            return console.log(newChannel);
-                           /* new db({
+                           
+                           new db({
                                 voiceChannel: newChannel.id,
                                 userId: newState.member.user.id
                             }).save()
-                            newState.member.voice.setChannel(newChannel);*/
+                            newState.member.voice.setChannel(newChannel);
                         })
                     }
                 })
