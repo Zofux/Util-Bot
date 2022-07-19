@@ -9,12 +9,12 @@ module.exports = {
 
         let joinToCreate = config.joinToCreateVoiceChannel
 
-        if (newState.channelID === null) {
+        if (newState.channelId === null) {
             // leave
-            db.findOne({ voiceChannel: oldState.channelID }, (err, res) => {
+            db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                 if (err || !res || !oldState.channel) return;
                 if (res) {
-                    if (oldState.channelID === res.voiceChannel) {
+                    if (oldState.channelId === res.voiceChannel) {
                         if (oldState.channel.members.size <= 0) oldState.channel.delete().then(async channel => {
                             await db.findOneAndDelete({ voiceChannel: channel.id });
                         });
@@ -22,7 +22,7 @@ module.exports = {
                 }
             })
         }
-        else if (oldState.channelID === null) {
+        else if (oldState.channelId === null) {
             // Join
 
             if (newState.channel.id === joinToCreate) {
@@ -58,11 +58,11 @@ module.exports = {
         else {
             // Move
 
-            db.findOne({ voiceChannel: oldState.channelID }, (err, res) => {
+            db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                 if (!err && res) {
-                    if (oldState.channelID !== joinToCreate) {
-                        if (oldState.channelID === res.voiceChannel) {
-                            db.findOne({ voiceChannel: oldState.channelID }, (err, res) => {
+                    if (oldState.channelId !== joinToCreate) {
+                        if (oldState.channelId === res.voiceChannel) {
+                            db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                                 if (err || !res) return;
                                 if (res) {
                                     if (oldState.channelID === res.voiceChannel) {
@@ -77,8 +77,8 @@ module.exports = {
                 }
             });
 
-            if (newState.channelID === joinToCreate) {
-                if (newState.channelID === joinToCreate) {
+            if (newState.channelId === joinToCreate) {
+                if (newState.channelId === joinToCreate) {
                     db.findOne({ userId: newState.member.user.id }, (err, res) => {
                         if (res) {
                             const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
