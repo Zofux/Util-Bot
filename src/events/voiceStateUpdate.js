@@ -65,7 +65,7 @@ module.exports = {
                             db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                                 if (err || !res) return;
                                 if (res) {
-                                    if (oldState.channelID === res.voiceChannel) {
+                                    if (oldState.channelId === res.voiceChannel) {
                                         if (oldState.channel.members.size <= 0) oldState.channel.delete().then(async channel => {
                                             await db.findOneAndDelete({ voiceChannel: channel.id });
                                         });
