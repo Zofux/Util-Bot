@@ -5,7 +5,6 @@ const db = require('../models/joinToCreate')
 module.exports = {
     name: 'voiceStateUpdate',
     async execute(oldState, newState, client) {
-        console.log("Yup")
 
         let joinToCreate = config.joinToCreateVoiceChannel
 
@@ -29,6 +28,31 @@ module.exports = {
                 db.findOne({ userId: newState.member.user.id }, (err, res) => {
                     if (res) {
                         const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
+                        if (!channel) {
+                            await db.findOneAndDelete({ voiceChannel: res.voiceChannel });
+                            client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
+                                type: 'GUILD_VOICE',
+                                parent: config.joinToCreateVoiceChannelCategory,
+                                permissionOverwrites: [
+                                    {
+                                        id: config.guild,
+                                        deny: ["VIEW_CHANNEL"]
+                                    },
+                                    {
+                                        id: config.memberRole,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    }
+                                ]
+                            }).then(newChannel => {
+
+                                new db({
+                                    voiceChannel: newChannel.id,
+                                    userId: newState.member.user.id,
+                                    locked: false
+                                }).save()
+                                newState.member.voice.setChannel(newChannel);
+                            })
+                        }
                         return newState.member.voice.setChannel(channel);
                     } else if (!res) {
                         client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
@@ -45,8 +69,8 @@ module.exports = {
                                 }
                             ]
                         }).then(newChannel => {
-                           
-                           new db({
+
+                            new db({
                                 voiceChannel: newChannel.id,
                                 userId: newState.member.user.id,
                                 locked: false
