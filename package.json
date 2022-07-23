@@ -15,6 +15,7 @@
     "@koenie06/discord.js-music": "^1.2.9",
     "captcha-canvas": "^3.1.0",
     "discord-api-types": "^0.23.1",
+    "discord-player": "^5.2.2",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "minecraft-server-util": "^4.1.1",
