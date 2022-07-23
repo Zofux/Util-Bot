@@ -21,7 +21,7 @@ module.exports = {
             if (message.content !== res.code) {
                 await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
                     const embed = new Discord.MessageEmbed()
-                        .setDescription(`${config.crossEmoji} You sent the worng captcha code, plase use \`/verfiy\` in <#${config.verify}> to get a new one.`)
+                        .setDescription(`${config.crossEmoji} You sent the worng captcha code, plase use \`/verfiy\` in <#${config.verifyChannel}> to get a new one.`)
                         .setColor("#ff7575")
                         .setAuthor("Wrong Code")
                     message.author.send({ embeds: [embed] })
