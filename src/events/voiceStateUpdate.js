@@ -25,7 +25,7 @@ module.exports = {
             // Join
 
             if (newState.channel.id === joinToCreate) {
-                db.findOne({ userId: newState.member.user.id }, (err, res) => {
+                db.findOne({ userId: newState.member.user.id }, async (err, res) => {
                     if (res) {
                         const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
                         if (!channel) {
