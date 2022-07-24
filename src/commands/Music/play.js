@@ -8,13 +8,13 @@ module.exports = {
         .setDescription(`Play a song!`)
         .addStringOption(option =>
             option.setName(`query`).setDescription(`The song you want to play`).setRequired(true)),
-    async execute(interaction, client, player) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
         if (!interaction.member.voice.channelId) return await interaction.editReply({ content: "You are not in a voice channel!"});
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.editReply({ content: "You are not in my voice channel!", ephemeral: true });
         const query = interaction.options.get("query").value;
-        const queue = player.createQueue(interaction.guild, {
+        const queue = client.player.createQueue(interaction.guild, {
             metadata: {
                 channel: interaction.channel
             }

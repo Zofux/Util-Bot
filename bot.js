@@ -13,8 +13,8 @@ const commandFolders = fs.readdirSync("./src/commands")
 const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
 
 const { Player } = require("discord-player")
-const player = new Player(client)
-player.on("trackStart", (queue, track) => {
+client.player = new Player(client)
+client.player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
     .setColor("#f23a3a")
     .setAuthor("Now Playing")
@@ -24,7 +24,7 @@ player.on("trackStart", (queue, track) => {
 
 (async () => {
     for (file of functions) {
-        require(`./src/functions/${file}`)(client, player);
+        require(`./src/functions/${file}`)(client);
     }
 
     client.handleEvents(eventFiles, "./src/events");

@@ -6,10 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName(`skip`)
         .setDescription(`Skip the current song in the queue`),
-    async execute(interaction, client, player) {
+    async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
-        const queue = player.getQueue(interaction.guildId)
+        const queue = client.player.getQueue(interaction.guildId)
 
         if (!queue) {
             const embed = new Discord.MessageEmbed()
