@@ -15,7 +15,7 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
 const { Player } = require("discord-player")
 client.player = new Player(client)
 
-(async () => {
+function run() {
     for (file of functions) {
         require(`./src/functions/${file}`)(client);
     }
@@ -24,5 +24,6 @@ client.player = new Player(client)
     client.handleCommands(commandFolders, "./src/commands")
     client.login(process.env.token)
     require('./src/database')()
-})();
+}
+run();
 
