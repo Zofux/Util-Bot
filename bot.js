@@ -57,7 +57,7 @@ client.on("interactionCreate", async (interaction) => {
         return await interaction.followUp({ content: `⏱️ | Loading track **${track.title}**!` });
     }
     if (interaction.commandName === "skip") {
-        queue.skip();
+        client.getQueue.skip();
     }
 });
 
