@@ -8,21 +8,7 @@ const guildId = config.guild;
 
 module.exports = (client) => {
     client.handleCommands = async (commandFolders, path) => {
-        client.commandArray = [{
-            name: "play",
-            description: "Plays a song!",
-            options: [
-                {
-                    name: "query",
-                    type: 3,
-                    description: "The song you want to play",
-                    required: true
-                }
-            ]
-        }, {
-            name: "skip",
-            description: "Skip a song"
-        }];
+        client.commandArray = [];
         for (const folder of commandFolders) {
             const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith(".js"));
 
