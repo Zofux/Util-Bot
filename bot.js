@@ -15,6 +15,7 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
 const { Player } = require("discord-player")
 client.player = new Player(client)
 
+
 function run() {
     for (file of functions) {
         require(`./src/functions/${file}`)(client);
