@@ -28,7 +28,7 @@ module.exports = {
             return await interaction.editReply({ content: "Could not join your voice channel!", ephemeral: true });
         }
 
-        const track = await player.search(query, {
+        const track = await client.player.search(query, {
             requestedBy: interaction.user
         }).then(x => x.tracks[0]);
         if (!track) return await interaction.editReply({ content: `❌ | Track **${query}** not found!` });
