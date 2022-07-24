@@ -38,7 +38,7 @@ module.exports = {
             return `**#${page * 10 + i + 1}**. \`[${song.duration}]\` ${song.title}] - <@${song.requestedBy.id}>`
         }).join(`\n`)
 
-        const currentSong = queue.currentSong
+        const currentSong = queue.current
         const embed = new Discord.MessageEmbed()
             .setDescription(`**Currently Playing**\n` +
             (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.tittle} - <@${currentSong.requestedBy.id}> ` : "None") + 
@@ -46,7 +46,7 @@ module.exports = {
 
             .setColor(`#5999ff`)
             .setAuthor(`Song Queue`)
-            .setFooter(`Page ${page + 1} if ${totalPages}`)
+            .setFooter(`Page ${page + 1} of ${totalPages}`)
             .setTimestamp()
         return interaction.editReply({ embeds: [embed], ephemeral: true })
 
