@@ -12,12 +12,51 @@ const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith
 const commandFolders = fs.readdirSync("./src/commands")
 const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
 
-/*music.event.on("playSong", (channel, songInfo, requester) => {
+const { Player } = require("discord-player")
+const player = new Player(client)
+
+player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
-    .setAuthor(requester.username, requester.displayAvatarURL())
-    .setDescription(`Playing **[${songInfo.title}](${songInfo.url})**`)
-    channel.send({ embeds: [embed] })
-})*/
+    .setColor("#f23a3a")
+    .setAuthor("Now Playing")
+    .setDescription(`${track.title} by ${track.author} [${track.duration}]`)
+    queue.metadata.channel.send({ embeds: [embed] })
+})
+
+client.on("interactionCreate", async (interaction) => {
+    if (!interaction.isCommand()) return;
+
+    // /play track:Despacito
+    // will play "Despacito" in the voice channel
+    if (interaction.commandName === "play") {
+        if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+        const query = interaction.options.get("query").value;
+        const queue = player.createQueue(interaction.guild, {
+            metadata: {
+                channel: interaction.channel
+            }
+        });
+        
+        // verify vc connection
+        try {
+            if (!queue.connection) await queue.connect(interaction.member.voice.channel);
+        } catch {
+            queue.destroy();
+            return await interaction.reply({ content: "Could not join your voice channel!", ephemeral: true });
+        }
+
+        await interaction.deferReply();
+        const track = await player.search(query, {
+            requestedBy: interaction.user
+        }).then(x => x.tracks[0]);
+        if (!track) return await interaction.followUp({ content: `❌ | Track **${query}** not found!` });
+
+        queue.play(track);
+
+        return await interaction.followUp({ content: `⏱️ | Loading track **${track.title}**!` });
+    }
+});
 
 (async () => {
     for (file of functions) {
@@ -29,3 +68,4 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
     client.login(process.env.token)
     require('./src/database')()
 })();
+
