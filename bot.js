@@ -58,6 +58,7 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
+
 (async () => {
     for (file of functions) {
         require(`./src/functions/${file}`)(client);
