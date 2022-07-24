@@ -7,17 +7,25 @@ module.exports = {
         .setName(`skip`)
         .setDescription(`Skip the current song in the queue`),
     async execute(interaction, client) {
-        await interaction.deferReply({ ephemeral: true })
+        await interaction.deferReply()
 
         const queue = client.player.getQueue(interaction.guildId)
 
         if (!queue) {
             const embed = new Discord.MessageEmbed()
-                .setDescription(`${config.crossEmoji} That user is not in this server`)
+                .setDescription(`${config.crossEmoji} There are no songs in the queue`)
                 .setColor(`#ff7575`)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
-            return interaction.editReply({ embeds: [embed], ephemeral: true })
+            return interaction.followUp({ embeds: [embed], ephemeral: true })
+        } else {
+            const currentSong = queue.current
+            queue.skip()
+            const embed = new Discord.MessageEmbed()
+                .setColor("#f23a3a")
+                .setAuthor("Added to que")
+                .setDescription(`${config.checkEmoji} [${currentSong.tittle}](${currentSong.url}) has been skipped`)
+            return interaction.followUp({ embeds: [embed] })
         }
     }
 }
