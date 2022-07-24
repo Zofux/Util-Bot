@@ -4,12 +4,10 @@ const config = require(`../../../config.json`)
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName(`skip`)
-        .setDescription(`Skip the current song in the queue`),
-
+        .setName(`clear`)
+        .setDescription(`Removes all songs from the queue`),
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
-
         const queue = client.player.getQueue(interaction.guildId)
 
         if (!queue) {
@@ -19,14 +17,13 @@ module.exports = {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
-        } else {
-            const currentSong = queue.current
-            queue.skip()
-            const embed = new Discord.MessageEmbed()
-                .setColor("#5999ff")
-                .setAuthor("Skipped Song")
-                .setDescription(`${config.checkEmoji} [${currentSong.title}](${currentSong.url}) has been skipped`)
-            return interaction.followUp({ embeds: [embed] })
         }
+
+        queue.destroy()
+        const embed = new Discord.MessageEmbed()
+            .setColor("#5999ff")
+            .setAuthor("Cleared", interaction.user.displayAvatarURL())
+            .setDescription(`${config.checkEmoji} Cleared all songs... leaving the voice channel`)
+        return interaction.editReply({ embeds: [embed] })
     }
 }

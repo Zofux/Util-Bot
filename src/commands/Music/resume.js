@@ -4,12 +4,10 @@ const config = require(`../../../config.json`)
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName(`skip`)
-        .setDescription(`Skip the current song in the queue`),
-
+        .setName(`resume`)
+        .setDescription(`Resume the music after it has been paused`),
     async execute(interaction, client) {
-        await interaction.deferReply({ ephemeral: true })
-
+        await interaction.deferReply()
         const queue = client.player.getQueue(interaction.guildId)
 
         if (!queue) {
@@ -19,14 +17,13 @@ module.exports = {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
-        } else {
-            const currentSong = queue.current
-            queue.skip()
-            const embed = new Discord.MessageEmbed()
-                .setColor("#5999ff")
-                .setAuthor("Skipped Song")
-                .setDescription(`${config.checkEmoji} [${currentSong.title}](${currentSong.url}) has been skipped`)
-            return interaction.followUp({ embeds: [embed] })
         }
+
+        queue.setPaused(false)
+        const embed = new Discord.MessageEmbed()
+            .setColor("#5999ff")
+            .setAuthor("Resumed", interaction.user.displayAvatarURL())
+            .setDescription(`${config.checkEmoji} The music has been resumed! Use \`/pause\` to pause the music`)
+        return interaction.editReply({ embeds: [embed] })
     }
 }
