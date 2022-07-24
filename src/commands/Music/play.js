@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { QueryType } = require('discord-player');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
 
@@ -35,18 +34,6 @@ module.exports = {
         }).then(x => x.tracks[0]);
 
         if (!track) return await interaction.editReply({ content: `❌ | Track **${query}** not found!` });
-        if (track.playlist) {
-            const result = await client.player.search(query, {
-                requestedBy: interaction.user,
-                searchEngine: QueryType.YOUTUBE_PLAYLIST
-            });
-            await queue.play(result.tracks)
-            const embed = new Discord.MessageEmbed()
-                .setColor("#f23a3a")
-                .setAuthor("Added to que | (Playlist)")
-                .setDescription(`**${result.tracks.lenght}** songs from [${track.playlist.title}](${track.playlist.url}) [${track.playlist.duration}]`)
-            return interaction.editReply({ embeds: [embed] })
-        }
 
         queue.play(track);
 
