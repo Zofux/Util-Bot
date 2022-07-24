@@ -24,7 +24,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setColor("#f23a3a")
                 .setAuthor("Added to que")
-                .setDescription(`${config.checkEmoji} [${currentSong.tittle}](${currentSong.url}) has been skipped`)
+                .setDescription(`${config.checkEmoji} [${currentSong.title}](${currentSong.url}) has been skipped`)
             return interaction.followUp({ embeds: [embed] })
         }
     }
