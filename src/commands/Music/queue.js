@@ -6,10 +6,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName(`queue`)
         .setDescription(`Displays the current song queue`)
-        .addNumberOption((option) =>
+        .addIntegerOption((option) =>
             option.setName("page")
-                .setDescription("Page number off the queue")
-                .setMinValue(1)),
+                .setDescription("Page number off the queue"),
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         const queue = client.player.getQueue(interaction.guildId)
