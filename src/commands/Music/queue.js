@@ -41,7 +41,7 @@ module.exports = {
         const currentSong = queue.current
         const embed = new Discord.MessageEmbed()
             .setDescription(`**Currently Playing**\n` +
-            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.tittle} - <@${currentSong.requestedBy.id}> ` : "None") + 
+            (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} - <@${currentSong.requestedBy.id}> ` : "None") + 
             `\n\n**Queue**\n${queueString}`) 
 
             .setColor(`#5999ff`)
