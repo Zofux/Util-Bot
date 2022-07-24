@@ -18,7 +18,7 @@ const player = new Player(client)
 player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
     .setColor("#f23a3a")
-    .setAuthor("Now Playing", queue.metadata.user.displayAvatarURL())
+    .setAuthor("Now Playing")
     .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
     queue.metadata.channel.send({ embeds: [embed] })
 })
