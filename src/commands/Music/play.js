@@ -8,7 +8,7 @@ module.exports = {
         .setDescription(`Play a song!`)
         .addStringOption(option =>
             option.setName(`query`).setDescription(`The song you want to play`).setRequired(true)),
-        
+
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
@@ -35,7 +35,12 @@ module.exports = {
 
         if (!track) return await interaction.editReply({ content: `❌ | Track **${query}** not found!` });
         if (track.playlist) {
-            return console.log("Playlist")
+            queue.addTracks(track.tracks)
+            const embed = new Discord.MessageEmbed()
+                .setColor("#f23a3a")
+                .setAuthor("Added to que | (Playlist)")
+                .setDescription(`[${track.playlist.title}](${track.playlist.url}) by ${track.author} [${track.playlist.duration}]`)
+            return interaction.editReply({ embeds: [embed] })
         }
 
         queue.play(track);
