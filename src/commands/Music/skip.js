@@ -23,7 +23,7 @@ module.exports = {
             queue.skip()
             const embed = new Discord.MessageEmbed()
                 .setColor("#f23a3a")
-                .setAuthor("Added to que")
+                .setAuthor("Skipped Song")
                 .setDescription(`${config.checkEmoji} [${currentSong.title}](${currentSong.url}) has been skipped`)
             return interaction.followUp({ embeds: [embed] })
         }
