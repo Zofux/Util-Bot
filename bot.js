@@ -19,7 +19,7 @@ player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
     .setColor("#f23a3a")
     .setAuthor("Now Playing")
-    .setDescription(`${track.title} by ${track.author} [${track.duration}]`)
+    .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
     queue.metadata.channel.send({ embeds: [embed] })
 })
 
@@ -55,6 +55,9 @@ client.on("interactionCreate", async (interaction) => {
         queue.play(track);
 
         return await interaction.followUp({ content: `⏱️ | Loading track **${track.title}**!` });
+    }
+    if (interaction.commandName === "skip") {
+        queue.skip();
     }
 });
 

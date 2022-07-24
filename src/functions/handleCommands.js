@@ -19,6 +19,9 @@ module.exports = (client) => {
                     required: true
                 }
             ]
+        }, {
+            name: "skip",
+            description: "Skip a song"
         }];
         for (const folder of commandFolders) {
             const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith(".js"));
