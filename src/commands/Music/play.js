@@ -35,7 +35,7 @@ module.exports = {
 
         queue.play(track);
 
-        const embed = new MessageEmbed()
+        const embed = new Discord.MessageEmbed()
             .setColor("#f23a3a")
             .setAuthor("Added to que")
             .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
