@@ -8,7 +8,7 @@ module.exports = {
         .setDescription(`Play a song!`)
         .addStringOption(option =>
             option.setName(`query`).setDescription(`The song you want to play`).setRequired(true)),
-    async execute(interaction) {
+    async execute(interaction, client, player) {
         await interaction.deferReply({ ephemeral: true })
 
         if (!interaction.member.voice.channelId) return await interaction.editReply({ content: "You are not in a voice channel!"});
