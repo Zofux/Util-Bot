@@ -10,15 +10,5 @@ module.exports = {
 
         await require('./intervals/mutes')(client)
         await require('./intervals/autos')(client)
-
-        const { Player } = require("discord-player")
-        const player = new Player(client)
-        player.on("trackStart", (queue, track) => {
-            const embed = new MessageEmbed()
-                .setColor("#f23a3a")
-                .setAuthor("Now Playing")
-                .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
-            queue.metadata.channel.send({ embeds: [embed] })
-        })
     }
 }
