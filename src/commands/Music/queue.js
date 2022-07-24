@@ -22,7 +22,7 @@ module.exports = {
             return interaction.followUp({ embeds: [embed], ephemeral: true })
         }
 
-        const totalPages = Math.ceil(queue.track.length / 10) || 1
+        const totalPages = Math.ceil(queue.tracks.length / 10) || 1
         const page = (interaction.options.getNumber("page") || 1) - 1
 
         if (page > totalPages) {
