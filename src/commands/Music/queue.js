@@ -10,7 +10,6 @@ module.exports = {
             option.setName("page")
                 .setDescription("Page number off the queue")
                 .setMinValue(1)),
-
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         const queue = client.player.getQueue(interaction.guildId)
