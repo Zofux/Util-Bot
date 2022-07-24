@@ -40,11 +40,11 @@ module.exports = {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.YOUTUBE_PLAYLIST
             });
-            await queue.addTracks(result.tracks)
+            await queue.play(result.tracks)
             const embed = new Discord.MessageEmbed()
                 .setColor("#f23a3a")
                 .setAuthor("Added to que | (Playlist)")
-                .setDescription(`[${track.playlist.title}](${track.playlist.url}) by ${track.author} [${track.playlist.duration}]`)
+                .setDescription(`**${result.tracks.lenght}** songs from [${track.playlist.title}](${track.playlist.url}) [${track.playlist.duration}]`)
             return interaction.editReply({ embeds: [embed] })
         }
 
