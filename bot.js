@@ -14,7 +14,13 @@ const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith("
 
 const { Player } = require("discord-player")
 client.player = new Player(client)
-
+client.player.on("trackStart", (queue, track) => {
+    const embed = new MessageEmbed()
+    .setColor("#f23a3a")
+    .setAuthor("Now Playing")
+    .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
+    queue.metadata.channel.send({ embeds: [embed] })
+})
 
 function run() {
     for (file of functions) {
@@ -27,4 +33,5 @@ function run() {
     require('./src/database')()
 }
 run();
+
 
