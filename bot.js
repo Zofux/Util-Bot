@@ -13,19 +13,17 @@ const commandFolders = fs.readdirSync("./src/commands")
 const eventFiles = fs.readdirSync("./src/events").filter(file => file.endsWith(".js"));
 
 const { Player } = require("discord-player")
-client.player = new Player(client)
+client.player = new Player(client, {
+    ytdlOptions: {
+        quality: "highestaudio",
+        highWaterMark: 1 << 25
+    }
+})
 client.player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
     .setColor("#5999ff")
     .setAuthor("Now Playing", track.requestedBy.displayAvatarURL())
     .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
-    queue.metadata.channel.send({ embeds: [embed] })
-})
-client.player.on("botDisconnect", (queue) => {
-    const embed = new MessageEmbed()
-    .setColor("#5999ff")
-    .setAuthor("Disconnected", client.user.displayAvatarURL())
-    .setDescription(`Left the voice channel`)
     queue.metadata.channel.send({ embeds: [embed] })
 })
 
