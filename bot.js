@@ -18,19 +18,10 @@ const player = new Player(client)
 player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
     .setColor("#f23a3a")
-    .setAuthor("Now Playing")
+    .setAuthor("Now Playing", queue.metadata.user.displayAvatarURL())
     .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
     queue.metadata.channel.send({ embeds: [embed] })
 })
-
-client.on("interactionCreate", async (interaction) => {
-    if (!interaction.isCommand()) return;
-       
-    if (interaction.commandName === "skip") {
-        player.getQueue.skip();
-    }
-});
-
 
 (async () => {
     for (file of functions) {
