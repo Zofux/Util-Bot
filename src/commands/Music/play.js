@@ -8,6 +8,7 @@ module.exports = {
         .setDescription(`Play a song!`)
         .addStringOption(option =>
             option.setName(`query`).setDescription(`The song you want to play`).setRequired(true)),
+        
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
@@ -31,7 +32,11 @@ module.exports = {
         const track = await client.player.search(query, {
             requestedBy: interaction.user
         }).then(x => x.tracks[0]);
+
         if (!track) return await interaction.editReply({ content: `❌ | Track **${query}** not found!` });
+        if (track.playlist) {
+            return console.log("Playlist")
+        }
 
         queue.play(track);
 
