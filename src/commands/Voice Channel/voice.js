@@ -17,7 +17,7 @@ module.exports = {
                 .setName("kick")
                 .setDescription("Kick someone from your voice channel")
                 .addUserOption(option =>
-                    option.setName(`user`).setDescription(`The user that should get kicked from the voice channel`).setRequired(true)
+                    option.setName(`user`).setDescription(`The user that should get kicked from your voice channel`).setRequired(true)
                 ),
         )
         .addSubcommand(subCommand =>
@@ -25,13 +25,16 @@ module.exports = {
                 .setName("mute")
                 .setDescription("Mute someone in your voice channel, use the command again to disable")
                 .addUserOption(option =>
-                    option.setName(`user`).setDescription(`The user that should get muted in this voice channel`).setRequired(true)
+                    option.setName(`user`).setDescription(`The user that should get muted in your voice channel`).setRequired(true)
                 ),
         )
         .addSubcommand(subCommand =>
             subCommand
                 .setName("ban")
                 .setDescription("Make someone unable to join your voice channel, use the command again to disable")
+                .addUserOption(option =>
+                    option.setName(`user`).setDescription(`The user that should get banned from your voice channel`).setRequired(true)
+                ),
         ),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
