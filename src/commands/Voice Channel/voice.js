@@ -196,7 +196,7 @@ module.exports = {
                             return interaction.editReply({ embeds: [embed], ephemeral: true })
                         }
 
-                        if (res.muted.includes(`${user.id}`)) {
+                        if (!res.muted.includes(`${user.id}`)) {
                             await db.findOneAndUpdate({
                                 userId: interaction.user.id
                             }, {
@@ -231,7 +231,7 @@ module.exports = {
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                 })
                             })
-                        } else if (!res.muted.includes(`${user.id}`)) {
+                        } else if (res.muted.includes(`${user.id}`)) {
                             await db.findOneAndUpdate({
                                 userId: interaction.user.id
                             }, {
