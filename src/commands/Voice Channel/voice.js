@@ -11,99 +11,244 @@ module.exports = {
             subCommand
                 .setName("lock")
                 .setDescription("Lock/unlock your custom voice channel")
+        )
+        .addSubcommand(subCommand =>
+            subCommand
+                .setName("kick")
+                .setDescription("Kick someone from your voice channel")
+                .addUserOption(option =>
+                    option.setName(`user`).setDescription(`The user that should get kicked from the voice channel`).setRequired(true)
+                ),
+        )
+        .addSubcommand(subCommand =>
+            subCommand
+                .setName("mute")
+                .setDescription("Mute someone in your voice channel, use again to disable")
+                .addUserOption(option =>
+                    option.setName(`user`).setDescription(`The user that should get muted in this voice channel`).setRequired(true)
+                ),
         ),
+        /*.addSubcommand(subCommand =>
+            subCommand
+                .setName("blacklist")
+                .setDescription("Make someone unable to join your voice channel, use again to disable")
+        ),*/
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
 
-        if (!interaction.member.voice) {
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(`Captcha Active`)
-                .setDescription(`${config.crossEmoji} You are not currently in any voice channel`)
-                .setColor(`#ff7575`)
-                .setFooter(`Made by Zofux`)
-            return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else {
-            const res = await db.findOne({ userId: interaction.user.id })
-            if (!res) {
+        if (interaction)
+            if (!interaction.member.voice) {
                 const embed = new Discord.MessageEmbed()
-                    .setAuthor(`Captcha Active`)
-                    .setDescription(`${config.crossEmoji} You are not in charge of the current voice channel`)
+                    .setAuthor(`Not in a channel`)
+                    .setDescription(`${config.crossEmoji} You are not currently in any voice channel`)
                     .setColor(`#ff7575`)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
-            } else if (res) {
-                if (!interaction.member.voice.channelId === res.voiceChannel) {
+            } else {
+                const res = await db.findOne({ userId: interaction.user.id })
+                if (!res) {
                     const embed = new Discord.MessageEmbed()
-                        .setAuthor(`Captcha Active`)
+                        .setAuthor(`Not in charge`)
                         .setDescription(`${config.crossEmoji} You are not in charge of the current voice channel`)
                         .setColor(`#ff7575`)
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
-                } else if (interaction.member.voice.channelId === res.voiceChannel) {
-                    if (res.locked == false) {
-                        interaction.member.voice.channel.permissionOverwrites.set([
-                            {
-                                id: config.guild,
-                                deny: ["VIEW_CHANNEL"],
-                            },
-                            {
-                                id: config.memberRole,
-                                deny: ["CONNECT"],
-                                allow: ["VIEW_CHANNEL"]
-                            },
-                            {
-                                id: interaction.user.id,
-                                allow: ["VIEW_CHANNEL", "CONNECT"],
-                            },
-                        ]).then(async () => {
-                            await db.findOneAndUpdate({
-                                userId: interaction.user.id
-                            }, {
-                                locked: true
-                            }, {
-                                new: true,
-                                upsert: true
-                            })
-                            const answerEmbed = new Discord.MessageEmbed()
-                            .setAuthor(`Voice Channel Locked`)
-                            .setDescription(`🔒 I've locked your voice channel for you`)
-                            .setColor('#43d490')
+                } else if (res) {
+                    if (!interaction.member.voice.channelId === res.voiceChannel) {
+                        const embed = new Discord.MessageEmbed()
+                            .setAuthor(`Not in charge`)
+                            .setDescription(`${config.crossEmoji} You are not in charge of the current voice channel`)
+                            .setColor(`#ff7575`)
                             .setFooter(`Made by Zofux`)
-                        return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
-                        });
-                    } else if (res.locked == true) {
-                        interaction.member.voice.channel.permissionOverwrites.set([
-                            {
-                                id: config.guild,
-                                deny: ["VIEW_CHANNEL"],
-                            },
-                            {
-                                id: config.memberRole,
-                                allow: ["VIEW_CHANNEL", "CONNECT"]
-                            },
-                            {
-                                id: interaction.user.id,
-                                allow: ["VIEW_CHANNEL", "CONNECT"],
-                            },
-                        ]).then(async () => {
-                            await db.findOneAndUpdate({
-                                userId: interaction.user.id
-                            }, {
-                                locked: false
-                            }, {
-                                new: true,
-                                upsert: true
-                            })
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
+
+                    }
+                    if (interaction.option.getSubcommand() === "lock") {
+                        if (res.locked == false) {
+                            interaction.member.voice.channel.permissionOverwrites.set([
+                                {
+                                    id: config.guild,
+                                    deny: ["VIEW_CHANNEL"],
+                                },
+                                {
+                                    id: config.memberRole,
+                                    deny: ["CONNECT"],
+                                    allow: ["VIEW_CHANNEL"]
+                                },
+                                {
+                                    id: interaction.user.id,
+                                    allow: ["VIEW_CHANNEL", "CONNECT"],
+                                },
+                            ]).then(async () => {
+                                await db.findOneAndUpdate({
+                                    userId: interaction.user.id
+                                }, {
+                                    locked: true
+                                }, {
+                                    new: true,
+                                    upsert: true
+                                })
+                                const answerEmbed = new Discord.MessageEmbed()
+                                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                    .setDescription(`🔒 I've locked your voice channel for you`)
+                                    .setColor('#43d490')
+                                    .setFooter(`Made by Zofux`)
+                                return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                            });
+                        } else if (res.locked == true) {
+                            interaction.member.voice.channel.permissionOverwrites.set([
+                                {
+                                    id: config.guild,
+                                    deny: ["VIEW_CHANNEL"],
+                                },
+                                {
+                                    id: config.memberRole,
+                                    allow: ["VIEW_CHANNEL", "CONNECT"]
+                                },
+                                {
+                                    id: interaction.user.id,
+                                    allow: ["VIEW_CHANNEL", "CONNECT"],
+                                },
+                            ]).then(async () => {
+                                await db.findOneAndUpdate({
+                                    userId: interaction.user.id
+                                }, {
+                                    locked: false
+                                }, {
+                                    new: true,
+                                    upsert: true
+                                })
+                                const answerEmbed = new Discord.MessageEmbed()
+                                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                    .setDescription(`🔓 I've unlocked your voice channel for you`)
+                                    .setColor('#43d490')
+                                    .setFooter(`Made by Zofux`)
+                                return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                            });
+                        }
+                    } else if (interaction.options.getSubcommand() === "kick") {
+                        const user = interaction.options.getUser(`user`)
+                        const member = interaction.options.getMember(`user`)
+                        if (!interaction.guild.members.cache.get(user.id)) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this server`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+                        if (!member.voice.channelId === interaction.member.voice.channelId) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+
+                        member.voice.setChannel(null).then(() => {
                             const answerEmbed = new Discord.MessageEmbed()
-                                .setAuthor(`Voice Channel Unlocked`)
-                                .setDescription(`🔓 I've unlocked your voice channel for you`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setDescription(`${config.checkEmoji} I've kicked <@${user.id}> from <#${res.voiceChannel}>`)
                                 .setColor('#43d490')
                                 .setFooter(`Made by Zofux`)
                             return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
+                    } else if (interaction.options.getSubcommand() === "mute") {
+                        const user = interaction.options.getUser(`user`)
+                        const member = interaction.options.getMember(`user`)
+                        if (!interaction.guild.members.cache.get(user.id)) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this server`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+                        if (!member.voice.channelId === interaction.member.voice.channelId) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+
+                        if (res.muted.indcludes(`${user.id}`)) {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                $pull: { muted: `${user.id}` }
+                            }, {
+                                new: true,
+                                upsert: true
+                            }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.set([
+                                    {
+                                        id: config.guild,
+                                        deny: ["VIEW_CHANNEL"],
+                                    },
+                                    {
+                                        id: config.memberRole,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"]
+                                    },
+                                    {
+                                        id: interaction.user.id,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    },
+                                    {
+                                        id: user.id,
+                                        deny: ["SPEAK"]
+                                    }
+                                ]).then(() => {
+                                    const answerEmbed = new Discord.MessageEmbed()
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>`)
+                                        .setColor('#43d490')
+                                        .setFooter(`Made by Zofux`)
+                                    return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                })
+                            })
+                        } else if (!res.muted.includes(`${user.id}`)) {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                $push: { muted: `${user.id}` }
+                            }, {
+                                new: true,
+                                upsert: true
+                            }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.set([
+                                    {
+                                        id: config.guild,
+                                        deny: ["VIEW_CHANNEL"],
+                                    },
+                                    {
+                                        id: config.memberRole,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"]
+                                    },
+                                    {
+                                        id: interaction.user.id,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    },
+                                ]).then(() => {
+                                    const answerEmbed = new Discord.MessageEmbed()
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>`)
+                                        .setColor('#43d490')
+                                        .setFooter(`Made by Zofux`)
+                                    return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                })
+                            })
+                        }
                     }
+
+
                 }
             }
-        }
     }
 }

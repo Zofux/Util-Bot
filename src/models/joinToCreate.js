@@ -8,7 +8,9 @@ const reqString = {
 const joinToCreate = new mongoose.Schema({
     voiceChannel: reqString,
     userId: reqString,
-    locked: Boolean
+    locked: Boolean,
+    muted: Array,
+    blacklisted: Array
 })
 
 module.exports = mongoose.model("Voice Channels", joinToCreate)

@@ -48,7 +48,9 @@ module.exports = {
                                 new db({
                                     voiceChannel: newChannel.id,
                                     userId: newState.member.user.id,
-                                    locked: false
+                                    locked: false,
+                                    muted: [],
+                                    blacklisted: []
                                 }).save()
                                 newState.member.voice.setChannel(newChannel);
                             })
@@ -73,7 +75,9 @@ module.exports = {
                             new db({
                                 voiceChannel: newChannel.id,
                                 userId: newState.member.user.id,
-                                locked: false
+                                locked: false,
+                                muted: [],
+                                blacklisted: []
                             }).save()
                             newState.member.voice.setChannel(newChannel);
                         })
@@ -128,7 +132,9 @@ module.exports = {
                                 new db({
                                     voiceChannel: channel.id,
                                     userId: newState.member.user.id,
-                                    locked: false
+                                    locked: false,
+                                    muted: [],
+                                    blacklisted: []
                                 }).save()
                             })
                         }
