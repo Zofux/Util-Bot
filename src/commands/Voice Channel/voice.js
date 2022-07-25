@@ -181,7 +181,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { SPEAK: false }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, { SPEAK: false }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
@@ -199,7 +199,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { SPEAK: true }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, { SPEAK: true }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
@@ -231,7 +231,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { CONNECT: false }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, { CONNECT: false }).then(() => {
                                     if (member.voice) {
                                         if (member.voice.channelId === interaction.member.voice.channelId) {
                                             member.voice.setChannel(null).then(() => {
@@ -269,7 +269,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, {  CONNECT: true }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, {  CONNECT: true }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)
