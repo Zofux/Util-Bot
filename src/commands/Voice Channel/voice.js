@@ -278,24 +278,6 @@ module.exports = {
                                 .setTimestamp()
                             return interaction.editReply({ embeds: [embed], ephemeral: true })
                         }
-                        if (!member.voice) {
-                            const embed = new Discord.MessageEmbed()
-                                .setDescription(`${config.crossEmoji} That user is not in a voice channel`)
-                                .setColor(`#ff7575`)
-                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                .setFooter("Made by Zofux")
-                                .setTimestamp()
-                            return interaction.editReply({ embeds: [embed], ephemeral: true })
-                        }
-                        if (member.voice.channelId !== interaction.member.voice.channelId) {
-                            const embed = new Discord.MessageEmbed()
-                                .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
-                                .setColor(`#ff7575`)
-                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                .setFooter("Made by Zofux")
-                                .setTimestamp()
-                            return interaction.editReply({ embeds: [embed], ephemeral: true })
-                        }
 
                         if (!res.blacklisted.includes(`${user.id}`)) {
                             await db.findOneAndUpdate({
@@ -324,15 +306,27 @@ module.exports = {
                                         deny: ["CONNECT"]
                                     }
                                 ]).then(() => {
-                                    member.voice.setChannel(null).then(() => {
-                                        const answerEmbed = new Discord.MessageEmbed()
-                                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                            .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
-                                            .setColor('#43d490')
-                                            .setFooter(`Made by Zofux`)
-                                        return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
-                                    })
-
+                                    if (member.voice) {
+                                        if (member.voice.channelId === interaction.member.voice.channelId) {
+                                            member.voice.setChannel(null).then(() => {
+                                                const answerEmbed = new Discord.MessageEmbed()
+                                                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                                    .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
+                                                    .setColor('#43d490')
+                                                    .setFooter(`Made by Zofux`)
+                                                return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                            })
+                                        }
+                                    } else {
+                                        member.voice.setChannel(null).then(() => {
+                                            const answerEmbed = new Discord.MessageEmbed()
+                                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                                .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
+                                                .setColor('#43d490')
+                                                .setFooter(`Made by Zofux`)
+                                            return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                        })
+                                    }
                                 })
                             })
                         } else if (res.blacklisted.includes(`${user.id}`)) {
