@@ -68,19 +68,11 @@ module.exports = {
                     }
                     if (interaction.options.getSubcommand() === "lock") {
                         if (res.locked == false) {
-                            interaction.member.voice.channel.permissionOverwrites.set([
-                                {
-                                    id: config.guild,
-                                    deny: ["VIEW_CHANNEL"],
-                                },
+                            interaction.member.voice.channel.permissionOverwrites.edit([
                                 {
                                     id: config.memberRole,
                                     deny: ["CONNECT"],
                                     allow: ["VIEW_CHANNEL"]
-                                },
-                                {
-                                    id: interaction.user.id,
-                                    allow: ["VIEW_CHANNEL", "CONNECT"],
                                 },
                             ]).then(async () => {
                                 await db.findOneAndUpdate({
@@ -99,18 +91,10 @@ module.exports = {
                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                             });
                         } else if (res.locked == true) {
-                            interaction.member.voice.channel.permissionOverwrites.set([
-                                {
-                                    id: config.guild,
-                                    deny: ["VIEW_CHANNEL"],
-                                },
+                            interaction.member.voice.channel.permissionOverwrites.edit([
                                 {
                                     id: config.memberRole,
                                     allow: ["VIEW_CHANNEL", "CONNECT"]
-                                },
-                                {
-                                    id: interaction.user.id,
-                                    allow: ["VIEW_CHANNEL", "CONNECT"],
                                 },
                             ]).then(async () => {
                                 await db.findOneAndUpdate({
@@ -208,19 +192,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.set([
-                                    {
-                                        id: config.guild,
-                                        deny: ["VIEW_CHANNEL"],
-                                    },
-                                    {
-                                        id: config.memberRole,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"]
-                                    },
-                                    {
-                                        id: interaction.user.id,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"],
-                                    },
+                                interaction.member.voice.channel.permissionOverwrites.edit([
                                     {
                                         id: user.id,
                                         deny: ["SPEAK"]
@@ -243,19 +215,11 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.set([
+                                interaction.member.voice.channel.permissionOverwrites.edit([
                                     {
-                                        id: config.guild,
-                                        deny: ["VIEW_CHANNEL"],
-                                    },
-                                    {
-                                        id: config.memberRole,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"]
-                                    },
-                                    {
-                                        id: interaction.user.id,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"],
-                                    },
+                                        id: user.id,
+                                        allow: ["SPEAK"]
+                                    }
                                 ]).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
@@ -288,19 +252,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.set([
-                                    {
-                                        id: config.guild,
-                                        deny: ["VIEW_CHANNEL"],
-                                    },
-                                    {
-                                        id: config.memberRole,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"]
-                                    },
-                                    {
-                                        id: interaction.user.id,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"],
-                                    },
+                                interaction.member.voice.channel.permissionOverwrites.edit([
                                     {
                                         id: user.id,
                                         deny: ["CONNECT"]
@@ -343,19 +295,11 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.set([
+                                interaction.member.voice.channel.permissionOverwrites.edit([
                                     {
-                                        id: config.guild,
-                                        deny: ["VIEW_CHANNEL"],
-                                    },
-                                    {
-                                        id: config.memberRole,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"]
-                                    },
-                                    {
-                                        id: interaction.user.id,
-                                        allow: ["VIEW_CHANNEL", "CONNECT"],
-                                    },
+                                        id: user.id,
+                                        allow: ["CONNECT"]
+                                    }
                                 ]).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
