@@ -23,16 +23,16 @@ module.exports = {
         .addSubcommand(subCommand =>
             subCommand
                 .setName("mute")
-                .setDescription("Mute someone in your voice channel, use again to disable")
+                .setDescription("Mute someone in your voice channel, use the command again to disable")
                 .addUserOption(option =>
                     option.setName(`user`).setDescription(`The user that should get muted in this voice channel`).setRequired(true)
                 ),
-        ),
-        /*.addSubcommand(subCommand =>
+        )
+        .addSubcommand(subCommand =>
             subCommand
-                .setName("blacklist")
-                .setDescription("Make someone unable to join your voice channel, use again to disable")
-        ),*/
+                .setName("ban")
+                .setDescription("Make someone unable to join your voice channel, use the command again to disable")
+        ),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
 
@@ -257,6 +257,107 @@ module.exports = {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
+                                        .setColor('#43d490')
+                                        .setFooter(`Made by Zofux`)
+                                    return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                })
+                            })
+                        }
+                    } else if (interaction.options.getSubcommand() === "ban") {
+                        const user = interaction.options.getUser(`user`)
+                        const member = interaction.options.getMember(`user`)
+                        if (!interaction.guild.members.cache.get(user.id)) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this server`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+                        if (!member.voice) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in a voice channel`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+                        if (member.voice.channelId !== interaction.member.voice.channelId) {
+                            const embed = new Discord.MessageEmbed()
+                                .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
+                                .setColor(`#ff7575`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        }
+
+                        if (!res.blacklisted.includes(`${user.id}`)) {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                $push: { blacklisted: `${user.id}` }
+                            }, {
+                                new: true,
+                                upsert: true
+                            }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.set([
+                                    {
+                                        id: config.guild,
+                                        deny: ["VIEW_CHANNEL"],
+                                    },
+                                    {
+                                        id: config.memberRole,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"]
+                                    },
+                                    {
+                                        id: interaction.user.id,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    },
+                                    {
+                                        id: user.id,
+                                        deny: ["CONNECT"]
+                                    }
+                                ]).then(() => {
+                                    member.voice.setChannel(null).then(() => {
+                                        const answerEmbed = new Discord.MessageEmbed()
+                                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                            .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
+                                            .setColor('#43d490')
+                                            .setFooter(`Made by Zofux`)
+                                        return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
+                                    })
+
+                                })
+                            })
+                        } else if (res.blacklisted.includes(`${user.id}`)) {
+                            await db.findOneAndUpdate({
+                                userId: interaction.user.id
+                            }, {
+                                $pull: { blacklisted: `${user.id}` }
+                            }, {
+                                new: true,
+                                upsert: true
+                            }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.set([
+                                    {
+                                        id: config.guild,
+                                        deny: ["VIEW_CHANNEL"],
+                                    },
+                                    {
+                                        id: config.memberRole,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"]
+                                    },
+                                    {
+                                        id: interaction.user.id,
+                                        allow: ["VIEW_CHANNEL", "CONNECT"],
+                                    },
+                                ]).then(() => {
+                                    const answerEmbed = new Discord.MessageEmbed()
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)
                                         .setColor('#43d490')
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
