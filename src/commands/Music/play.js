@@ -66,7 +66,7 @@ module.exports = {
             .setColor("#5999ff")
             .setAuthor("Added to que", interaction.user.displayAvatarURL())
             .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
-            .setFooter(`Volume: ${queue.volume}`)
+            .setFooter(`Volume: ${queue.volume}%`)
         return interaction.editReply({ embeds: [embed] })
     }
 }
