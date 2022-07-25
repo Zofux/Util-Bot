@@ -8,7 +8,7 @@ module.exports = {
         .setDescription(`Change the volume of the music in the current queue`)
         .addIntegerOption((option) =>
             option.setName("amount")
-                .setDescription("The new volume you want to change the music to")),
+                .setDescription("The new volume you want to change the music to").setRequired(true)),
     async execute(interaction, client) {
         await interaction.deferReply()
         const queue = client.player.getQueue(interaction.guildId)
