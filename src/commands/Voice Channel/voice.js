@@ -68,13 +68,7 @@ module.exports = {
                     }
                     if (interaction.options.getSubcommand() === "lock") {
                         if (res.locked == false) {
-                            interaction.member.voice.channel.permissionOverwrites.edit([
-                                {
-                                    id: config.memberRole,
-                                    deny: ["CONNECT"],
-                                    allow: ["VIEW_CHANNEL"]
-                                },
-                            ]).then(async () => {
+                            interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { ViewChannel: true, Connect: false }).then(async () => {
                                 await db.findOneAndUpdate({
                                     userId: interaction.user.id
                                 }, {
@@ -91,12 +85,7 @@ module.exports = {
                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                             });
                         } else if (res.locked == true) {
-                            interaction.member.voice.channel.permissionOverwrites.edit([
-                                {
-                                    id: config.memberRole,
-                                    allow: ["VIEW_CHANNEL", "CONNECT"]
-                                },
-                            ]).then(async () => {
+                            interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { ViewChannel: true, Connect: true }).then(async () => {
                                 await db.findOneAndUpdate({
                                     userId: interaction.user.id
                                 }, {
@@ -192,12 +181,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit([
-                                    {
-                                        id: user.id,
-                                        deny: ["SPEAK"]
-                                    }
-                                ]).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { Speak: false }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
@@ -215,12 +199,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit([
-                                    {
-                                        id: user.id,
-                                        allow: ["SPEAK"]
-                                    }
-                                ]).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { Speak: true }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
@@ -252,12 +231,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit([
-                                    {
-                                        id: user.id,
-                                        deny: ["CONNECT"]
-                                    }
-                                ]).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { Connect: false }).then(() => {
                                     if (member.voice) {
                                         if (member.voice.channelId === interaction.member.voice.channelId) {
                                             member.voice.setChannel(null).then(() => {
@@ -295,12 +269,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit([
-                                    {
-                                        id: user.id,
-                                        allow: ["CONNECT"]
-                                    }
-                                ]).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { Connect: true }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)
