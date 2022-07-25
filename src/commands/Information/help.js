@@ -16,7 +16,7 @@ module.exports = {
             .setColor("#5999ff")
             .setDescription(
                 `${client.user.username} is an easy to use all in one discord bot that is made to make **${interaction.guild.name}** run smoother, bellow you will see a list of all the available commands. Simply use \`/help [command]\` to get more information about the command.` +
-                `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\n`)
+                `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B`)
             .addFields(
                 { name: '🗂️ Information', value: "`help`, `verify`, `warnings`"},
                 { name: '🛠️ Moderation', value: "`ban`, `kick`, `mute`, `unmute`, `warn`, `clearwarns`"},
