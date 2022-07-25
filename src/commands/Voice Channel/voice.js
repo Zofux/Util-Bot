@@ -200,7 +200,7 @@ module.exports = {
                             await db.findOneAndUpdate({
                                 userId: interaction.user.id
                             }, {
-                                $pull: { muted: `${user.id}` }
+                                $push: { muted: `${user.id}` }
                             }, {
                                 new: true,
                                 upsert: true
@@ -225,7 +225,7 @@ module.exports = {
                                 ]).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                        .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>`)
+                                        .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
                                         .setColor('#43d490')
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
@@ -235,7 +235,7 @@ module.exports = {
                             await db.findOneAndUpdate({
                                 userId: interaction.user.id
                             }, {
-                                $push: { muted: `${user.id}` }
+                                $pull: { muted: `${user.id}` }
                             }, {
                                 new: true,
                                 upsert: true
@@ -256,7 +256,7 @@ module.exports = {
                                 ]).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                                        .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>`)
+                                        .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
                                         .setColor('#43d490')
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
