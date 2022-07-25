@@ -27,7 +27,8 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setColor("#5999ff")
             .setAuthor("Current Song", interaction.user.displayAvatarURL())
-            .setDescription(`Currently Playing [${song.title}](${song.url}) [${song.duration}]\n\n` + bar)
+            .setDescription(`Currently Playing [${song.title}](${song.url}) by ${song.author} [${song.duration}]\n\n` + bar)
+            .setThumbnail(song.thumbnail)
         return interaction.editReply({ embeds: [embed] })
     }
 }
