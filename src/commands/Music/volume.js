@@ -23,6 +23,14 @@ module.exports = {
         }
 
         let amount = interaction.options.getNumber("amount")
+        if (amount > 200) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} For the saftey of your ears I won't allow you to go over \`200%\` volume`)
+                .setColor(`#ff7575`)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setTimestamp()
+            return interaction.followUp({ embeds: [embed], ephemeral: true })
+        }
         queue.setVolume(amount)
         const embed = new Discord.MessageEmbed()
             .setColor("#5999ff")
