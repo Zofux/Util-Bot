@@ -85,7 +85,7 @@ module.exports = {
                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                             });
                         } else if (res.locked == true) {
-                            interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { VIEW_CHANNEL: true, CONNECT: true }).then(async () => {
+                            interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { VIEW_CHANNEL: true, CONNECT: null }).then(async () => {
                                 await db.findOneAndUpdate({
                                     userId: interaction.user.id
                                 }, {
@@ -269,7 +269,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, {  CONNECT: true }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, {  CONNECT: null }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)
