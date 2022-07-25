@@ -6,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName(`volume`)
         .setDescription(`Change the volume of the music in the current queue`)
-        .addIntegerOption((option) =>
+        .addNumberOption((option) =>
             option.setName("amount")
                 .setDescription("The new volume you want to change the music to").setRequired(true)),
     async execute(interaction, client) {
