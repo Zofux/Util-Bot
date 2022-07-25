@@ -316,6 +316,13 @@ module.exports = {
                                                     .setFooter(`Made by Zofux`)
                                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                             })
+                                        } else {
+                                            const answerEmbed = new Discord.MessageEmbed()
+                                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                                .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
+                                                .setColor('#43d490')
+                                                .setFooter(`Made by Zofux`)
+                                            return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                         }
                                     } else {
                                         const answerEmbed = new Discord.MessageEmbed()
