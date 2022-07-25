@@ -25,6 +25,6 @@ module.exports = {
             )
             .setThumbnail(client.user.displayAvatarURL())
             .setFooter("Made by Zofux")
-        await ineraction.editReply({ embeds: [helpEmbed] })
+        await interaction.editReply({ embeds: [helpEmbed] })
     }
 }
