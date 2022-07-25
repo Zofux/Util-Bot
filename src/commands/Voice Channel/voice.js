@@ -138,7 +138,7 @@ module.exports = {
                                 .setTimestamp()
                             return interaction.editReply({ embeds: [embed], ephemeral: true })
                         }
-                        if (!member.voice.channelId === interaction.member.voice.channelId) {
+                        if (member.voice.channelId && interaction.member.voice.channelId !== interaction.member.voice.channelId) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
                                 .setColor(`#ff7575`)
