@@ -24,7 +24,9 @@ client.player.on("trackStart", (queue, track) => {
     .setColor("#5999ff")
     .setAuthor("Now Playing", track.requestedBy.displayAvatarURL())
     .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
+    .setFooter(`Volume: ${queue.volume}%`)
     queue.metadata.channel.send({ embeds: [embed] })
+    console.log(queue.metadata)
 })
 
 function run() {
