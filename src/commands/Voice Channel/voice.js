@@ -63,7 +63,7 @@ module.exports = {
                         return interaction.editReply({ embeds: [embed], ephemeral: true })
 
                     }
-                    if (interaction.option.getSubcommand() === "lock") {
+                    if (interaction.options.getSubcommand() === "lock") {
                         if (res.locked == false) {
                             interaction.member.voice.channel.permissionOverwrites.set([
                                 {
