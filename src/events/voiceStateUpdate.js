@@ -111,7 +111,7 @@ module.exports = {
                             return newState.member.voice.setChannel(channel);
                         } else if (!res) {
                             client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
-                                type: 'voice',
+                                type: 'GUILD_VOICE',
                                 parent: config.joinToCreateVoiceChannelCategory,
                                 permissionOverwrites: [
                                     {
