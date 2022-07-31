@@ -37,8 +37,8 @@ module.exports = {
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "reply") {
-                const status = interaction.options.getSring("status")
-                const res = await db.findOne({ id: interaction.options.getSring("id") })
+                const status = interaction.options.getString("status")
+                const res = await db.findOne({ id: interaction.options.getString("id") })
                 if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`${config.crossEmoji} You cannot use this command, as you do not have the \`MANAGE_MESSAGES\` permission in this server.`)
