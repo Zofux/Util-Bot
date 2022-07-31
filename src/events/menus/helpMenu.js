@@ -12,10 +12,10 @@ module.exports = async (interaction, client) => {
                     "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
                 )
                 .addFields([
-                    { name: "❓Help", value: "Usage: `/help` | This command shows you a detailed descrition of every command with this bot" },
-                    { name: "✅Verify", value: "Usage: `/verify` | This command will help you to verify again if you fail you initial verification"},
-                    { name: "⚠️Warnings", value: "Usage: `/warnings [user]` | This command will show all warnings a user has, leave empty to show your own"},
-                    { name: "🏆Level", value: "Usage: `/level` | This command will show your current level"}
+                    { name: "🙋‍♂️Help", value: " `/help` This command shows you a detailed descrition of every command with this bot" },
+                    { name: "✅Verify", value: "`/verify` This command will help you to verify again if you fail you initial verification"},
+                    { name: "⚠️Warnings", value: "`/warnings [user]` This command will show all warnings a user has, leave empty to show your own"},
+                    { name: "🏆Level", value: "`/level` This command will show your current level"}
                 ])
                 .setFooter("Made by Zofux")
 
