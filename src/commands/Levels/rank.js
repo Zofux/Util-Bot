@@ -32,9 +32,9 @@ module.exports = {
                 .setRequiredXP(neededXp)
                 .setLevel(user.level)
                 .setRank(position)
-                .setProgressBar("#5999ff", "COLOR")
+                .setProgressBar("#5865F2", "COLOR")
                 .setUsername(interaction.user.username)
-                .setBackground("COLOR", "#5999ff")
+                .setBackground("COLOR", "#5865F2")
                 .setDiscriminator(interaction.user.discriminator);
 
             rank.build()
