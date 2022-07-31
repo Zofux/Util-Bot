@@ -3,18 +3,18 @@ const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
     console.log("test")
-    if (interaction.customId === 'information') {
-
-        const embed = new Discord.MessageEmbed()
+    if (interaction.customId === 'select') {
+        if (interaction.value === "information") {
+            const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
             .setColor(config.MainHexColor)
             .setDescription()
             .setFooter("Made by Zofux")
 
         await interaction.update({ embeds: [embed]})
-    }
+        }
 
-    if (interaction.customId === 'moderation') {
+        if (interaction.value === 'moderation') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Moderation]`, client.user.displayAvatarURL())
@@ -25,7 +25,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.customId === 'music') {
+    if (interaction.value === 'music') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Musci]`, client.user.displayAvatarURL())
@@ -36,7 +36,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.customId === 'voice_channels') {
+    if (interaction.value === 'voice_channels') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
@@ -47,7 +47,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.customId === 'suggestions') {
+    if (interaction.value === 'suggestions') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [suggestions]`, client.user.displayAvatarURL())
@@ -57,4 +57,7 @@ module.exports = async (interaction, client) => {
 
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
+    }
+
+   
 }
