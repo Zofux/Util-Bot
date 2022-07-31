@@ -14,8 +14,8 @@ module.exports = {
             const hasLevelUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
             if (hasLevelUp) {
                 const user = await Levels.fetch(message.author.id, message.guild.id);
-                message.channel.send({content: `<@${message.author.id}>, Congrats you levelled up to level **${user.level}**!`}).then(msg => {
-                    client.setTimeout(() => msg.delete(), 8000)
+                message.reply({content: `<@${message.author.id}>, Congrats you levelled up to level **${user.level}**!`}).then(msg => {
+                    setTimeout(() => msg.delete(), 8000)
                 })
             }
 
