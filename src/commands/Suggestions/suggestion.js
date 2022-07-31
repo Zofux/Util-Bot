@@ -21,7 +21,7 @@ module.exports = {
                         .setDescription('Reject or accept the suggestion')
                         .setRequired(true)
                         .addChoice("Reject", "reject")
-                        .addChoice("Accept, accept")
+                        .addChoice("Accept", "accept")
                         /*.addChoices(
                             [{ name: 'Reject', value: 'reject' }],
                             [{ name: 'Accept', value: 'accept' }]
