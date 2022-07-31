@@ -43,9 +43,5 @@ module.exports = {
             embeds: embeds,
             channel: interaction.channel
         }) ]})
-
-
-
-        await interaction.editReply({ embeds: [helpEmbed] })
     }
 }
