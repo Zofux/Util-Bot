@@ -7,7 +7,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName(`suggestion`)
         .setDescription(`Interact with the suggestion system in your server`)
-        .addSubcommandsubCommand(subCommand =>
+        .addSubcommand(subCommand =>
             subCommand
                 .setName("reply")
                 .setDescription("Reply to a suggestion")
