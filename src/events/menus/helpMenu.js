@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
+    console.log("test")
     if (interaction.customId === 'information') {
 
         const embed = new Discord.MessageEmbed()
