@@ -45,7 +45,7 @@ module.exports = {
                         .setColor(config.ErrorHexColor)
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                         .setTimestamp()
-                    return interaction.followUp({ embeds: [embed], ephemeral: true })
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
                 }
                 if (!res) {
                     const embed = new Discord.MessageEmbed()
@@ -53,7 +53,7 @@ module.exports = {
                         .setColor(config.ErrorHexColor)
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                         .setTimestamp()
-                    return interaction.followUp({ embeds: [embed], ephemeral: true })
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (res) {
                     if (!config.suggestionChannel) {
                         const embed = new Discord.MessageEmbed()
@@ -61,7 +61,15 @@ module.exports = {
                             .setColor(config.ErrorHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp()
-                        return interaction.followUp({ embeds: [embed], ephemeral: true })
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
+                    }
+                    if (!res.status === "pending") {
+                        const embed = new Discord.MessageEmbed()
+                            .setDescription(`${config.crossEmoji} This suggestion has already been replied too`)
+                            .setColor(config.ErrorHexColor)
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setTimestamp()
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
                     }
                     const channel = interaction.guild.channels.cache.get(config.suggestionChannel)
                     if (!channel) {
@@ -70,7 +78,7 @@ module.exports = {
                             .setColor(config.ErrorHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp()
-                        return interaction.followUp({ embeds: [embed], ephemeral: true })
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
                     }
                     if (status == "reject") {
                         let embed = new Discord.MessageEmbed()

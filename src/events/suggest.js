@@ -26,7 +26,8 @@ module.exports = {
                     userId: message.author.id,
                     id: id,
                     messageId: message.id,
-                    suggestion: message.content
+                    suggestion: message.content,
+                    status: "pending"
                 }).save()
             }))
         })
