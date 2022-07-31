@@ -1,4 +1,4 @@
-module.exports = (interaction, client) => {
+module.exports = async (interaction, client) => {
     if (interaction.customId === 'information') {
 
         const embed = new Discord.MessageEmbed()
