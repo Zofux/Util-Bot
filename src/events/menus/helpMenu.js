@@ -2,6 +2,7 @@ const Discord = require('discord.js')
 const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
+    console.log("HEY")
     if (interaction.customId === 'information') {
 
         const embed = new Discord.MessageEmbed()
@@ -10,7 +11,7 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
     if (interaction.customId === 'moderation') {
@@ -21,7 +22,7 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
     if (interaction.customId === 'music') {
@@ -32,7 +33,7 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
     if (interaction.customId === 'voice_channels') {
@@ -43,7 +44,7 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
     if (interaction.customId === 'suggestions') {
@@ -54,6 +55,6 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed] })
+        await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 }
