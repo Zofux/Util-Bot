@@ -10,11 +10,40 @@ module.exports = {
     async execute(interaction, client) {
         await interaction.deferReply()
 
-        const embed1 = new Discord.MessageEmbed()
+        const menu = new Discord.MessageActionRow()
+            .addComponents(
+                new Discord.MessageSelectMenu()
+                .setCustomId("select")
+                .setPlaceholder("Click Me!")
+                .addOptions(
+                    {
+                        label: "🗂️ Information",
+                        value: "information"
+                    },
+                    {
+                        label: "🛠️ Moderation",
+                        value: "moderation"
+                    },
+                    {
+                        label: "🎸 Music",
+                        value: "music"
+                    },
+                    {
+                        label: "🔊 Voice Channels",
+                        value: "voice_channels"
+                    },
+                    {
+                        label: "💡 Suggestions",
+                        value: "suggestions"
+                    },
+                )
+            )
+
+        const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands`, client.user.displayAvatarURL())
             .setColor(config.MainHexColor)
             .setDescription(
-                `${client.user.username} is an easy to use all in one discord bot that is made to make **${interaction.guild.name}** run smoother, bellow you will see a list of all the available commands. Simply click the buttons below to get more info.` +
+                `${client.user.username} is an easy to use all in one discord bot that is made to make **${interaction.guild.name}** run smoother, bellow you will see a list of all the available commands. Simply select a category from the meny below.` +
                 `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B`)
             .addFields(
                 { name: '🗂️ Information', value: "`help`, `verify`, `warnings`, `level`" },
@@ -25,23 +54,6 @@ module.exports = {
             )
             .setFooter("Made by Zofux")
 
-        const embed2 = new Discord.MessageEmbed()
-            .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
-            .setDescription(
-                "This is a detailed list over the the commands that fall under the category **Information**" + 
-                "\n\n`/help`: Helps you navigate all the commands of the bot" +
-                "\n\n`/verify`: If you fail your initial verifaction, this command will help you start a new one" +
-                "\n\n`/warnigns [user]`: Show a list of all the warnings a user has, leave the **[user]** field empty to show your own" +
-                "\n\n`/level` Displaly your current level"
-            )
-            .setColor(config.MainHexColor)
-            .setFooter("Made by Zofux")
-
-        const embeds = [embed1, embed2]
-
-        interaction.editReply({embeds: [pagination({
-            embeds: embeds,
-            channel: interaction.channel
-        }) ]})
+        await interaction.editReply({ embeds: [embed], components: [menu] })
     }
 }
