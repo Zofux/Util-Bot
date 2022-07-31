@@ -35,7 +35,7 @@ module.exports = {
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "reply") {
-                const status = interaction.options.getString(`status`)
+                const status = interaction.options[0].choices
                 const res = await db.findOne({ id: interaction.options.getSring("id") })
                 if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) {
                     const embed = new Discord.MessageEmbed()
