@@ -16,11 +16,9 @@ module.exports = {
                 })
             }
         } else if (interaction.isButton()) {
-            if (interaction.customId.includes("-ticket")) {
-                await require("./buttons/tickets")(interaction, client)
-            } else if (interaction.customId.includes("-close")) {
-                await require("./buttons/close")(interaction, client)
-            }
+            
+        } else if (interaction.isSelectMenu) {
+            require('./menus/helpMenu')(interaction, client)
         }
 
        
