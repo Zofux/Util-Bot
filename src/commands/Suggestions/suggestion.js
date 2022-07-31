@@ -77,7 +77,9 @@ module.exports = {
                             .setDescription(`**Submitter**\n<@${res.userId}>\n\n**Suggestion**\n${res.suggestion}\n\n**Rejected by**\n<@${interaction.user.id}>${interaction.options.getString("reply") ? `**\n\nRespone**\n${interaction.options.getString("reply")}` : ""}`)
                             .setColor(config.ErrorHexColor)
                             .setThumbnail(interaction.user.displayAvatarURL())
-                            .setFooter(interaction.guild.id)
+                            .setFooter(`sID: ${res.id}`)
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setTimestamp();
 
                         if (interaction.channel.id === config.suggestionChannel) {
                             return interaction.editReply({ embeds: [embed] }).then(async () => {
@@ -113,6 +115,7 @@ module.exports = {
                                         .setAuthor("Suggestion | Rejected")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
+                                        
                                     interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] }).then(async () => {
                                         await db.findOneAndUpdate({
                                             id: res.id
@@ -131,7 +134,9 @@ module.exports = {
                             .setDescription(`**Submitter**\n<@${res.userId}>\n\n**Suggestion**\n${res.suggestion}\n\n**Accepted by**\n<@${interaction.user.id}>${interaction.options.getString("reply") ? `**\n\nRespone**\n${interaction.options.getString("reply")}` : ""}`)
                             .setColor(config.SuccessHexColor)
                             .setThumbnail(interaction.user.displayAvatarURL())
-                            .setFooter(interaction.guild.id)
+                            .setFooter(`sID: ${res.id}`)
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setTimestamp();
 
                         if (interaction.channel.id === config.suggestionChannel) {
                             return interaction.editReply({ embeds: [embed] }).then(async () => {
