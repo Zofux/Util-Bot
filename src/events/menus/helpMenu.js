@@ -25,7 +25,7 @@ module.exports = async (interaction, client) => {
 
         if (interaction.values.includes("music")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Musci]`, client.user.displayAvatarURL())
+                .setAuthor(`${client.user.username} - Commands [Music]`, client.user.displayAvatarURL())
                 .setColor(config.MainHexColor)
                 .setDescription("Test")
                 .setFooter("Made by Zofux")
@@ -35,7 +35,7 @@ module.exports = async (interaction, client) => {
 
         if (interaction.values.includes("voice_channels")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
+                .setAuthor(`${client.user.username} - Commands [Voice Channels]`, client.user.displayAvatarURL())
                 .setColor(config.MainHexColor)
                 .setDescription("Test")
                 .setFooter("Made by Zofux")
@@ -45,7 +45,7 @@ module.exports = async (interaction, client) => {
 
         if (interaction.values.includes("suggestions")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [suggestions]`, client.user.displayAvatarURL())
+                .setAuthor(`${client.user.username} - Commands [Suggestions]`, client.user.displayAvatarURL())
                 .setColor(config.MainHexColor)
                 .setDescription("Test")
                 .setFooter("Made by Zofux")
