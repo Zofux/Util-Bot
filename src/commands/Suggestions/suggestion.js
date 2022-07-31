@@ -20,10 +20,10 @@ module.exports = {
                     option.setName(`status`)
                         .setDescription('Reject or accept the suggestion')
                         .setRequired(true)
-                        .addChoices(
+                        .addChoices([
                             { name: 'Reject', value: 'reject' },
                             { name: 'Accept', value: 'accept' }
-                        )
+                        ])
                 )
                 .addStringOption(option =>
                     option.setname('reply')
