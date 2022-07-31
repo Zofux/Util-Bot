@@ -31,9 +31,8 @@ module.exports = {
                 .setCurrentXP(user.xp)
                 .setRequiredXP(neededXp)
                 .setLevel(user.level)
-                .setStatus(interaction.user.presence.status)
                 .setRank(position)
-                .setProgressBar("#e7509e", "COLOR")
+                .setProgressBar("RANDOM", "COLOR")
                 .setUsername(interaction.user.username)
                 .setDiscriminator(interaction.user.discriminator);
 
