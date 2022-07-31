@@ -28,7 +28,7 @@ module.exports = {
                         )*/
                 )
                 .addStringOption(option =>
-                    option.setname('reply')
+                    option.setName('reply')
                         .setDescription("The message you want to reply to the suggestion with, this will show on the reply embed")
                 ),
         ),
