@@ -27,7 +27,7 @@ module.exports = {
                     id: id,
                     messageId: message.id,
                     suggestion: message.content
-                })
+                }).save()
             }))
         })
     }
