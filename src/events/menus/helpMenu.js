@@ -3,8 +3,7 @@ const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
     if (interaction.customId === 'select') {
-        console.log(interaction)
-        if (interaction.value === "information") {
+        if (interaction.values === "information") {
             const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
             .setColor(config.MainHexColor)
@@ -14,7 +13,7 @@ module.exports = async (interaction, client) => {
         await interaction.update({ embeds: [embed]})
         }
 
-        if (interaction.value === 'moderation') {
+        if (interaction.values === 'moderation') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Moderation]`, client.user.displayAvatarURL())
@@ -25,7 +24,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.value === 'music') {
+    if (interaction.values === 'music') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Musci]`, client.user.displayAvatarURL())
@@ -36,7 +35,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.value === 'voice_channels') {
+    if (interaction.values === 'voice_channels') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
@@ -47,7 +46,7 @@ module.exports = async (interaction, client) => {
         await interaction.editReply({ embeds: [embed], ephemeral: true })
     }
 
-    if (interaction.value === 'suggestions') {
+    if (interaction.values === 'suggestions') {
 
         const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [suggestions]`, client.user.displayAvatarURL())
