@@ -62,7 +62,7 @@ module.exports = {
         const rawTime = interaction.options.getString(`time`)
         const reason = interaction.options.getString(`reason`)
 
-        if (interaction.guild.roles.cache.get(config.moderatorRole).position > interaction.member.roles.highest.position) {
+        if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MUTE_MEMBERS)) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You can't use this command`)
                 .setColor(config.ErrorHexColor)
