@@ -123,7 +123,7 @@ module.exports = {
                                     .setAuthor("Suggestion | Accepted")
                                     .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                     .setTimestamp()
-                                interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] })
+                                interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] })
                             })
                         } else if (!interaction.channel.id === config.suggestionChannel) {
                             channel.send({ embeds: [embed] }).then(async () => {
@@ -140,7 +140,7 @@ module.exports = {
                                         .setAuthor("Suggestion | Accepted")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
-                                    interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] })
+                                    interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] })
                                 })
                             })
                         }
