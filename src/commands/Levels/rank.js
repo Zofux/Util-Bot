@@ -21,7 +21,7 @@ module.exports = {
             const lb = await Levels.computeLeaderboard(client, rawLb);
             let position;
             lb.forEach(member => {
-                if (member.userID === author.user.id) {
+                if (member.userID === interaction.user.id) {
                     position = member.position;
                 }
             })
