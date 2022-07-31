@@ -36,7 +36,7 @@ module.exports = {
         const target = interaction.options.getMember(`user`)
         const reason = interaction.options.getString(`reason`)
 
-        if (interaction.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS, false)) {
+        if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.BAN_MEMBERS)) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You can't use this command`)
                 .setColor(config.ErrorHexColor)
