@@ -85,7 +85,7 @@ module.exports = {
 
                 new db({
                     userId: message.author.id,
-                    expiers: date,
+                    expires: date,
                     reason: reason
                 }).save().then(async () => {
                     const logChannel = message.guild.channels.cache.get(config.log)
