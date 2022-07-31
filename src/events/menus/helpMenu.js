@@ -24,10 +24,21 @@ module.exports = async (interaction, client) => {
 
         if (interaction.values.includes("moderation")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Moderation]`, client.user.displayAvatarURL())
-                .setColor(config.MainHexColor)
-                .setDescription("Test")
-                .setFooter("Made by Zofux")
+            .setAuthor(`${client.user.username} - Commands [Moderation]`, client.user.displayAvatarURL())
+            .setColor(config.MainHexColor)
+            .setDescription(
+                "Here are all the commands that fall under the category of **Moderation**, use the menu below to go to another category" +
+                "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
+            )
+            .addFields([
+                { name: "🔨Ban", value: " `/ban <user> <reason>` Ban somone from the server" },
+                { name: "🦿Kick", value: "`/kick <user> <reason>` Kick someone from the server"},
+                { name: "🔇Mute", value: "`/mute <user> <time> <reason>` Prevent someone from talking in chat"},
+                { name: "🔈Unmute", value: "`/unmute <user <reason>` Make some able to talk in chat again"},
+                { name: "⚠️Warn", value: "`/warn <user> <reason>` Give someone a warning"},
+                { name: "🧹Clearwarns", value: "`/clearwarns <user>` Clear all warnings from a user"}
+            ])
+            .setFooter("Made by Zofux")
 
             await interaction.update({ embeds: [embed] })
         }
