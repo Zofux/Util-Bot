@@ -2,7 +2,6 @@ const Discord = require('discord.js')
 const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
-    console.log("HEY")
     if (interaction.customId === 'information') {
 
         const embed = new Discord.MessageEmbed()
@@ -11,7 +10,7 @@ module.exports = async (interaction, client) => {
             .setDescription()
             .setFooter("Made by Zofux")
 
-        await interaction.editReply({ embeds: [embed], ephemeral: true })
+        await interaction.update({ embeds: [embed]})
     }
 
     if (interaction.customId === 'moderation') {

@@ -17,7 +17,7 @@ module.exports = {
             }
         } else if (interaction.isButton()) {
             
-        } else if (interaction.isSelectMenu) {
+        } else if (interaction.isSelectMenu()) {
             require('./menus/helpMenu')(interaction, client)
         }
 
