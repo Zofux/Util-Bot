@@ -5,6 +5,7 @@ const model = new mongoose.Schema({
     messageId: String,
     id: String,
     suggestion: String,
+    status: String,
 })
 
 module.exports = mongoose.model('Suggestions', model)

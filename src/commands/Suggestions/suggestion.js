@@ -22,10 +22,10 @@ module.exports = {
                         .setRequired(true)
                         .addChoice("Reject", "reject")
                         .addChoice("Accept", "accept")
-                        /*.addChoices(
-                            [{ name: 'Reject', value: 'reject' }],
-                            [{ name: 'Accept', value: 'accept' }]
-                        )*/
+                    /*.addChoices(
+                        [{ name: 'Reject', value: 'reject' }],
+                        [{ name: 'Accept', value: 'accept' }]
+                    )*/
                 )
                 .addStringOption(option =>
                     option.setName('reply')
@@ -87,7 +87,16 @@ module.exports = {
                                     .setAuthor("Suggestion | Rejected")
                                     .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                     .setTimestamp()
-                                interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] })
+                                interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] }).then(async () => {
+                                    await db.findOneAndUpdate({
+                                        id: res.id
+                                    }, {
+                                        status: "accepted"
+                                    }, {
+                                        new: true,
+                                        upsert: true
+                                    })
+                                })
                             })
                         } else if (!interaction.channel.id === config.suggestionChannel) {
                             channel.send({ embeds: [embed] }).then(async () => {
@@ -104,7 +113,16 @@ module.exports = {
                                         .setAuthor("Suggestion | Rejected")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
-                                    interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] })
+                                    interaction.guild.members.cache.get(res.userID).send({ embeds: [infoEmbed] }).then(async () => {
+                                        await db.findOneAndUpdate({
+                                            id: res.id
+                                        }, {
+                                            status: "accepted"
+                                        }, {
+                                            new: true,
+                                            upsert: true
+                                        })
+                                    })
                                 })
                             })
                         }
@@ -123,7 +141,16 @@ module.exports = {
                                     .setAuthor("Suggestion | Accepted")
                                     .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                     .setTimestamp()
-                                interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] })
+                                interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                    await db.findOneAndUpdate({
+                                        id: res.id
+                                    }, {
+                                        status: "accepted"
+                                    }, {
+                                        new: true,
+                                        upsert: true
+                                    })
+                                })
                             })
                         } else if (!interaction.channel.id === config.suggestionChannel) {
                             channel.send({ embeds: [embed] }).then(async () => {
@@ -140,7 +167,16 @@ module.exports = {
                                         .setAuthor("Suggestion | Accepted")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
-                                    interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] })
+                                    interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                        await db.findOneAndUpdate({
+                                            id: res.id
+                                        }, {
+                                            status: "accepted"
+                                        }, {
+                                            new: true,
+                                            upsert: true
+                                        })
+                                    })
                                 })
                             })
                         }
