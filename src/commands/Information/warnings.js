@@ -20,7 +20,7 @@ module.exports = {
             if (!res) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} <@${interaction.user.id}>, you don't have any warnings at this time`)
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
@@ -28,7 +28,7 @@ module.exports = {
             } else {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`All punishments for <@${interaction.user.id}>` + res.infractions.map(warning => `\n\n**ID: \`${warning.id}\` | Moderator: \`${warning.moderator}\`**\n **${warning.type} - ** ${warning.reason} - <t:${warning.date}:R>`))
-                    .setColor(`#5999ff`)
+                    .setColor(config.MainHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
@@ -39,7 +39,7 @@ module.exports = {
             if (interaction.guild.roles.cache.get(config.moderatorRole).position > interaction.member.roles.highest.position) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} Only **moderators** can check other users warnings`)
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
@@ -50,7 +50,7 @@ module.exports = {
             if (!res) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} <@${user.id}> Doesn't have any warnings at this time`)
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()

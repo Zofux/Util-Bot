@@ -1,4 +1,5 @@
 const { Client, Intents, Collection, MessageEmbed } = require('discord.js')
+const config = require("./config.json")
 const fs = require('fs')
 require('dotenv').config();
 const client = new Client({
@@ -21,7 +22,7 @@ client.player = new Player(client, {
 })
 client.player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
-        .setColor("#5999ff")
+        .setColor(config.MainHexColor)
         .setAuthor("Now Playing", track.requestedBy.displayAvatarURL())
         .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
         .setFooter(`Volume: ${queue.volume}%`)

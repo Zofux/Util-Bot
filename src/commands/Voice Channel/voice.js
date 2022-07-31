@@ -44,7 +44,7 @@ module.exports = {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`Not in a channel`)
                     .setDescription(`${config.crossEmoji} You are not currently in any voice channel`)
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else {
@@ -53,7 +53,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(`Not in charge`)
                         .setDescription(`${config.crossEmoji} You are not in charge of the current voice channel`)
-                        .setColor(`#ff7575`)
+                        .setColor(config.ErrorHexColor)
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (res) {
@@ -61,7 +61,7 @@ module.exports = {
                         const embed = new Discord.MessageEmbed()
                             .setAuthor(`Not in charge`)
                             .setDescription(`${config.crossEmoji} You are not in charge of the current voice channel`)
-                            .setColor(`#ff7575`)
+                            .setColor(config.ErrorHexColor)
                             .setFooter(`Made by Zofux`)
                         return interaction.editReply({ embeds: [embed], ephemeral: true })
 
@@ -80,7 +80,7 @@ module.exports = {
                                 const answerEmbed = new Discord.MessageEmbed()
                                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                     .setDescription(`🔒 I've locked your voice channel for you`)
-                                    .setColor('#43d490')
+                                    .setColor(config.SuccessHexColor)
                                     .setFooter(`Made by Zofux`)
                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                             });
@@ -97,7 +97,7 @@ module.exports = {
                                 const answerEmbed = new Discord.MessageEmbed()
                                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                     .setDescription(`🔓 I've unlocked your voice channel for you`)
-                                    .setColor('#43d490')
+                                    .setColor(config.SuccessHexColor)
                                     .setFooter(`Made by Zofux`)
                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                             });
@@ -108,7 +108,7 @@ module.exports = {
                         if (!interaction.guild.members.cache.get(user.id)) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this server`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -117,7 +117,7 @@ module.exports = {
                         if (!member.voice) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in a voice channel`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -126,7 +126,7 @@ module.exports = {
                         if (member.voice.channelId !== interaction.member.voice.channelId) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -137,7 +137,7 @@ module.exports = {
                             const answerEmbed = new Discord.MessageEmbed()
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setDescription(`${config.checkEmoji} I've kicked <@${user.id}> from <#${res.voiceChannel}>`)
-                                .setColor('#43d490')
+                                .setColor(config.SuccessHexColor)
                                 .setFooter(`Made by Zofux`)
                             return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                         });
@@ -147,7 +147,7 @@ module.exports = {
                         if (!interaction.guild.members.cache.get(user.id)) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this server`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -156,7 +156,7 @@ module.exports = {
                         if (!member.voice) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in a voice channel`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -165,7 +165,7 @@ module.exports = {
                         if (member.voice.channelId !== interaction.member.voice.channelId) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this voice channel`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -185,7 +185,7 @@ module.exports = {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've muted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
-                                        .setColor('#43d490')
+                                        .setColor(config.SuccessHexColor)
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                 })
@@ -203,7 +203,7 @@ module.exports = {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unmuted <@${user.id}> in <#${res.voiceChannel}>, this will take effect if they join again. Use \`/voice kick\` to remove them`)
-                                        .setColor('#43d490')
+                                        .setColor(config.SuccessHexColor)
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                 })
@@ -215,7 +215,7 @@ module.exports = {
                         if (!interaction.guild.members.cache.get(user.id)) {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.crossEmoji} That user is not in this server`)
-                                .setColor(`#ff7575`)
+                                .setColor(config.ErrorHexColor)
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
@@ -238,7 +238,7 @@ module.exports = {
                                                 const answerEmbed = new Discord.MessageEmbed()
                                                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                                     .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
-                                                    .setColor('#43d490')
+                                                    .setColor(config.SuccessHexColor)
                                                     .setFooter(`Made by Zofux`)
                                                 return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                             })
@@ -246,7 +246,7 @@ module.exports = {
                                             const answerEmbed = new Discord.MessageEmbed()
                                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                                 .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
-                                                .setColor('#43d490')
+                                                .setColor(config.SuccessHexColor)
                                                 .setFooter(`Made by Zofux`)
                                             return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                         }
@@ -254,7 +254,7 @@ module.exports = {
                                         const answerEmbed = new Discord.MessageEmbed()
                                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                             .setDescription(`${config.checkEmoji} I've banned <@${user.id}> in <#${res.voiceChannel}>, use the command again to unban them.`)
-                                            .setColor('#43d490')
+                                            .setColor(config.SuccessHexColor)
                                             .setFooter(`Made by Zofux`)
                                         return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                     }
@@ -273,7 +273,7 @@ module.exports = {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)
-                                        .setColor('#43d490')
+                                        .setColor(config.SuccessHexColor)
                                         .setFooter(`Made by Zofux`)
                                     return interaction.editReply({ embeds: [answerEmbed], ephemeral: true })
                                 })

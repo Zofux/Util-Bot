@@ -47,7 +47,7 @@ module.exports = {
             let emebd = new Discord.MessageEmbed()
                 .setAuthor(`${interaction.user.username}`, interaction.user.displayAvatarURL())
                 .setDescription(`${config.crossEmoji} <@${interaction.user.id}>, you haven't talked enough to get a level`)
-                .setColor('#ff7575');
+                .setColor(config.ErrorHexColor);
             return interaction.editReply({ embeds: [emebd] });
         }
     }

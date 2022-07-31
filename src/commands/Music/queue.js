@@ -16,7 +16,7 @@ module.exports = {
         if (!queue || !queue.playing) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} There are no songs in the queue`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -28,7 +28,7 @@ module.exports = {
         if (page > totalPages) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} Oops, there are only a total of ${totalPages} pages of songs`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })

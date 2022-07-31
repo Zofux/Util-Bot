@@ -12,6 +12,27 @@ module.exports = {
             option.setName(`reason`).setDescription(`The reason for the warning`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
+        if (!config.log) {
+            const embed = new Discord.MessageEmbed()
+                .setAuthor(`No verify channel`)
+                .setDescription(`${config.crossEmoji} I currently have no valid value for the \`log\` in my \`config.json\``)
+                .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
+                .setColor(config.ErrorHexColor)
+                .setFooter(`Made by Zofux`)
+            return interaction.editReply({ embeds: [embed], ephemeral: true })
+        } else if (config.log) {
+            const logChannel = interaction.guild.channels.cache.get(config.log)
+            if (!logChannel) {
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(`No log channel`)
+                    .setDescription(`${config.crossEmoji} The given \`log\` in my \`config.json\` is not a channel in this server`)
+                    .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
+                    .setColor(config.ErrorHexColor)
+                    .setFooter(`Made by Zofux`)
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
+        }
+
         const user = interaction.options.getUser(`user`)
         const target = interaction.options.getMember(`user`)
         const reason = interaction.options.getString(`reason`)
@@ -20,7 +41,7 @@ module.exports = {
         if (interaction.guild.roles.cache.get(config.moderatorRole).position > interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You can't use this command`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
@@ -30,7 +51,7 @@ module.exports = {
         if (!interaction.guild.members.cache.get(user.id)) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} That user is not in this server`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
@@ -40,7 +61,7 @@ module.exports = {
         if (target.roles.highest.position >= interaction.member.roles.highest.position) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You **can't** warn <@${user.id}>`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
@@ -50,7 +71,7 @@ module.exports = {
         if (reason.length > 150) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} The reason cannot exceed 150 characters`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
@@ -73,7 +94,7 @@ module.exports = {
             }).save().then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.checkEmoji} Successfully **Warned** <@${user.id}> with id \`${id}\``)
-                    .setColor(`#43d490`)
+                    .setColor(config.SuccessHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
@@ -81,7 +102,7 @@ module.exports = {
 
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .addFields([
                         { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
@@ -107,7 +128,7 @@ module.exports = {
             }).then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.checkEmoji} Successfully **Warned** <@${user.id}> with id \`${id}\``)
-                    .setColor(`#43d490`)
+                    .setColor(config.SuccessHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
@@ -115,7 +136,7 @@ module.exports = {
 
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
-                    .setColor(`#ff7575`)
+                    .setColor(config.ErrorHexColor)
                     .addFields([
                         { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },

@@ -14,7 +14,7 @@ module.exports = {
         if (!interaction.member.voice.channelId) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You are not in a voice channel`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -22,7 +22,7 @@ module.exports = {
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} Im currently in <#${interaction.guild.me.voice.channelId}>`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -41,7 +41,7 @@ module.exports = {
             queue.destroy();
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} Could not join your voice channel`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -54,7 +54,7 @@ module.exports = {
         if (!track) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} Could not find any song by the name \`${query}\``)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -63,7 +63,7 @@ module.exports = {
         queue.play(track);
 
         const embed = new Discord.MessageEmbed()
-            .setColor("#5999ff")
+            .setColor(config.MainHexColor)
             .setAuthor("Added to que", interaction.user.displayAvatarURL())
             .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
             .setFooter(`Volume: ${queue.volume}%`)

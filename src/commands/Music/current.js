@@ -13,7 +13,7 @@ module.exports = {
         if (!queue) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} There are no songs in the queue`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -25,7 +25,7 @@ module.exports = {
         })
         const song = queue.current
         const embed = new Discord.MessageEmbed()
-            .setColor("#5999ff")
+            .setColor(config.MainHexColor)
             .setAuthor("Current Song", interaction.user.displayAvatarURL())
             .setDescription(`Currently Playing [${song.title}](${song.url}) by ${song.author} [${song.duration}]\n\n` + bar)
             .setThumbnail(song.thumbnail)

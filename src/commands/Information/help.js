@@ -13,7 +13,7 @@ module.exports = {
 
         let helpEmbed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands`, client.user.displayAvatarURL())
-            .setColor("#5999ff")
+            .setColor(config.MainHexColor)
             .setDescription(
                 `${client.user.username} is an easy to use all in one discord bot that is made to make **${interaction.guild.name}** run smoother, bellow you will see a list of all the available commands. Simply use \`/help [command]\` to get more information about the command.` +
                 `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B`)

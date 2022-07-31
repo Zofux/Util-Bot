@@ -15,7 +15,7 @@ module.exports = {
         if (!queue) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} There are no songs in the queue`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -23,7 +23,7 @@ module.exports = {
             const currentSong = queue.current
             queue.skip()
             const embed = new Discord.MessageEmbed()
-                .setColor("#5999ff")
+                .setColor(config.MainHexColor)
                 .setAuthor("Skipped Song")
                 .setDescription(`${config.checkEmoji} [${currentSong.title}](${currentSong.url}) has been skipped`)
             return interaction.followUp({ embeds: [embed] })

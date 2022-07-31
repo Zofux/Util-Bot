@@ -4,6 +4,8 @@ const config = require("../../../config.json")
 module.exports = async (client) => {
 
     const chechMutes = async () => {
+        if (!config.log) return console.log("Cannot run auto unmute without a valid log channel within the config.json")
+        if (!config.muteRole || !config.memberRole) return console.log("Cannot run auto unmute without a valid mute and member role within the config.json")
         const now = new Date()
 
         const conditional = {
@@ -31,7 +33,7 @@ module.exports = async (client) => {
 
                     const logChannel = guild.channels.cache.get(config.log)
                     const logEmbed = new Discord.MessageEmbed()
-                        .setColor("#43d490")
+                        .setColor(config.SuccessHexColor)
                         .addFields([
                             { name: 'User', value: `${member.user.username}#${member.user.discriminator} (<@${member.user.id}>)`, inline: true },
                             { name: 'Moderator', value: `${client.user.username}#${client.user.discriminator}`, inline: true },

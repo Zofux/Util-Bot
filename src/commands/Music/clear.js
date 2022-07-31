@@ -13,7 +13,7 @@ module.exports = {
         if (!queue) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} There are no songs in the queue`)
-                .setColor(`#ff7575`)
+                .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setTimestamp()
             return interaction.followUp({ embeds: [embed], ephemeral: true })
@@ -21,7 +21,7 @@ module.exports = {
 
         queue.destroy()
         const embed = new Discord.MessageEmbed()
-            .setColor("#5999ff")
+            .setColor(config.MainHexColor)
             .setAuthor("Cleared", interaction.user.displayAvatarURL())
             .setDescription(`${config.checkEmoji} Cleared all songs... leaving the voice channel`)
         return interaction.editReply({ embeds: [embed] })

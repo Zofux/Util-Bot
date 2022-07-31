@@ -20,12 +20,12 @@ module.exports = {
             }
 
         } else {
-            console.log(message.author.id)
+            if (!config.verifyChannel) return console.log("Make sur to have a valid verify channel in the config.json");
             const res = await db.findOne({ userId: message.author.id })
             if (!res) {
                 const embed = new Discord.MessageEmbed()
-                    .setDescription(`${config.crossEmoji} You currently don't have any active captchas. use \`/verfiy\` in <#${config.verify}> to get one`)
-                    .setColor("#ff7575")
+                    .setDescription(`${config.crossEmoji} You currently don't have any active captchas. use \`/verfiy\` in <#${config.verifyChannel}> to get one`)
+                    .setColor(config.ErrorHexColor)
                     .setAuthor("No active captchas")
                 message.author.send({ embeds: [embed] })
             } else if (res) {
@@ -33,7 +33,7 @@ module.exports = {
                     await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
                         const embed = new Discord.MessageEmbed()
                             .setDescription(`${config.crossEmoji} You sent the worng captcha code, plase use \`/verfiy\` in <#${config.verifyChannel}> to get a new one.`)
-                            .setColor("#ff7575")
+                            .setColor(config.ErrorHexColor)
                             .setAuthor("Wrong Code")
                         message.author.send({ embeds: [embed] })
                     })
@@ -42,7 +42,7 @@ module.exports = {
                         client.guilds.cache.get(config.guild).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} You have been verified`)
-                                .setColor("#00ff74")
+                                .setColor(config.SuccessHexColor)
                                 .setAuthor("Thank you!")
                             message.author.send({ embeds: [embed] })
                         })
