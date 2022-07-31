@@ -2,8 +2,8 @@ const Discord = require('discord.js')
 const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
-    console.log("test")
     if (interaction.customId === 'select') {
+        console.log(interaction)
         if (interaction.value === "information") {
             const embed = new Discord.MessageEmbed()
             .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
