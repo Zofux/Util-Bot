@@ -114,7 +114,7 @@ module.exports = async (interaction, client) => {
                     returnBuffer: false,
                     fileName: `ticket-${data.ticketId}`
                 })
-                await tickets.updateOne({ channelId: channel.id }, { Closed: true });
+                await tickets.updateOne({ channelId: interaction.channel.id }, { Closed: true });
 
                 const embed = new Discord.MessageEmbed()
                 .setDescription(`Transcript Type: **Ticket**\nID: ${data.ticketId}`)
