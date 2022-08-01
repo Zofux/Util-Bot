@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
-const db = require('../../models/joinToCreate')
+const db = require('../../models/ticketTools')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
                 ),
         ),
     async execute(interaction) {
-        await interaction.deferReply({ ephemeral: true })
+        await interaction.deferReply()
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "create") {
@@ -32,9 +32,35 @@ module.exports = {
 
                 const channel = interaction.options.getChannel("category")
                 if (channel.type != "GUILD_CATEGORY") {
-                    console.log("NOT")
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} The given channel must be of the type: \`GUILD_CATEGORY\``)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setFooter(interaction.guild.name)
+                        .setTimestamp()
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (channel.type == "GUILD_CATEGORY") {
-                    console.log(channel)
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle("Open a ticket!")
+                        .setDescription(`Click the button below to open a ticket.`)
+                        .setColor(config.SuccessHexColor)
+                        .setFooter(`Made by Zofux`)
+
+                    const Button = new Discord.MessageActionRow()
+                    .addComponents(
+                        new Discord.MessageButton()
+                        .setCustomId("ticket")
+                        .setLabel("Open a Ticket!")
+                        .setEmoji("📩")
+                        .setStyle("PRIMARY")
+                    )
+                    
+                    await interaction.editReply({ embeds: [embed], components: [Button] }).then(msg => {
+                        new db({
+                            messageId: msg.id,
+                            categoryId: channel.id
+                        }).save()
+                    })
                 }
             }
         }
