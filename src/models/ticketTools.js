@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const model = new mongoose.Schema({
     messageId: String,
-    categoryId: string
+    categoryId: String
 })
 
 module.exports = mongoose.model('Tickets', model)
