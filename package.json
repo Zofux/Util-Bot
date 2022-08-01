@@ -16,6 +16,7 @@
     "canvacord": "^5.4.3",
     "captcha-canvas": "^3.1.0",
     "discord-api-types": "^0.23.1",
+    "discord-html-transcripts": "^2.6.0",
     "discord-player": "^5.2.2",
     "discord-xp": "^1.1.16",
     "discord.js": "^13.1.0",
