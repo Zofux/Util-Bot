@@ -5,4 +5,4 @@ const model = new mongoose.Schema({
     categoryId: String
 })
 
-module.exports = mongoose.model('Tickets', model)
+module.exports = mongoose.model('Ticket Tools', model)
