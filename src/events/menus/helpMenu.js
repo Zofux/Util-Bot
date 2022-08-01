@@ -45,30 +45,57 @@ module.exports = async (interaction, client) => {
 
         if (interaction.values.includes("music")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Music]`, client.user.displayAvatarURL())
-                .setColor(config.MainHexColor)
-                .setDescription("Test")
-                .setFooter("Made by Zofux")
+            .setAuthor(`${client.user.username} - Commands [Moderation]`, client.user.displayAvatarURL())
+            .setColor(config.MainHexColor)
+            .setDescription(
+                "Here are all the commands that fall under the category of **Music**, use the menu below to go to another category" +
+                "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
+            )
+            .addFields([
+                { name: "▶️Play", value: " `/play <query>` Play any song of your choise" },
+                { name: "🗑️Clear", value: "`/clear` Remove all songs from the que"},
+                { name: "⏯️Pause", value: "`/pause` Pause the current music"},
+                { name: "📦Que", value: "`/que [page]` Make some able to talk in chat again"},
+                { name: "⏯️Resume", value: "`/resume` Resume the music after it has been paused"},
+                { name: "🔀Shuffle", value: "`/shuffle` Shuffle the songs in the que"},
+                { name: "⏭️Skip", value: "`/skip` Skip to the next song in the que"}
+            ])
+            .setFooter("Made by Zofux")
 
             await interaction.update({ embeds: [embed] })
         }
 
         if (interaction.values.includes("voice_channels")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Voice Channels]`, client.user.displayAvatarURL())
-                .setColor(config.MainHexColor)
-                .setDescription("Test")
-                .setFooter("Made by Zofux")
+            .setAuthor(`${client.user.username} - Commands [Voice Channels]`, client.user.displayAvatarURL())
+            .setColor(config.MainHexColor)
+            .setDescription(
+                "Here are all the commands that fall under the category of **Voice Channels**, use the menu below to go to another category" +
+                "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
+            )
+            .addFields([
+                { name: "🔒Voice Lock", value: " `/voice lock` Lock/unlock your current voice channel" },
+                { name: "🔇Voice Mute", value: "`/voice mute <user>` Mute a given user in your voice channel"},
+                { name: "🦿Voice Kick", value: "`/voice kick <user>` Kick someone from your voice channel"},
+                { name: "🔨Voice Ban", value: "`/voice ban <user>` Ban someone from your voice channel"},
+            ])
+            .setFooter("Made by Zofux")
 
             await interaction.update({ embeds: [embed] })
         }
 
         if (interaction.values.includes("suggestions")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Suggestions]`, client.user.displayAvatarURL())
-                .setColor(config.MainHexColor)
-                .setDescription("Test")
-                .setFooter("Made by Zofux")
+            .setAuthor(`${client.user.username} - Commands [Suggestions]`, client.user.displayAvatarURL())
+            .setColor(config.MainHexColor)
+            .setDescription(
+                "Here are all the commands that fall under the category of **Suggestions**, use the menu below to go to another category" +
+                "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
+            )
+            .addFields([
+                { name: "💬Suggestion Reply", value: " `/suggestion reply <id> <status> [reply]` Reply to suggestions in the suggestion channel" },
+            ])
+            .setFooter("Made by Zofux")
 
             await interaction.update({ embeds: [embed] })
         }
