@@ -43,7 +43,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setTitle("Open a ticket!")
                         .setDescription(`Click the button below to open a ticket.`)
-                        .setColor(config.SuccessHexColor)
+                        .setColor(config.MainHexColor)
                         .setFooter(`Made by Zofux`)
 
                     const Button = new Discord.MessageActionRow()
