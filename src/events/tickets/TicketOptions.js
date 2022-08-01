@@ -66,7 +66,7 @@ module.exports = async (interaction, client) => {
                             .setStyle("SECONDARY")
                     )
 
-                channel.send({ embeds: [embed], componets: [Button] }).then(() => {
+                channel.send({ embeds: [embed], componets: [Button] }).then(async () => {
                     await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => {m.delte()}, 1 * 5000))
 
                     const successEmbed = new Discord.MessageEmbed()
@@ -107,6 +107,7 @@ module.exports = async (interaction, client) => {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter("Created by Zofux")
                 .setTimestamp()
+                interaction.reply({ embeds: [embed] })
             } else {
                 const attachment = await createTranscript(interaction.channel, {
                     limit: -1,
