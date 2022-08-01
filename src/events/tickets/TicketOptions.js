@@ -6,7 +6,7 @@ const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
     if (interaction.customId === "ticket") {
-        const data = ticketTools.findOne({ messageID: interaction.message.id })
+        const data = await ticketTools.findOne({ messageId: interaction.message.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket tool doesn't have any database information anymore, and therefore doesn't work`)
@@ -45,7 +45,7 @@ module.exports = async (interaction, client) => {
                 Closed: false
             }).save().then(async () => {
                 const embed = new Discord.MessageEmbed()
-                    .setAuthor(`${interaction.guild.name} | Ticket: ${id}`, interaction.guild.inconURL())
+                    .setAuthor(`${interaction.guild.name} | Ticket: ${id}`, interaction.guild.iconURL())
                     .setDescription(`Please wait patiently for a response from the Staff team, in the mean while, describe your issue in as much detail as possible`)
                     .setColor(config.MainHexColor)
                     .setFooter(`Made by Zofux`)
@@ -90,7 +90,7 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = tickets.findOne({ channelId: interaction.channel.id })
+        const data = await tickets.findOne({ channelId: interaction.channel.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
