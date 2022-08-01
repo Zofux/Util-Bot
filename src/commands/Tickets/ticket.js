@@ -33,8 +33,8 @@ module.exports = {
                 const channel = interaction.options.getChannel("category")
                 if (!channel.type === "GUILD_CATEGORY") {
                     console.log("NOT")
-                } else {
-                    console.log(channel.id)
+                } else if (channel.type === "GUILD_CATEGORY") {
+                    console.log(channel)
                 }
             }
         }
