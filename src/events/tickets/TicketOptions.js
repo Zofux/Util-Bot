@@ -112,7 +112,7 @@ module.exports = async (interaction, client) => {
                 const attachment = await createTranscript(interaction.channel, {
                     limit: -1,
                     returnBuffer: false,
-                    fileName: `ticket-${data.ticketId}`
+                    fileName: `ticket-${data.ticketId}.html`
                 })
                 await tickets.updateOne({ channelId: interaction.channel.id }, { Closed: true });
 
