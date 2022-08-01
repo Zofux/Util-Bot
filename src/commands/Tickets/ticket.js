@@ -16,7 +16,7 @@ module.exports = {
                 ),
         ),
     async execute(interaction) {
-        await interaction.deferReply()
+        await interaction.deferReply({ ephemeral: true  })
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "create") {
@@ -47,19 +47,29 @@ module.exports = {
                         .setFooter(`Made by Zofux`)
 
                     const Button = new Discord.MessageActionRow()
-                    .addComponents(
-                        new Discord.MessageButton()
-                        .setCustomId("ticket")
-                        .setLabel("Open a Ticket!")
-                        .setEmoji("📩")
-                        .setStyle("PRIMARY")
-                    )
-                    
-                    await interaction.editReply({ embeds: [embed], components: [Button] }).then(msg => {
+                        .addComponents(
+                            new Discord.MessageButton()
+                                .setCustomId("ticket")
+                                .setLabel("Open a Ticket!")
+                                .setEmoji("📩")
+                                .setStyle("PRIMARY")
+                        )
+
+                    const successEmbed = new Discord.MessageEmbed()
+                        .setDescription(`${config.checkEmoji} Successfully created a ticket tool in this channel`)
+                        .setColor(config.SuccessHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setFooter(interaction.guild.name)
+                        .setTimestamp()
+                    await interaction.editReply({ embeds: [embed] })
+
+                    await interaction.channel.send({ embeds: [embed], components: [Button] }).then(msg => {
                         new db({
                             messageId: msg.id,
                             categoryId: channel.id
-                        }).save()
+                        }).save().then(async () => {
+                            await interaction.editReply({ embeds: [successEmbed] })
+                        })
                     })
                 }
             }
