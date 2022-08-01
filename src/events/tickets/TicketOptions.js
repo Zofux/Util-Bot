@@ -66,7 +66,7 @@ module.exports = async (interaction, client) => {
                             .setStyle("SECONDARY")
                     )
 
-                channel.send({ embeds: [embed], componets: [Button] }).then(async () => {
+                channel.send({ embeds: [embed], components: [Button] }).then(async () => {
                     await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => {m.delete()}, 1 * 5000))
 
                     const successEmbed = new Discord.MessageEmbed()
