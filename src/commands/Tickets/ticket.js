@@ -51,7 +51,7 @@ module.exports = {
                             new Discord.MessageButton()
                                 .setCustomId("ticket")
                                 .setLabel("Open a Ticket!")
-                                .setEmoji("📩")
+                                .setEmoji("🎟️")
                                 .setStyle("PRIMARY")
                         )
 
@@ -59,7 +59,7 @@ module.exports = {
                         .setDescription(`${config.checkEmoji} Successfully created a ticket tool in this channel`)
                         .setColor(config.SuccessHexColor)
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                        .setFooter(interaction.guild.name)
+                        .setFooter("Created by Zofux")
                         .setTimestamp()
                     await interaction.editReply({ embeds: [embed] })
 
