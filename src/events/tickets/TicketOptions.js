@@ -43,7 +43,7 @@ module.exports = async (interaction, client) => {
                 ticketId: id,
                 Locked: false,
                 Closed: false
-            }).then(async () => {
+            }).save().then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`${guild.name} | Ticket: ${id}`, guild.inconURL())
                     .setDescription(`Please wait patiently for a response from the Staff team, in the mean while, describe your issue in as much detail as possible`)
