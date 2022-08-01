@@ -8,4 +8,4 @@ const model = new mongoose.Schema({
     Closed: Boolean
 })
 
-module.exports = mongoose.model('Tickets', model)
+module.exports = mongoose.model('Ticket Tools', model)
