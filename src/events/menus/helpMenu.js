@@ -29,7 +29,7 @@ module.exports = async (interaction, client) => {
             )
             .addFields([
                 { 
-                    name: "Moderation Commands🛠️", 
+                    name: "🛠️Moderation Commands", 
                     value: "`/ban <user> <reason>` Ban somone from the server\n`/kick <user> <reason>` Kick someone from the server\n`/mute <user> <time> <reason>` Prevent someone from talking in chat\n`/unmute <user <reason>` Make some able to talk in chat again\n`/warn <user> <reason>` Give someone a warning\n`/clearwarns <user>` Clear all warnings from a user" },
             ])
             .setFooter("Made by Zofux")
@@ -46,7 +46,7 @@ module.exports = async (interaction, client) => {
                 "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
             )
             .addFields([
-                { name: "Music Commands🎸", value: "`/play <query>` Play any song of your choise\n`/clear` Remove all songs from the que\n`/pause` Pause the current music\n`/que [page]` Make some able to talk in chat again\n`/resume` Resume the music after it has been paused\n`/shuffle` Shuffle the songs in the que\n`/skip` Skip to the next song in the que" },
+                { name: "🎸Music Commands", value: "`/play <query>` Play any song of your choise\n`/clear` Remove all songs from the que\n`/pause` Pause the current music\n`/que [page]` Make some able to talk in chat again\n`/resume` Resume the music after it has been paused\n`/shuffle` Shuffle the songs in the que\n`/skip` Skip to the next song in the que" },
             ])
             .setFooter("Made by Zofux")
 
@@ -62,7 +62,7 @@ module.exports = async (interaction, client) => {
                 "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
             )
             .addFields([
-                { name: "Voice Channel Commands🔊", value: "`/voice lock` Lock/unlock your current voice channel\n`/voice mute <user>` Mute a given user in your voice channel\n`/voice kick <user>` Kick someone from your voice channel\n`/voice ban <user>` Ban someone from your voice channel" },
+                { name: "🔊Voice Channel Commands", value: "`/voice lock` Lock/unlock your current voice channel\n`/voice mute <user>` Mute a given user in your voice channel\n`/voice kick <user>` Kick someone from your voice channel\n`/voice ban <user>` Ban someone from your voice channel" },
             ])
             .setFooter("Made by Zofux")
 
@@ -78,7 +78,7 @@ module.exports = async (interaction, client) => {
                 "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
             )
             .addFields([
-                { name: "Suggestion Commands💡", value: "`/suggestion reply <id> <status> [reply]` Reply to suggestions in the suggestion channel" },
+                { name: "💡Suggestion Commands", value: "`/suggestion reply <id> <status> [reply]` Reply to suggestions in the suggestion channel" },
             ])
             .setFooter("Made by Zofux")
 
