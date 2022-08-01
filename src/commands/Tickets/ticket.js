@@ -51,7 +51,7 @@ module.exports = {
                             new Discord.MessageButton()
                                 .setCustomId("ticket")
                                 .setLabel("Open a Ticket!")
-                                .setEmoji("🎟️")
+                                .setEmoji("📩")
                                 .setStyle("PRIMARY")
                         )
 
