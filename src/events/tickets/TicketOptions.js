@@ -67,7 +67,7 @@ module.exports = async (interaction, client) => {
                     )
 
                 channel.send({ embeds: [embed], componets: [Button] }).then(async () => {
-                    await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => {m.delte()}, 1 * 5000))
+                    await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => {m.delete()}, 1 * 5000))
 
                     const successEmbed = new Discord.MessageEmbed()
                         .setDescription(`${config.checkEmoji} <@${interaction.user.id}> your ticket has been created: <#${channel.id}>`)
