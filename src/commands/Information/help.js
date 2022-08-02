@@ -32,6 +32,10 @@ module.exports = {
                         value: "voice_channels"
                     },
                     {
+                        label: "📩 Tickets",
+                        value: "tickets"
+                    },
+                    {
                         label: "💡 Suggestions",
                         value: "suggestions"
                     },
@@ -49,6 +53,7 @@ module.exports = {
                 { name: '🛠️ Moderation', value: "`ban`, `kick`, `mute`, `unmute`, `warn`, `clearwarns`" },
                 { name: '🎸 Music', value: "`play`, `clear`, `pause`, `queue`, `resume`, `shuffle`, `skip`" },
                 { name: '🔊 Voice Channels', value: "`voice lock`, `voice mute`, `voice kick`, `voice ban`" },
+                { name: '📩 Tickets', value: "`ticket create`" },
                 { name: '💡 Suggestions', value: "`suggestion reply`" }
             )
             .setFooter("Made by Zofux")
