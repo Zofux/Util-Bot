@@ -93,7 +93,8 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, tickets: interaction.channel.id })
+        console.log(data.tickets)
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
