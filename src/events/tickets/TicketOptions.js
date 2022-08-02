@@ -101,7 +101,7 @@ module.exports = async (interaction, client) => {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter("Created by Zofux")
                 .setTimestamp()
-            await interaction.editReply({ embeds: [embed], ephemeral: true })
+            await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
             const array = await data.tickets.filter(o => o.channelId === interaction.channel.id)
             if (data.tickets.Closed == true) {

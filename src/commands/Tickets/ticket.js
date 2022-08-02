@@ -34,7 +34,7 @@ module.exports = {
                 }
 
                 const channel = interaction.options.getChannel("category")
-                const transcriptChannel = interaction.option.getChannel("transcript")
+                const transcriptChannel = interaction.options.getChannel("transcript")
 
                 if (channel.type != "GUILD_CATEGORY") {
                     const embed = new Discord.MessageEmbed()
