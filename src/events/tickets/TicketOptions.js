@@ -118,7 +118,16 @@ module.exports = async (interaction, client) => {
                     returnBuffer: false,
                     fileName: `ticket-${data.ticketId}.html`
                 })
-                await tickets.updateOne({ channelId: interaction.channel.id }, { Closed: true });
+                await ticketTools.findOneAndUpdate(
+                    { messageId: interaction.message.id },
+                    {
+                        Closed: true 
+                    },
+                    {
+                        new: true,
+                        upsert: true
+                    }
+                )
 
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`Transcript Type: **Ticket**\nID: ${data.ticketId}`)
