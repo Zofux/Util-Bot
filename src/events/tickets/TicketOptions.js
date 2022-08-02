@@ -159,8 +159,9 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
-            console.log(data.tickets.Locked)
-            if (data.tickets.$.Locked === false) {
+            console.log(data)
+            console.log(data.tickets[0].Locked)
+            if (data.tickets[0].Locked === false) {
                 
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
@@ -179,7 +180,7 @@ module.exports = async (interaction, client) => {
                     )
                 })
             } 
-            if (data.tickets.Locked === true) {
+            if (data.tickets[0].Locked === true) {
                 
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
