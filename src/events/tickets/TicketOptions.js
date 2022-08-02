@@ -14,7 +14,7 @@ module.exports = async (interaction, client) => {
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)
                 .setTimestamp()
-            await interaction.reply({ embeds: [embed], ephemeral: true })
+            return await interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
         const id = Math.floor(Math.random() * 90000) + 10000;
