@@ -94,7 +94,7 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = await ticketTools.findOne({ 'tickets.channelId': interaction.channel.id })
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
@@ -119,9 +119,9 @@ module.exports = async (interaction, client) => {
                     fileName: `ticket-${data.ticketId}.html`
                 })
                 await ticketTools.findOneAndUpdate(
-                    { categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id},
+                    { categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id },
                     {
-                        $set: { "tickets.$.Closed": true } 
+                        $set: { "tickets.$.Closed": true }
                     },
                 )
 
@@ -147,7 +147,53 @@ module.exports = async (interaction, client) => {
                 }, 10 * 1000)
             }
         }
-    } else if (interaction.customId === "close") {
+    } else if (interaction.customId === "lock_unlock") {
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
+        if (!data) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter("Created by Zofux")
+                .setTimestamp()
+            await interaction.reply({ embeds: [embed], ephemeral: true })
+        } else if (data) {
+            if (data.tickets.Locked == false) {
+                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(() => {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`<@${interaction.user.id}> has locked the ticket`)
+                        .setColor(config.MainHexColor)
+                        .setAuthor("Ticket | Locked")
+                        .setFooter("Created by Zofux")
+                        .setTimestamp()
+                    await interaction.reply({ embeds: [embed] })
+
+                    await ticketTools.findOneAndUpdate(
+                        { categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id },
+                        {
+                            $set: { "tickets.$.Locked": true }
+                        },
+                    )
+                })
+            } else if (data.tickets.Locked == true) {
+                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(() => {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
+                        .setColor(config.MainHexColor)
+                        .setAuthor("Ticket | Unlocked")
+                        .setFooter("Created by Zofux")
+                        .setTimestamp()
+                    await interaction.reply({ embeds: [embed] })
+
+                    await ticketTools.findOneAndUpdate(
+                        { categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id },
+                        {
+                            $set: { "tickets.$.Locked": false }
+                        },
+                    )
+                })
+            }
+        }
 
     }
 
