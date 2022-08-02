@@ -132,7 +132,7 @@ module.exports = async (interaction, client) => {
                     .setFooter("Created by Zofux")
                     .setTimestamp()
 
-                const Message = await interaction.guild.channels.cache.get(data.ticketTranscriptChannelId).send({ embeds: [embed], files: [attachment] })
+                const Message = await interaction.guild.channels.cache.get(data.transcriptChannelId).send({ embeds: [embed], files: [attachment] })
 
                 const successEmbed = new Discord.MessageEmbed()
                     .setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`)
