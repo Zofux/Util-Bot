@@ -16,6 +16,17 @@ module.exports = async (interaction, client) => {
             return await interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
+        const array = await data.tickets.filter(o => o.userId === interaction.user.id)
+        if (array) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} You already have an active ticket`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter(interaction.guild.name)
+                .setTimestamp()
+            return await interaction.reply({ embeds: [embed], ephemeral: true })
+        }
+
         const id = Math.floor(Math.random() * 90000) + 10000;
 
         client.guilds.cache.get(config.guild).channels.create(`ticket-${id}`, {
@@ -149,9 +160,9 @@ module.exports = async (interaction, client) => {
         }
     } else if (interaction.customId === "lock_unlock") {
         const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
-        
+
         if (!data) {
-           
+
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
                 .setColor(config.ErrorHexColor)
@@ -160,12 +171,12 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
-            
+
 
             const array = await data.tickets.filter(o => o.channelId === interaction.channel.id)
 
             if (array[0].Locked === false) {
-                
+
                 interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
@@ -182,9 +193,9 @@ module.exports = async (interaction, client) => {
                         },
                     )
                 })
-            } 
+            }
             if (array[0].Locked === true) {
-                
+
                 interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
