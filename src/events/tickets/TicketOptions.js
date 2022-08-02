@@ -159,7 +159,7 @@ module.exports = async (interaction, client) => {
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
             if (data.tickets.Locked == false) {
-                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(() => {
+                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
                         .setColor(config.MainHexColor)
@@ -176,7 +176,7 @@ module.exports = async (interaction, client) => {
                     )
                 })
             } else if (data.tickets.Locked == true) {
-                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(() => {
+                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
                         .setColor(config.MainHexColor)
