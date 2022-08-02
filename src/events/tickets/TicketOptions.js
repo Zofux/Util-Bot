@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const { createTranscript } = require('discord-html-transcripts')
 const ticketTools = require('../../models/ticketTools')
-const tickets = require('../../models/tickets')
 const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
