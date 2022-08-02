@@ -160,7 +160,7 @@ module.exports = async (interaction, client) => {
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
             console.log("Data")
-            if (data.tickets.Locked == false) {
+            if (data.tickets.Locked === false) {
                 console.log("Locking")
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
@@ -178,7 +178,7 @@ module.exports = async (interaction, client) => {
                         },
                     )
                 })
-            } else if (data.tickets.Locked == true) {
+            } else if (data.tickets.Locked === true) {
                 console.log("Unlocking")
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
