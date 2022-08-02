@@ -124,7 +124,7 @@ module.exports = async (interaction, client) => {
                         $set: { 'tickets.Closed': true } 
                     },
                     {
-                        new: true,
+                        new: false,
                         upsert: true
                     }
                 )
