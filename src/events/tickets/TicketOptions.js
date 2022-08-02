@@ -161,7 +161,7 @@ module.exports = async (interaction, client) => {
         } else if (data) {
             
 
-            const array = await data.tickets.filter(o => o.includes({ channelId: interaction.channel.id }))
+            const array = await data.tickets.filter(o => o.channelId === interaction.channel.id)
             console.log(array)
 
             if (data.tickets[0].Locked === false) {
