@@ -148,7 +148,9 @@ module.exports = async (interaction, client) => {
         }
     } else if (interaction.customId === "lock_unlock") {
         const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
+        console.log("Pressed")
         if (!data) {
+            console.log("No data")
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
                 .setColor(config.ErrorHexColor)
@@ -157,7 +159,9 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
+            console.log("Data")
             if (data.tickets.Locked == false) {
+                console.log("Locking")
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
@@ -175,6 +179,7 @@ module.exports = async (interaction, client) => {
                     )
                 })
             } else if (data.tickets.Locked == true) {
+                console.log("Unlocking")
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
