@@ -119,7 +119,7 @@ module.exports = async (interaction, client) => {
                     fileName: `ticket-${data.ticketId}.html`
                 })
                 await ticketTools.findOneAndUpdate(
-                    { 'tickets.channelId': interaction.channel.id },
+                    { messageId: interaction.message.id },
                     {
                         $set: { "tickets.Closed": true } 
                     },
