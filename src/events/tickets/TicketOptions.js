@@ -160,7 +160,9 @@ module.exports = async (interaction, client) => {
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
             
-            console.log(data.tickets)
+
+            const array = await data.tickets.filter(o => o.includes({ channelId: interaction.channel.id }))
+            console.log(array)
 
             if (data.tickets[0].Locked === false) {
                 
