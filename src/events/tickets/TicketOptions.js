@@ -104,7 +104,7 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.editReply({ embeds: [embed], ephemeral: true })
         } else if (data) {
-            if (data.Closed == true) {
+            if (data.tickets.Closed == true) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} This ticket is already closed`)
                     .setColor(config.ErrorHexColor)
@@ -119,9 +119,9 @@ module.exports = async (interaction, client) => {
                     fileName: `ticket-${data.ticketId}.html`
                 })
                 await ticketTools.findOneAndUpdate(
-                    { messageId: interaction.message.id },
+                    { channelId: interaction.channel.id },
                     {
-                        Closed: true 
+                        $set: { Closed: true } 
                     },
                     {
                         new: true,
