@@ -93,8 +93,7 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, tickets: interaction.channel.id })
-        console.log(data.tickets)
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
@@ -148,7 +147,7 @@ module.exports = async (interaction, client) => {
             }
         }
     } else if (interaction.customId === "lock_unlock") {
-        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, tickets: interaction.channel.id })
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
         
         if (!data) {
            
@@ -160,8 +159,9 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
+            
             console.log(data.tickets)
-            console.log(data.tickets[0].Locked)
+
             if (data.tickets[0].Locked === false) {
                 
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
