@@ -161,7 +161,7 @@ module.exports = async (interaction, client) => {
         } else if (data) {
             
             if (!data.tickets.Locked) {
-                
+                console.log(data)
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
