@@ -25,7 +25,8 @@ module.exports = async (interaction, client) => {
             permissionOverwrites: [
                 {
                     id: config.guild,
-                    deny: ["VIEW_CHANNEL"]
+                    deny: ["VIEW_CHANNEL"],
+                    allow: ["SEND_MESSAGES"]
                 },
                 {
                     id: interaction.user.id,
@@ -33,17 +34,20 @@ module.exports = async (interaction, client) => {
                 },
                 {
                     id: config.ticketModeratorRole,
-                    allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
+                    allow: ["VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 }
             ]
         }).then(async channel => {
-            await new tickets({
-                userId: interaction.user.id,
-                channelId: channel.id,
-                ticketId: id,
-                Locked: false,
-                Closed: false
-            }).save().then(async () => {
+            await ticketTools.findOneAndUpdate(
+                { messageId: interaction.message.id },
+                {
+                    $push: { tickets: { userId: interaction.user.id, channelId: channel.id, ticketId: id, Locked: false, Closed: false } }
+                },
+                {
+                    new: true,
+                    upsert: true
+                }
+            ).then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`${interaction.guild.name} | Ticket: ${id}`, interaction.guild.iconURL())
                     .setDescription(`Please wait patiently for a response from the Staff team, in the mean while, describe your issue in as much detail as possible`)
@@ -67,7 +71,7 @@ module.exports = async (interaction, client) => {
                     )
 
                 channel.send({ embeds: [embed], components: [Button] }).then(async () => {
-                    await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => {m.delete()}, 1 * 5000))
+                    await channel.send({ content: `<@${interaction.user.id}> here is your ticket!` }).then(m => setTimeout(() => { m.delete() }, 1 * 5000))
 
                     const successEmbed = new Discord.MessageEmbed()
                         .setDescription(`${config.checkEmoji} <@${interaction.user.id}> your ticket has been created: <#${channel.id}>`)
@@ -90,7 +94,7 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = await tickets.findOne({ channelId: interaction.channel.id })
+        const data = await ticketTools.findOne({ channelId: interaction.channel.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
@@ -102,11 +106,11 @@ module.exports = async (interaction, client) => {
         } else if (data) {
             if (data.Closed == true) {
                 const embed = new Discord.MessageEmbed()
-                .setDescription(`${config.crossEmoji} This ticket is already closed`)
-                .setColor(config.ErrorHexColor)
-                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                .setFooter("Created by Zofux")
-                .setTimestamp()
+                    .setDescription(`${config.crossEmoji} This ticket is already closed`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("Created by Zofux")
+                    .setTimestamp()
                 interaction.reply({ embeds: [embed] })
             } else {
                 const attachment = await createTranscript(interaction.channel, {
@@ -117,20 +121,20 @@ module.exports = async (interaction, client) => {
                 await tickets.updateOne({ channelId: interaction.channel.id }, { Closed: true });
 
                 const embed = new Discord.MessageEmbed()
-                .setDescription(`Transcript Type: **Ticket**\nID: ${data.ticketId}`)
-                .setColor(config.MainHexColor)
-                .setAuthor("Ticket | Transcript")
-                .setFooter("Created by Zofux")
-                .setTimestamp()
+                    .setDescription(`Transcript Type: **Ticket**\nID: ${data.ticketId}`)
+                    .setColor(config.MainHexColor)
+                    .setAuthor("Ticket | Transcript")
+                    .setFooter("Created by Zofux")
+                    .setTimestamp()
 
                 const Message = await interaction.guild.channels.cache.get(config.ticketTranscriptChannelId).send({ embeds: [embed], files: [attachment] })
 
                 const successEmbed = new Discord.MessageEmbed()
-                .setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`)
-                .setColor(config.MainHexColor)
-                .setAuthor("Ticket | Closed")
-                .setFooter("Created by Zofux")
-                .setTimestamp()
+                    .setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`)
+                    .setColor(config.MainHexColor)
+                    .setAuthor("Ticket | Closed")
+                    .setFooter("Created by Zofux")
+                    .setTimestamp()
                 interaction.reply({ embeds: [successEmbed] })
 
                 setTimeout(() => {
@@ -138,7 +142,10 @@ module.exports = async (interaction, client) => {
                 }, 10 * 1000)
             }
         }
+    } else if (interaction.customId === "close") {
+
     }
+
 
 
 }
