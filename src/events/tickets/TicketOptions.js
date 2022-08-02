@@ -162,9 +162,8 @@ module.exports = async (interaction, client) => {
             
 
             const array = await data.tickets.filter(o => o.channelId === interaction.channel.id)
-            console.log(array)
 
-            if (data.tickets[0].Locked === false) {
+            if (array[0].Locked === false) {
                 
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
@@ -183,7 +182,7 @@ module.exports = async (interaction, client) => {
                     )
                 })
             } 
-            if (data.tickets[0].Locked === true) {
+            if (array[0].Locked === true) {
                 
                 interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
