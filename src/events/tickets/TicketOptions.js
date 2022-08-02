@@ -103,6 +103,7 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.editReply({ embeds: [embed], ephemeral: true })
         } else if (data) {
+            const array = await data.tickets.filter(o => o.channelId === interaction.channel.id)
             if (data.tickets.Closed == true) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} This ticket is already closed`)
@@ -115,7 +116,7 @@ module.exports = async (interaction, client) => {
                 const attachment = await createTranscript(interaction.channel, {
                     limit: -1,
                     returnBuffer: false,
-                    fileName: `ticket-${data.ticketId}.html`
+                    fileName: `ticket-${array[0].ticketId}.html`
                 })
                 await ticketTools.findOneAndUpdate(
                     { categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id },
@@ -125,13 +126,13 @@ module.exports = async (interaction, client) => {
                 )
 
                 const embed = new Discord.MessageEmbed()
-                    .setDescription(`Transcript Type: **Ticket**\nID: ${data.ticketId}`)
+                    .setDescription(`Transcript Type: **Ticket**\nID: ${array[0].ticketId}`)
                     .setColor(config.MainHexColor)
                     .setAuthor("Ticket | Transcript")
                     .setFooter("Created by Zofux")
                     .setTimestamp()
 
-                const Message = await interaction.guild.channels.cache.get(config.ticketTranscriptChannelId).send({ embeds: [embed], files: [attachment] })
+                const Message = await interaction.guild.channels.cache.get(data.ticketTranscriptChannelId).send({ embeds: [embed], files: [attachment] })
 
                 const successEmbed = new Discord.MessageEmbed()
                     .setDescription(`The transcript is now saved [TRANSCRIPT](${Message.url})`)
