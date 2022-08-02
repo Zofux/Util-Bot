@@ -29,7 +29,7 @@ module.exports = async (interaction, client) => {
                 },
                 {
                     id: interaction.user.id,
-                    allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
+                    allow: ["VIEW_CHANNEL", "READ_MESSAGE_HISTORY"],
                 },
                 {
                     id: config.ticketModeratorRole,
