@@ -123,10 +123,6 @@ module.exports = async (interaction, client) => {
                     {
                         $set: { "tickets.Closed": true } 
                     },
-                    {
-                        new: false,
-                        upsert: true
-                    }
                 )
 
                 const embed = new Discord.MessageEmbed()
