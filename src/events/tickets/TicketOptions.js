@@ -166,7 +166,7 @@ module.exports = async (interaction, client) => {
 
             if (array[0].Locked === false) {
                 
-                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: false }).then(async () => {
+                interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
                         .setColor(config.MainHexColor)
@@ -185,7 +185,7 @@ module.exports = async (interaction, client) => {
             } 
             if (array[0].Locked === true) {
                 
-                interaction.channel.permissionOverwrites.edit(config.memberRole, { SEND_MESSAGES: true }).then(async () => {
+                interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
                         .setColor(config.MainHexColor)
