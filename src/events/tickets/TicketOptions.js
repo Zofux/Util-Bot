@@ -148,7 +148,7 @@ module.exports = async (interaction, client) => {
             }
         }
     } else if (interaction.customId === "lock_unlock") {
-        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, "tickets.channelId": interaction.channel.id })
+        const data = await ticketTools.findOne({ categoryId: interaction.channel.parentId, tickets: interaction.channel.id })
         
         if (!data) {
            
@@ -160,7 +160,7 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true })
         } else if (data) {
-            console.log(data)
+            console.log(data.tickets)
             console.log(data.tickets[0].Locked)
             if (data.tickets[0].Locked === false) {
                 
