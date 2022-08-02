@@ -16,7 +16,7 @@ module.exports = async (interaction, client) => {
             return await interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const array = await data.tickets.filter(o => o.userId === interaction.user.id)
+        const array = await data.tickets.filter(o => o.userId === interaction.user.id && o.Closed === false)
         if (array) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You already have an active ticket`)
