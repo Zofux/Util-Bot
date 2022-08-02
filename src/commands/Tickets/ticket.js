@@ -66,7 +66,8 @@ module.exports = {
                     await interaction.channel.send({ embeds: [embed], components: [Button] }).then(msg => {
                         new db({
                             messageId: msg.id,
-                            categoryId: channel.id
+                            categoryId: channel.id,
+                            tickets: []
                         }).save().then(async () => {
                             await interaction.editReply({ embeds: [successEmbed] })
                         })
