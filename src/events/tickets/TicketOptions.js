@@ -94,7 +94,7 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true })
         }
 
-        const data = await ticketTools.findOne({ channelId: interaction.channel.id })
+        const data = await ticketTools.findOne({ 'tickets.channelId': interaction.channel.id })
         if (!data) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This ticket doesn't have any database information anymore, and therefore doesn't work`)
@@ -119,9 +119,9 @@ module.exports = async (interaction, client) => {
                     fileName: `ticket-${data.ticketId}.html`
                 })
                 await ticketTools.findOneAndUpdate(
-                    { channelId: interaction.channel.id },
+                    { 'tickets.channelId': interaction.channel.id },
                     {
-                        $set: { Closed: true } 
+                        $set: { 'tickets.Closed': true } 
                     },
                     {
                         new: true,
