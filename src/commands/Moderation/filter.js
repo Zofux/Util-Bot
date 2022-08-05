@@ -50,7 +50,7 @@ module.exports = {
                         return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
                     })
                 } else if (res) {
-                    if (res.words.include(word)) {
+                    if (res.words.includes(word)) {
                         const embed = new Discord.MessageEmbed()
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setDescription(`${config.crossEmoji} That word is already in this server's word-filter`)
