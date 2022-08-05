@@ -13,7 +13,7 @@ module.exports = {
             option.setName(`slowmode`).setDescription(`The new slowmode (ex: 3h)`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-        
+
         if (!config.log) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`No verify channel`)
@@ -40,7 +40,7 @@ module.exports = {
 
         if (channel.type !== "GUILD_TEXT") {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`No log channel`)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a text channel`)
                 .setColor(config.ErrorHexColor)
                 .setFooter(`Made by Zofux`)

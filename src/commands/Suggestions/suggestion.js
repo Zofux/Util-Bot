@@ -1,12 +1,19 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
-const db = require("../../models/suggestions")
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`suggestion`)
         .setDescription(`Interact with the suggestion system in your server`)
+        .addSubcommand(subCommand =>
+            subCommand
+                .setName("channel")
+                .setDescription("Set the suggestion channel")
+                .addChannelOption(option =>
+                    option.setName("channel")
+                        .setDescription("The channel you want to set as the suggestion channel")
+                        .setRequired(true)))
         .addSubcommand(subCommand =>
             subCommand
                 .setName("reply")
@@ -37,6 +44,8 @@ module.exports = {
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "reply") {
+                const db = require("../../models/suggestions")
+
                 const status = interaction.options.getString("status")
                 const res = await db.findOne({ id: interaction.options.getString("id") })
                 if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_MESSAGES)) {
@@ -123,7 +132,7 @@ module.exports = {
                                         .setAuthor("Suggestion | Rejected")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
-                                        
+
                                     interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
                                         await db.findOneAndUpdate({
                                             id: res.id
@@ -138,6 +147,7 @@ module.exports = {
                             })
                         }
                     } else if (status == "accept") {
+
                         let embed = new Discord.MessageEmbed()
                             .setDescription(`**Submitter**\n<@${res.userId}>\n\n**Suggestion**\n${res.suggestion}\n\n**Accepted by**\n<@${interaction.user.id}>${interaction.options.getString("reply") ? `**\n\nRespone**\n${interaction.options.getString("reply")}` : ""}`)
                             .setColor(config.SuccessHexColor)
@@ -194,6 +204,51 @@ module.exports = {
                             })
                         }
                     }
+                }
+            } else if (interaction.options.getSubcommand() === "channel") {
+                const db = require("../../models/suggestionChannels")
+                const channel = interaction.options.getChannel("channel")
+
+                if (channel.type !== "GUILD_TEXT") {
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a text channel`)
+                        .setColor(config.ErrorHexColor)
+                        .setFooter(`Made by Zofux`)
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                } else if (channel.type === "GUILD_TEXT") {
+                    const res = await db.findOne({ guildId: interaction.guild.id })
+                    if (res) {
+                        await db.findOneAndUpdate({
+                            guildId: interaction.guild.id
+                        }, {
+                            $set: { suggestionChannel: channel.id }
+                        }, {
+                            upsert: true
+                        }).then(async () => {
+                            const SuccessEmbed = new Discord.MessageEmbed()
+                                .setDescription(`${config.checkEmoji} Successfully updated the suggestion channel to <#${channel.id}>`)
+                                .setColor(config.SuccessHexColor)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return await interaction.editReply({ embeds: [SuccessEmbed] })
+                        })
+                    } else if (!res) {
+                        new db({
+                            guildId: interaction.guild.Id,
+                            suggestionChannel: channel.id
+                        }).save().then(async () => {
+                            const SuccessEmbed = new Discord.MessageEmbed()
+                                .setDescription(`${config.checkEmoji} Successfully set the suggestion channel to <#${channel.id}>`)
+                                .setColor(config.SuccessHexColor)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            return await interaction.editReply({ embeds: [SuccessEmbed] })
+                        })
+                    }
+
                 }
             }
         }

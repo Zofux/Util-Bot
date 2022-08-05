@@ -13,7 +13,7 @@ module.exports = async (interaction, client) => {
                 )
                 .addFields([
                     { name: "🗂️ Utility commands", value: " `/help` This command shows you a detailed descri ption of every command\n`/verify` This command will help you to verify again if you fail you initial verification\n`/warnings [user]` This command will show all warnings a user has\n`/level` This command will show your current level\n`/echo <message>` This command will make the bot send a message in the chat\n\u200B"},
-                    {name: "Embed command", value: "`/embed <content> <color> <timestamp> [footer] [title] [thumbnail] [image]`\n\n> This command will send an embed in the current channel\n> Here are the **valid** variables for the `[image]` and `[thumbnail]` fields:\n> \n> `{user.avatar}` The avatar of the user that used the command\n> `{bot.avatar}` The avatar of the bot\n> `{server.icon}` The icon the current server" },
+                    {name: "Embed command", value: "`/embed <content> <color> <timestamp> [footer] [title] [thumbnail] [image]`\n\n> This command will send an embed in the current channel.\n> Here are the **valid** variables for the `[image]` and `[thumbnail]` fields:\n> \n> `{user.avatar}` The avatar of the user that used the command\n> `{bot.avatar}` The avatar of the bot\n> `{server.icon}` The icon the current server" },
                 ])
                 .setFooter("Made by Zofux")
 
