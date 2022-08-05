@@ -35,7 +35,7 @@ module.exports = {
             }
         }
 
-        const rawTime = interaction.options.getString(`slowmode`)
+        const rawTime = interaction.options.getNumber(`slowmode`)
         const channel = interaction.options.getChannel(`channel`)
 
         if (channel.type !== "GUILD_TEXT") {
@@ -67,7 +67,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
-            await channel.setRateLimitPerUser(`${time.toString()}`).then(async () => {
+            await channel.setRateLimitPerUser(time).then(async () => {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${time}** seconds`)
                     .setColor(config.SuccessHexColor)
