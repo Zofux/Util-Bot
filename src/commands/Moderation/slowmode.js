@@ -67,7 +67,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
-            await interaction.channel.setRateLimitPerUser(time).then(() => {
+            await channel.setRateLimitPerUser(time).then(() => {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${time}** seconds`)
                     .setColor(config.SuccessHexColor)
