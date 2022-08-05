@@ -59,7 +59,7 @@ module.exports = {
                 }
             } else if (interaction.options.getSubcommand() === "remove") {
                 const word = interaction.options.getString("word")
-                const res = await db.findOne({ guildId: interaction.guild.id, words: { $contains: word } })
+                const res = await db.findOne({ guildId: interaction.guild.id, words: word })
                 if (!res) {
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
