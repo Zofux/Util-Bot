@@ -236,7 +236,7 @@ module.exports = {
                         })
                     } else if (!res) {
                         new db({
-                            guildId: interaction.guild.Id,
+                            guildId: interaction.guild.id,
                             suggestionChannel: channel.id
                         }).save().then(async () => {
                             const SuccessEmbed = new Discord.MessageEmbed()
