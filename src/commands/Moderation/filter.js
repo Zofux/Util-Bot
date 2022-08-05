@@ -5,7 +5,7 @@ const db = require('../../models/filter')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName(`filer`)
+        .setName(`filter`)
         .setDescription(`Filter words in your server`)
         .addSubcommand(subCommand =>
             subCommand.setName("remove")
