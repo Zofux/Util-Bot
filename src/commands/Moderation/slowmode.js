@@ -8,7 +8,7 @@ module.exports = {
         .setDescription(`change the slowmode in a channel`)
         .addChannelOption(option =>
             option.setName(`channel`).setDescription(`The channel the slowmode should get changed in`).setRequired(true))
-        .addNumberOption(option =>
+        .addStringOption(option =>
             option.setName(`slowmode`).setDescription(`The new slowmode (in seconds)`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
@@ -34,7 +34,7 @@ module.exports = {
             }
         }
 
-        const rawTime = interaction.options.getNumber(`slowmode`)
+        const rawTime = interaction.options.getString(`slowmode`)
         const channel = interaction.options.getChannel(`channel`)
 
         if (channel.type !== "GUILD_TEXT") {
@@ -56,6 +56,8 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
+            const time = (ms(rawTime)) / 1000
+
             if (rawTime > 21600 || rawTime < 0) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`No log channel`)
@@ -65,7 +67,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
-            await channel.setRateLimitPerUser(rawTime).then(async () => {
+            await channel.setRateLimitPerUser(time).then(async () => {
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
