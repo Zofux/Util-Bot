@@ -33,7 +33,7 @@ module.exports = {
                         words: [word]
                     }).save().then(async () => {
                         const SuccessEmbed = new Discord.MessageEmbed()
-                            .setDescription(`${config.checkEmoji} Added \`${word}\` to the blacklisted words`)
+                            .setDescription(`${config.checkEmoji} **Added** \`${word}\` to the blacklisted words`)
                             .setColor(config.SuccessHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setFooter("Made by Zofux")
@@ -95,6 +95,14 @@ module.exports = {
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (res) {
+                    if (res.words.length < 1) {
+                        const embed = new Discord.MessageEmbed()
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setDescription(`${config.crossEmoji} This server doesn't have any words in the word-filter`)
+                            .setColor(config.ErrorHexColor)
+                            .setFooter(`Made by Zofux`)
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
+                    }
                     const embed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
                         .addField("Word-Filter:", `\`\`\`${res.words.join(", ")}\`\`\``)
