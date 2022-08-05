@@ -12,7 +12,7 @@ module.exports = {
             option.setName(`slowmode`).setDescription(`The new slowmode (in seconds)`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-
+        
         if (!config.log) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`No verify channel`)
@@ -65,7 +65,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
-            await channel.setRateLimitPerUser(time).then(async () => {
+            await channel.setRateLimitPerUser(rawTime).then(async () => {
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
@@ -85,7 +85,7 @@ module.exports = {
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter("Made by Zofux")
                     .setTimestamp()
-                await interaction.reply({ embeds: [embed] })
+                await interaction.editReply({ embeds: [embed] })
             });
         }
 
