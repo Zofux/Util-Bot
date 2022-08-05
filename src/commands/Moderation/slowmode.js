@@ -85,7 +85,7 @@ module.exports = {
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter("Made by Zofux")
                     .setTimestamp()
-                await interaction.editReply({ embeds: [embed] })
+                await interaction.reply({ embeds: [embed] })
             });
         }
 
