@@ -49,7 +49,7 @@ module.exports = {
                 `${client.user.username} is an easy to use all in one discord bot that is made to make **${interaction.guild.name}** run smoother, bellow you will see a list of all the available commands. Simply select a category from the meny below.` +
                 `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B`)
             .addFields(
-                { name: '🗂️ Utility', value: "`help`, `verify`, `warnings`, `level`" },
+                { name: '🗂️ Utility', value: "`help`, `verify`, `warnings`, `level`, `echo`, `embed`" },
                 { name: '🛠️ Moderation', value: "`ban`, `kick`, `mute`, `unmute`, `warn`, `clearwarns`, `slowmode`" },
                 { name: '🎸 Music', value: "`play`, `clear`, `pause`, `queue`, `resume`, `shuffle`, `skip`" },
                 { name: '🔊 Voice Channels', value: "`voice lock`, `voice mute`, `voice kick`, `voice ban`" },

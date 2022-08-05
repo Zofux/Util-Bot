@@ -88,7 +88,7 @@ module.exports = {
                 embed.setImage(interaction.guild.iconURL())
             } else {
                 const embed = new Discord.MessageEmbed()
-                    .setDescription("Take note that the only **valid** thumbnail variables are:\n`{user.avatar}`\n`{bot.avatar}`\n`{server.icon}`")
+                    .setDescription("Take note that the only **valid** image variables are:\n`{user.avatar}`\n`{bot.avatar}`\n`{server.icon}`")
                     .setColor(config.ErrorHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter("Made by Zofux")
