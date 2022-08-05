@@ -56,14 +56,14 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
 
-            /*if (rawTime > 86400 || rawTime < 0) {
+            if (rawTime > 21600 || rawTime < 0) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`No log channel`)
                     .setDescription(`${config.crossEmoji} Can only set the slowmode between 0 and 6 hours`)
                     .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
-            }*/
+            }
 
             await channel.setRateLimitPerUser(rawTime).then(async () => {
                 const logChannel = interaction.guild.channels.cache.get(config.log)
