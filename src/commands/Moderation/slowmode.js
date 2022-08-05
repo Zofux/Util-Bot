@@ -55,10 +55,8 @@ module.exports = {
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
-            }
-            const time = ms(rawTime)
 
-            if (time > 86400 || time < 0) {
+            if (rawTime > 86400 || rawTime < 0) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`No log channel`)
                     .setDescription(`${config.crossEmoji} Can only set the slowmode between 0 and 6 hours`)
