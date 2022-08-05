@@ -3,16 +3,16 @@ const config = require('../../../config.json')
 
 module.exports = async (interaction, client) => {
     if (interaction.customId === 'select') {
-        if (interaction.values.includes("information")) {
+        if (interaction.values.includes("utility")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Information]`, client.user.displayAvatarURL())
+                .setAuthor(`${client.user.username} - Commands [Utility]`, client.user.displayAvatarURL())
                 .setColor(config.MainHexColor)
                 .setDescription(
-                    "Here are all the commands that fall under the category of **Information**, use the menu below to go to another category" +
+                    "Here are all the commands that fall under the category of **Utility**, use the menu below to go to another category" +
                     "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
                 )
                 .addFields([
-                    { name: "🗂️ Information commands", value: " `/help` This command shows you a detailed descri ption of every command\n`/verify` This command will help you to verify again if you fail you initial verification\n`/warnings [user]` This command will show all warnings a user has\n`/level` This command will show your current level" },
+                    { name: "🗂️ Utility commands", value: " `/help` This command shows you a detailed descri ption of every command\n`/verify` This command will help you to verify again if you fail you initial verification\n`/warnings [user]` This command will show all warnings a user has\n`/level` This command will show your current level" },
                 ])
                 .setFooter("Made by Zofux")
 
