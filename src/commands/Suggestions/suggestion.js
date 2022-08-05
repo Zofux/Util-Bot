@@ -110,7 +110,7 @@ module.exports = {
                                     await db.findOneAndUpdate({
                                         id: res.id
                                     }, {
-                                        status: "accepted"
+                                        status: "rejected"
                                     }, {
                                         new: true,
                                         upsert: true
@@ -137,7 +137,7 @@ module.exports = {
                                         await db.findOneAndUpdate({
                                             id: res.id
                                         }, {
-                                            status: "accepted"
+                                            status: "rejected"
                                         }, {
                                             new: true,
                                             upsert: true
