@@ -232,7 +232,7 @@ module.exports = {
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
-                            return await interaction.editReply({ embeds: [SuccessEmbed] })
+                            return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
                         })
                     } else if (!res) {
                         new db({
@@ -245,7 +245,7 @@ module.exports = {
                                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                 .setFooter("Made by Zofux")
                                 .setTimestamp()
-                            return await interaction.editReply({ embeds: [SuccessEmbed] })
+                            return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
                         })
                     }
 
