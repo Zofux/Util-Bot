@@ -19,7 +19,7 @@ module.exports = {
         .addStringOption(option =>
             option.setName("image").setDescription("The image of the embed (leave empty for no image)"))
         .addBooleanOption(option => 
-            opton.setName("timestamp").setDescription("Should the embed display a timestamp").setRequired(true)),
+            option.setName("timestamp").setDescription("Should the embed display a timestamp").setRequired(true)),
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
@@ -40,5 +40,7 @@ module.exports = {
         const thumbnail = interaction.options.getString("thumbnail")
         const image = interaction.options.getString("image")
         const timestamp = interaction.options.getBoolean("timestamp")
+
+
     }
 }
