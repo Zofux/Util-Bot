@@ -67,7 +67,7 @@ module.exports = {
 
             await channel.setRateLimitPerUser(time).then(async () => {
                 const embed = new Discord.MessageEmbed()
-                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${time}** seconds`)
+                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${rawTime}** seconds`)
                     .setColor(config.SuccessHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter("Made by Zofux")
@@ -79,7 +79,7 @@ module.exports = {
                     .setColor(config.MainHexColor)
                     .addFields([
                         { name: 'Channel', value: `<#${channel.id}>`, inline: true },
-                        { name: 'New slowmode', value: `\`${time}\` seconds` },
+                        { name: 'New slowmode', value: `\`${rawTime}\` seconds` },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                     ])
                     .setAuthor(`Slowmode | ${interaction.user.username}#${interaction.user.discriminator}`)
