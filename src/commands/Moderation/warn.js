@@ -102,7 +102,7 @@ module.exports = {
 
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
-                    .setColor(config.ErrorHexColor)
+                    .setColor(`#ffdd33`)
                     .addFields([
                         { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
@@ -136,7 +136,7 @@ module.exports = {
 
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
-                    .setColor(config.ErrorHexColor)
+                    .setColor(`#ffdd33`)
                     .addFields([
                         { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },

@@ -9,8 +9,8 @@ module.exports = {
         .setDescription(`change the slowmode in a channel`)
         .addChannelOption(option =>
             option.setName(`channel`).setDescription(`The channel the slowmode should get changed in`).setRequired(true))
-        .addStringOption(option =>
-            option.setName(`slowmode`).setDescription(`The new slowmode (ex: 2h)`).setRequired(true)),
+        .addNumberOption(option =>
+            option.setName(`slowmode`).setDescription(`The new slowmode (in seconds)`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
 
@@ -40,14 +40,55 @@ module.exports = {
 
         if (channel.type !== "GUILD_TEXT") {
             const embed = new Discord.MessageEmbed()
+                .setAuthor(`No log channel`)
+                .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a text channel`)
+                .setColor(config.ErrorHexColor)
+                .setFooter(`Made by Zofux`)
+            return interaction.editReply({ embeds: [embed], ephemeral: true })
+        } else {
+
+            if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} You can't use this command`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter(interaction.guild.name)
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
+            const time = ms(rawTime)
+
+            if (time > 86400 || time < 0) {
+                const embed = new Discord.MessageEmbed()
                     .setAuthor(`No log channel`)
-                    .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a text channel`)
+                    .setDescription(`${config.crossEmoji} Can only set the slowmode between 0 and 6 hours`)
                     .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else {
-            const time = ms(rawTime)
-            console.log(time)
+            }
+
+            await interaction.channel.setRateLimitPerUser(time).then(() => {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${time}** seconds`)
+                    .setColor(config.SuccessHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("Made by Zofux")
+                    .setTimestamp()
+                await interaction.editReply({ embeds: [embed] })
+
+                const logChannel = interaction.guild.channels.cache.get(config.log)
+                const logEmbed = new Discord.MessageEmbed()
+                    .setColor(config.MainHexColor)
+                    .addFields([
+                        { name: 'Channel', value: `<#${channel.id}>`, inline: true },
+                        { name: 'New slowmode', value: `\`${time}\` seconds` },
+                        { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
+                    ])
+                    .setAuthor(`Slowmode | ${interaction.user.username}#${interaction.user.discriminator}`)
+                    .setFooter(interaction.guild.name)
+                    .setTimestamp()
+                logChannel.send({ embeds: [logEmbed] });
+            });
         }
 
     }
