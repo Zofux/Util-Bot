@@ -55,7 +55,7 @@ module.exports = {
                 if (channel.type !== "GUILD_VOICE") {
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                        .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a VOICE channel`)
+                        .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a voice channel`)
                         .setColor(config.ErrorHexColor)
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
@@ -94,9 +94,8 @@ module.exports = {
                     }
 
                 }
-            }
-
-        if (!interaction.member.voice) {
+                return;
+            } else if (!interaction.member.voice) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`Not in a channel`)
                 .setDescription(`${config.crossEmoji} You are not currently in any voice channel`)
