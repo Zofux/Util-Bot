@@ -105,7 +105,7 @@ module.exports = {
                     }
                     const embed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
-                        .addField("Word-Filter:", `\`\`\`${res.words.join(", ")}\`\`\``)
+                        .addField("Blacklisted words", `\`\`\`${res.words.join(", ")}\`\`\``)
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                         .setFooter("Made by Zofux")
                         .setTimestamp()
