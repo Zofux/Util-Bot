@@ -63,10 +63,38 @@ module.exports = {
             embed.setFooter(footer)
         }
         if (thumbnail) {
-            embed.setThumbnail(thumbnail)
+            if (thumbnail == "{user.avatar}") {
+                embed.setThumbnail(interaction.user.displayAvatarURL())
+            } else if (thumbnail == "{bot.avatar}") {
+                embed.setThumbnail(client.user.displayAvatarURL())
+            } else if (thumbnail == "{server.icon}") {
+                embed.setThumbnail(interaction.guild.iconURL())
+            } else {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription("Take note that the only **valid** thumbnail variables are:\n`{user.avatar}`\n`{bot.avatar}`\n`{server.icon}`")
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("Made by Zofux")
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
         }
         if (image) {
-            embed.setImage(image)
+            if (image == "{user.avatar}") {
+                embed.setImage(interaction.user.displayAvatarURL())
+            } else if (image == "{bot.avatar}") {
+                embed.setImage(client.user.displayAvatarURL())
+            } else if (image == "{server.icon}") {
+                embed.setImage(interaction.guild.iconURL())
+            } else {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription("Take note that the only **valid** thumbnail variables are:\n`{user.avatar}`\n`{bot.avatar}`\n`{server.icon}`")
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("Made by Zofux")
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
         }
         if (title) {
             embed.setAuthor(title)
