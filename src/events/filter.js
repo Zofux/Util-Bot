@@ -8,8 +8,10 @@ module.exports = {
     async execute(message, client) {
         if (message.author.bot || !message.guild) return;
 
-        const blacklisted = config.filter
-        if (!blacklisted) return console.log("There is currently no word filter in the config.json")
+        const wordFilter = require('../models/filter')
+        const filter = await wordFilter.findOne({ guildId: message.guild })
+        const blacklisted = filter.words
+        if (!blacklisted.length < 1) return 
 
         let found = false
         for (let i in blacklisted) {
