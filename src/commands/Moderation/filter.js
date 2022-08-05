@@ -33,7 +33,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             }
             if (interaction.options.getSubcommand() === "add") {
-                const word = interaction.options.getString("word")
+                const word = interaction.options.getString("word").toLowerCase()
 
                 const res = await db.findOne({ guildId: interaction.guild.id })
                 if (!res) {
@@ -67,7 +67,7 @@ module.exports = {
                     })
                 }
             } else if (interaction.options.getSubcommand() === "remove") {
-                const word = interaction.options.getString("word")
+                const word = interaction.options.getString("word").toLowerCase()
                 const res = await db.findOne({ guildId: interaction.guild.id, words: word })
                 if (!res) {
                     const embed = new Discord.MessageEmbed()
