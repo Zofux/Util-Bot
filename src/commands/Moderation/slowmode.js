@@ -10,7 +10,7 @@ module.exports = {
         .addChannelOption(option =>
             option.setName(`channel`).setDescription(`The channel the slowmode should get changed in`).setRequired(true))
         .addStringOption(option =>
-            option.setName(`slowmode`).setDescription(`The new slowmode (in seconds)`).setRequired(true)),
+            option.setName(`slowmode`).setDescription(`The new slowmode (ex: 3h)`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         
@@ -59,7 +59,7 @@ module.exports = {
 
             const time = (ms(rawTime)) / 1000
 
-            if (rawTime > 21600 || rawTime < 0) {
+            if (time > 21600 || time < 0) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`No log channel`)
                     .setDescription(`${config.crossEmoji} Can only set the slowmode between 0 and 6 hours`)
@@ -74,7 +74,7 @@ module.exports = {
                     .setColor(config.MainHexColor)
                     .addFields([
                         { name: 'Channel', value: `<#${channel.id}>`, inline: true },
-                        { name: 'New slowmode', value: `\`${rawTime}\` seconds` },
+                        { name: 'New slowmode', value: `\`${time}\` seconds` },
                         { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                     ])
                     .setAuthor(`Slowmode | ${interaction.user.username}#${interaction.user.discriminator}`)
@@ -83,7 +83,7 @@ module.exports = {
                 logChannel.send({ embeds: [logEmbed] });
 
                 const embed = new Discord.MessageEmbed()
-                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${rawTime}** seconds`)
+                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${time}** seconds`)
                     .setColor(config.SuccessHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setFooter("Made by Zofux")

@@ -30,7 +30,7 @@ module.exports = async (interaction, client) => {
                 .addFields([
                     {
                         name: "🛠️ Moderation Commands",
-                        value: "`/ban <user> <reason>` Ban somone from the server\n`/kick <user> <reason>` Kick someone from the server\n`/mute <user> <time> <reason>` Prevent someone from talking in chat\n`/unmute <user <reason>` Make some able to talk in chat again\n`/warn <user> <reason>` Give someone a warning\n`/clearwarns <user>` Clear all warnings from a user"
+                        value: "`/ban <user> <reason>` Ban somone from the server\n`/kick <user> <reason>` Kick someone from the server\n`/mute <user> <time> <reason>` Prevent someone from talking in chat\n`/unmute <user <reason>` Make some able to talk in chat again\n`/warn <user> <reason>` Give someone a warning\n`/clearwarns <user>` Clear all warnings from a user\n`/slowmode <channel> <slowmode>` Alter the slowmode in a channel"
                     },
                 ])
                 .setFooter("Made by Zofux")
