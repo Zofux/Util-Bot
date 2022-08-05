@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
-const ms = require('ms')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -45,7 +44,7 @@ module.exports = {
                 .setColor(config.ErrorHexColor)
                 .setFooter(`Made by Zofux`)
             return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else {
+        } else if (channel.type === "GUILD_TEXT") {
 
             if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) {
                 const embed = new Discord.MessageEmbed()
