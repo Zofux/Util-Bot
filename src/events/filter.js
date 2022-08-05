@@ -10,7 +10,7 @@ module.exports = {
 
         const wordFilter = require('../models/filter')
         const filter = await wordFilter.findOne({ guildId: message.guild })
-        if (!filter.words) return;
+        if (!filter || !filter.words) return;
         const blacklisted = filter.words
 
         let found = false
