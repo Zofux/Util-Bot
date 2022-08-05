@@ -40,11 +40,12 @@ module.exports = {
                 ),
         ),
     async execute(interaction, client) {
-        await interaction.deferReply()
+        await interaction.deferReply({  })
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "reply") {
                 const db = require("../../models/suggestions")
+                const suggestionChannels = require("../../models/suggestionChannels")
 
                 const status = interaction.options.getString("status")
                 const res = await db.findOne({ id: interaction.options.getString("id") })
@@ -64,9 +65,10 @@ module.exports = {
                         .setTimestamp()
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (res) {
-                    if (!config.suggestionChannel) {
+                    const suggestionChannel = await suggestionChannels.findOne({ guildId: interaction.guild.id })
+                    if (!suggestionChannel) {
                         const embed = new Discord.MessageEmbed()
-                            .setDescription(`${config.crossEmoji} The given \`suggestionChannel\` in the \`config.json\` is not valid`)
+                            .setDescription(`${config.crossEmoji} This server doesn't have a suggestion channel`)
                             .setColor(config.ErrorHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp()
@@ -80,10 +82,10 @@ module.exports = {
                             .setTimestamp()
                         return interaction.editReply({ embeds: [embed], ephemeral: true })
                     }
-                    const channel = interaction.guild.channels.cache.get(config.suggestionChannel)
+                    const channel = interaction.guild.channels.cache.get(suggestionChannel.suggestionChannel)
                     if (!channel) {
                         const embed = new Discord.MessageEmbed()
-                            .setDescription(`${config.crossEmoji} The given \`suggestionChannel\` in the \`config.json\` is not a channel in this server`)
+                            .setDescription(`${config.crossEmoji} The given \`suggestion channel\` is not a channel in this server anymore, use \`/suggestion channel <channel>\` to set a new one`)
                             .setColor(config.ErrorHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp()
@@ -98,7 +100,7 @@ module.exports = {
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp();
 
-                        if (interaction.channel.id === config.suggestionChannel) {
+                        if (interaction.channel.id === suggestionChannel.suggestionChannel) {
                             return interaction.editReply({ embeds: [embed] }).then(async () => {
                                 const infoEmbed = new Discord.MessageEmbed()
                                     .setDescription(`Hey, <@${res.userId}>. Your suggestion with sID: \`${res.id}\` has been **rejected** by <@${interaction.user.id}>`)
@@ -117,7 +119,7 @@ module.exports = {
                                     })
                                 })
                             })
-                        } else if (!interaction.channel.id === config.suggestionChannel) {
+                        } else if (!interaction.channel.id === suggestionChannel.suggestionChannel) {
                             channel.send({ embeds: [embed] }).then(async () => {
                                 const SuccessEmbed = new Discord.MessageEmbed()
                                     .setDescription(`${config.checkEmoji} Successfully rejected sID: \`${res.id}\``)
@@ -156,7 +158,7 @@ module.exports = {
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setTimestamp();
 
-                        if (interaction.channel.id === config.suggestionChannel) {
+                        if (interaction.channel.id === suggestionChannel.suggestionChannel) {
                             return interaction.editReply({ embeds: [embed] }).then(async () => {
                                 const infoEmbed = new Discord.MessageEmbed()
                                     .setDescription(`Hey, <@${res.userId}>. Your suggestion with sID: \`${res.id}\` has been **accepted** by <@${interaction.user.id}>`)
@@ -175,7 +177,7 @@ module.exports = {
                                     })
                                 })
                             })
-                        } else if (!interaction.channel.id === config.suggestionChannel) {
+                        } else if (!interaction.channel.id === suggestionChannel.suggestionChannel) {
                             channel.send({ embeds: [embed] }).then(async () => {
                                 const SuccessEmbed = new Discord.MessageEmbed()
                                     .setDescription(`${config.checkEmoji} Successfully accepted sID: \`${res.id}\``)
