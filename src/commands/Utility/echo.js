@@ -22,7 +22,8 @@ module.exports = {
         }
 
         const message = interaction.options.getString("message")
-        interaction.channel.send({ content: message }).then(() => {
+        const newMessage = message.replace("\n", "\n")
+        interaction.channel.send({ content: newMessage }).then(() => {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`Message Sent`)
                 .setDescription(`${config.checkEmoji} I've sent your message in the current channel`)
