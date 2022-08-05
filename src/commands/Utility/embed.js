@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
+const isHexcolor = require('is-hexcolor')
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -41,6 +43,43 @@ module.exports = {
         const image = interaction.options.getString("image")
         const timestamp = interaction.options.getBoolean("timestamp")
 
+        const embed = new Discord.MessageEmbed()
 
+        embed.setDescription(content)
+
+        if (!isHexcolor(color)) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} Make sure the color is a valid [Hexcolor](https://htmlcolorcodes.com/color-picker/)`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter("Made by Zofux")
+                .setTimestamp()
+            return interaction.editReply({ embeds: [embed], ephemeral: true })
+        }
+
+        embed.setColor(color)
+
+        if (footer) {
+            embed.setFooter(footer)
+        }
+        if (thumbnail) {
+            embed.setThumbnail(thumbnail)
+        }
+        if (image) {
+            embed.setImage(image)
+        }
+        if (title) {
+            embed.setAuthor(title)
+        }
+        if (timestamp) embed.setTimestamp()
+
+        await interaction.channel.send({ embeds: [embed] }).then(async () => {
+            const confirmEmbed = new Discord.MessageEmbed()
+                .setAuthor(`Embed Sent`)
+                .setDescription(`${config.checkEmoji} I've created and sent your embed in the current channel`)
+                .setColor(config.SuccessHexColor)
+                .setFooter(`Made by Zofux`)
+            await return interaction.editReply({ embeds: [confirmEmbed], ephemeral: true })
+        })
     }
 }

@@ -21,6 +21,7 @@
     "discord-xp": "^1.1.16",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
+    "is-hexcolor": "^1.0.0",
     "moment": "^2.29.1",
     "mongoose": "^6.0.9",
     "ms": "^2.1.3",
