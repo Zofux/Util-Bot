@@ -30,6 +30,14 @@ module.exports = {
         )
         .addSubcommand(subCommand =>
             subCommand
+                .setName("channel")
+                .setDescription("Set the join to create channel")
+                .addChannelOption(option =>
+                    option.setName(`channek`).setDescription(`The channel you want to set as the join to create channel`).setRequired(true)
+                ),
+        )
+        .addSubcommand(subCommand =>
+            subCommand
                 .setName("ban")
                 .setDescription("Make someone unable to join your voice channel, use the command again to disable")
                 .addUserOption(option =>
@@ -66,7 +74,53 @@ module.exports = {
                         return interaction.editReply({ embeds: [embed], ephemeral: true })
 
                     }
-                    if (interaction.options.getSubcommand() === "lock") {
+                    if (interaction.options.getSubcommand() === "channel") {
+                        const jointoCreate = require("../../models/joinToCreateChannels")
+                        const channel = interaction.options.getChannel("channel")
+
+                        if (channel.type !== "GUILD_VOICE") {
+                            const embed = new Discord.MessageEmbed()
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setDescription(`${config.crossEmoji} Im afraid the channel needs to be a VOICE channel`)
+                                .setColor(config.ErrorHexColor)
+                                .setFooter(`Made by Zofux`)
+                            return interaction.editReply({ embeds: [embed], ephemeral: true })
+                        } else if (channel.type === "GUILD_VOICE") {
+                            const res = await jointoCreate.findOne({ guildId: interaction.guild.id })
+                            if (res) {
+                                await jointoCreate.findOneAndUpdate({
+                                    guildId: interaction.guild.id
+                                }, {
+                                    $set: { channelId: channel.id, categoryId: channel.parentId }
+                                }, {
+                                    upsert: true
+                                }).then(async () => {
+                                    const SuccessEmbed = new Discord.MessageEmbed()
+                                        .setDescription(`${config.checkEmoji} Successfully updated the **Join to Create** channel to <#${channel.id}>`)
+                                        .setColor(config.SuccessHexColor)
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setFooter("Made by Zofux")
+                                        .setTimestamp()
+                                    return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
+                                })
+                            } else if (!res) {
+                                new jointoCreate({
+                                    guildId: interaction.guild.id,
+                                    channelId: channel.id,
+                                    categoryId: channel.parentId
+                                }).save().then(async () => {
+                                    const SuccessEmbed = new Discord.MessageEmbed()
+                                        .setDescription(`${config.checkEmoji} Successfully set the **Join to Create** channel to <#${channel.id}>`)
+                                        .setColor(config.SuccessHexColor)
+                                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                        .setFooter("Made by Zofux")
+                                        .setTimestamp()
+                                    return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
+                                })
+                            }
+
+                        }
+                    } else if (interaction.options.getSubcommand() === "lock") {
                         if (res.locked == false) {
                             interaction.member.voice.channel.permissionOverwrites.edit(config.memberRole, { VIEW_CHANNEL: true, CONNECT: false }).then(async () => {
                                 await db.findOneAndUpdate({
@@ -269,7 +323,7 @@ module.exports = {
                                 new: true,
                                 upsert: true
                             }).then(() => {
-                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, {  CONNECT: null }).then(() => {
+                                interaction.member.voice.channel.permissionOverwrites.edit(user.id, { CONNECT: null }).then(() => {
                                     const answerEmbed = new Discord.MessageEmbed()
                                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                                         .setDescription(`${config.checkEmoji} I've unbanned <@${user.id}> in <#${res.voiceChannel}>`)

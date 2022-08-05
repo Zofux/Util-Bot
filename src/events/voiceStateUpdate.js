@@ -6,8 +6,6 @@ module.exports = {
     name: 'voiceStateUpdate',
     async execute(oldState, newState, client) {
 
-        let joinToCreate = config.joinToCreateVoiceChannel
-
         if (newState.channelId === null) {
             // leave
             db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
@@ -24,15 +22,20 @@ module.exports = {
         else if (oldState.channelId === null) {
             // Join
 
-            if (newState.channel.id === joinToCreate) {
+            const joinToCreate = require('../models/joinToCreateChannels')
+            const data = await joinToCreate.findOne({ guildId: newState.guild.id })
+            if (!data) return
+
+            if (newState.channel.id === data.channelId) {
                 db.findOne({ userId: newState.member.user.id }, async (err, res) => {
                     if (res) {
                         const channel = newState.member.guild.channels.cache.get(res.voiceChannel)
                         if (!channel) {
+
                             await db.findOneAndDelete({ voiceChannel: res.voiceChannel });
                             client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                                 type: 'GUILD_VOICE',
-                                parent: config.joinToCreateVoiceChannelCategory,
+                                parent: data.categoryId,
                                 permissionOverwrites: [
                                     {
                                         id: config.guild,
@@ -59,7 +62,7 @@ module.exports = {
                     } else if (!res) {
                         client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                             type: 'GUILD_VOICE',
-                            parent: config.joinToCreateVoiceChannelCategory,
+                            parent: data.categoryId,
                             permissionOverwrites: [
                                 {
                                     id: config.guild,
@@ -84,13 +87,16 @@ module.exports = {
                     }
                 })
             }
-        }
-        else {
+        } else {
             // Move
+
+            const joinToCreate = require('../models/joinToCreateChannels')
+            const data = await joinToCreate.findOne({ guildId: newState.guild.id })
+            if (!data) return
 
             db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                 if (!err && res) {
-                    if (oldState.channelId !== joinToCreate) {
+                    if (oldState.channelId !== data.channelId) {
                         if (oldState.channelId === res.voiceChannel) {
                             db.findOne({ voiceChannel: oldState.channelId }, (err, res) => {
                                 if (err || !res) return;
@@ -107,8 +113,8 @@ module.exports = {
                 }
             });
 
-            if (newState.channelId === joinToCreate) {
-                if (newState.channelId === joinToCreate) {
+            if (newState.channelId === data.channelId) {
+                if (newState.channelId === data.channelId) {
                     db.findOne({ userId: newState.member.user.id }, (err, res) => {
                         if (res) {
                             const channel = client.guilds.cache.get(config.guild).channels.cache.get(res.voiceChannel)
@@ -116,7 +122,7 @@ module.exports = {
                         } else if (!res) {
                             client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                                 type: 'GUILD_VOICE',
-                                parent: config.joinToCreateVoiceChannelCategory,
+                                parent: data.categoryId,
                                 permissionOverwrites: [
                                     {
                                         id: config.guild,
