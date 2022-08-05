@@ -7,4 +7,4 @@ const model = new mongoose.Schema({
     tickets: Array,
 })
 
-module.exports = mongoose.model('Ticket Tools', model)
+module.exports = mongoose.model('Tickets', model)
