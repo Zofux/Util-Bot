@@ -50,6 +50,15 @@ module.exports = {
                         return await interaction.editReply({ embeds: [SuccessEmbed], ephemeral: true })
                     })
                 } else if (res) {
+                    if (res.words.include(word)) {
+                        const embed = new Discord.MessageEmbed()
+                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                            .setDescription(`${config.crossEmoji} That word is already in this server's word-filter`)
+                            .setColor(config.ErrorHexColor)
+                            .setFooter(`Made by Zofux`)
+                        return interaction.editReply({ embeds: [embed], ephemeral: true })
+                    }
+
                     await db.findOneAndUpdate({
                         guildId: interaction.guild.id
                     }, {
@@ -77,6 +86,7 @@ module.exports = {
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 } else if (res) {
+
                     await db.findOneAndUpdate({
                         guildId: interaction.guild.id
                     }, {

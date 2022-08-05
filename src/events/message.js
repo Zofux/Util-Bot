@@ -10,6 +10,8 @@ module.exports = {
 
         if (message.channel.id === config.verify) return message.delete()
         if (message.guild) {
+            if (message.content === `<@${client.user.id}>`) return message.channel.send({ content: "All you need to do to get started using my commands is to run `/help`" })
+
             const randomXp = Math.floor(Math.random() * 10) + 1;
             const hasLevelUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
             if (hasLevelUp) {
