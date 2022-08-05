@@ -23,6 +23,15 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
         if (interaction) {
+            if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} You can't use this command`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter(interaction.guild.name)
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
             if (interaction.options.getSubcommand() === "add") {
                 const word = interaction.options.getString("word")
 
