@@ -9,8 +9,9 @@ module.exports = {
         if (message.author.bot || !message.guild) return;
 
         const wordFilter = require('../models/filter')
-        const filter = await wordFilter.findOne({ guildId: message.guild })
-        if (!filter || !filter.words) return;
+        const filter = await wordFilter.findOne({ guildId: message.guild.id })
+        if (!filter) return;
+        if (filter.words.length < 1) return;
         const blacklisted = filter.words
 
         let found = false
