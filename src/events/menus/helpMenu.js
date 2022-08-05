@@ -64,7 +64,7 @@ module.exports = async (interaction, client) => {
                     "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
                 )
                 .addFields([
-                    { name: "🔊 Voice Channel Commands", value: "`/voice lock` Lock/unlock your current voice channel\n`/voice mute <user>` Mute a given user in your voice channel\n`/voice kick <user>` Kick someone from your voice channel\n`/voice ban <user>` Ban someone from your voice channel" },
+                    { name: "🔊 Voice Channel Commands", value: "`/voice channel <channel>` Setup the Join to create channel\n`/voice lock` Lock/unlock your current voice channel\n`/voice mute <user>` Mute a given user in your voice channel\n`/voice kick <user>` Kick someone from your voice channel\n`/voice ban <user>` Ban someone from your voice channel" },
                 ])
                 .setFooter("Made by Zofux")
 
