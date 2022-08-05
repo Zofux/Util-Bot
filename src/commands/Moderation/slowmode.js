@@ -66,14 +66,6 @@ module.exports = {
             }
 
             await channel.setRateLimitPerUser(time).then(async () => {
-                const embed = new Discord.MessageEmbed()
-                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${rawTime}** seconds`)
-                    .setColor(config.SuccessHexColor)
-                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                    .setFooter("Made by Zofux")
-                    .setTimestamp()
-                await interaction.editReply({ embeds: [embed] })
-
                 const logChannel = interaction.guild.channels.cache.get(config.log)
                 const logEmbed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
@@ -86,6 +78,14 @@ module.exports = {
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
                 logChannel.send({ embeds: [logEmbed] });
+
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.checkEmoji} Successfully set the slowmode in <#${channel.id}> to **${rawTime}** seconds`)
+                    .setColor(config.SuccessHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter("Made by Zofux")
+                    .setTimestamp()
+                await interaction.editReply({ embeds: [embed] })
             });
         }
 
