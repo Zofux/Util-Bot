@@ -10,16 +10,16 @@ module.exports = {
             option.setName("content").setDescription("The content of the embed").setRequired(true))
         .addStringOption(option =>
             option.setName("color").setDescription("The color of the embed").setRequired(true))
-        .addStringOption(option => 
+        .addBooleanOption(option =>
+            option.setName("timestamp").setDescription("Should the embed display a timestamp").setRequired(true))
+        .addStringOption(option =>
             option.setName("footer").setDescription("The footer of the embed (Leave empty for no footer)"))
-        .addStringOption(option => 
+        .addStringOption(option =>
             option.setName("title").setDescription("The title of the embed (Leave empty for no title)"))
         .addStringOption(option =>
             option.setName("thumbnail").setDescription("The thumbnail of the embed (leave empty for no thumbnail)"))
         .addStringOption(option =>
-            option.setName("image").setDescription("The image of the embed (leave empty for no image)"))
-        .addBooleanOption(option => 
-            option.setName("timestamp").setDescription("Should the embed display a timestamp").setRequired(true)),
+            option.setName("image").setDescription("The image of the embed (leave empty for no image)")),
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
