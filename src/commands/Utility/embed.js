@@ -79,7 +79,7 @@ module.exports = {
                 .setDescription(`${config.checkEmoji} I've created and sent your embed in the current channel`)
                 .setColor(config.SuccessHexColor)
                 .setFooter(`Made by Zofux`)
-            await return interaction.editReply({ embeds: [confirmEmbed], ephemeral: true })
+            return await interaction.editReply({ embeds: [confirmEmbed], ephemeral: true })
         })
     }
 }
