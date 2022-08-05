@@ -55,6 +55,7 @@ module.exports = {
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
 
             if (rawTime > 86400 || rawTime < 0) {
                 const embed = new Discord.MessageEmbed()
