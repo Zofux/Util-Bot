@@ -8,20 +8,30 @@ module.exports = {
         .setDescription(`Verify yourself and gain access to the server!`),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-        if (!config.verifyChannel) {
+        const verificationChannels = require('../models/verificationChannels')
+        const verificationChannel = await verificationChannels.findOne({ guildId: interaction.guild.id })
+        if (!verificationChannel) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`No verify channel`)
-                .setDescription(`${config.crossEmoji} I currently have no valid value for the \`verifyChannel\` in my \`config.json\``)
-                .addField("Valid format (in the config.json)", "```verifyChannel: \"#ID of the Text channel\"```")
+                .setDescription(`${config.crossEmoji} This server doesn't have a **verification channel**`)
                 .setColor(config.ErrorHexColor)
                 .setFooter(`Made by Zofux`)
             return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else if (config.verifyChannel) {
-            if (!interaction.guild.channels.cache.get(config.verifyChannel)) {
+        } else if (verificationChannel) {
+            if (!interaction.guild.channels.cache.get(verificationChannel.channelId)) {
+                await verificationChannels.findOneAndDelete({ guildId: interaction.guild.id })
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(`No verify channel`)
-                    .setDescription(`${config.crossEmoji} The given \`verifyChannel\` in my \`config.json\` is not a text channel in this server`)
-                    .addField("Valid format (in the config.json)", "```verifyChannel: \"#ID of the Text channel\"```")
+                    .setDescription(`${config.crossEmoji} This server doesn't have a **verification channel**`)
+                    .setColor(config.ErrorHexColor)
+                    .setFooter(`Made by Zofux`)
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
+
+            if (interaction.channel.id !== verificationChannel.channelId) {
+                const embed = new Discord.MessageEmbed()
+                    .setAuthor(`Incorrect Channel`)
+                    .setDescription(`${config.crossEmoji} This command can only be used in the **verification channel**`)
                     .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
@@ -66,6 +76,7 @@ module.exports = {
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 }
                 new db({
+                    guildId: interaction.guild.id,
                     userId: user.id,
                     expiers: date,
                     code: id
