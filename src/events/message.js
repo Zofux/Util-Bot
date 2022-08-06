@@ -59,15 +59,15 @@ module.exports = {
                         message.author.send({ embeds: [embed] })
                     })
                 } else {
-                    await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
                         client.guilds.cache.get(verificationChannel.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} You have been verified`)
                                 .setColor(config.SuccessHexColor)
                                 .setAuthor("Thank you!")
                             message.author.send({ embeds: [embed] })
+
+                            await db.findOneAndDelete({ userId: message.author.id })
                         })
-                    })
 
                 };
 
