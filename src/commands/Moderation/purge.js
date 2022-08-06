@@ -26,7 +26,7 @@ module.exports = {
         const amount = interaction.options.getNumber("amount")
 
         if (amount <= 100) {
-            interaction.channel.bulkDelete(amount, true).then(() => {
+            interaction.channel.bulkDelete(amount, true).then(async () => {
                 if (doLog) {
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
