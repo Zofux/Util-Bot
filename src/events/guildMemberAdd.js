@@ -25,13 +25,15 @@ module.exports = {
             logChannel.send({ embeds: [embed] })
         }
 
-
-        if (!config.verifyChannel) {
-            return console.log(`I currently have no valid value for the "verifyChannel" in my "config.json"`)
-        } else if (config.verifyChannel) {
-            if (!member.guild.channels.cache.get(config.verifyChannel)) {
-                return console.log(`The given "verifyChannel" in my "config.json" is not a channel in this server`)
+        const verificationChannels = require('../models/verificationChannels')
+        const verificationChannel = await verificationChannels.findOne({ guildId: member.guild.id })
+        if (!verificationChannel) {
+            return 
+        } else if (verificationChannel) {
+            if (!member.guild.channels.cache.get(verificationChannel.channelId)) {
+                return await verificationChannels.findOneAndDelete({ guildId: member.guild.id })
             }
+            
             var randomstring = require("randomstring");
             const id = randomstring.generate(6)
 
