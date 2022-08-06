@@ -59,7 +59,7 @@ module.exports = {
                         message.author.send({ embeds: [embed] })
                     })
                 } else {
-                        client.guilds.cache.get(verificationChannel.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(async () => {
+                        client.guilds.cache.get(res.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(async () => {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} You have been verified`)
                                 .setColor(config.SuccessHexColor)
