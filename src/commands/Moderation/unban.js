@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
+const unixTime = require('unix-time');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -62,7 +63,15 @@ module.exports = {
                         .setTimestamp()
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 }
-                await interaction.guild.bans.remove(userId, reason).catch(err => console.log(err));
+                await interaction.guild.bans.remove(userId, reason).catch(() => {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} No user with the id: \`${userId}\` is not banned in this server`)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setFooter(interaction.guild.name)
+                        .setTimestamp()
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                });
 
                 const db = require('../../models/infractions')
                 const res = await db.findOne({ guildId: interaction.guild.id, userId: userId })
