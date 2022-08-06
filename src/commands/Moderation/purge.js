@@ -31,7 +31,7 @@ module.exports = {
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
                         .addFields([
-                            { name: 'Channel', value: `<#${channel.id}>`, inline: true },
+                            { name: 'Channel', value: `<#${interaction.channel.id}>`, inline: true },
                             { name: 'Amount', value: `\`${amount}\` messages` },
                             { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                         ])
@@ -58,7 +58,7 @@ module.exports = {
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(config.MainHexColor)
                             .addFields([
-                                { name: 'Channel', value: `<#${channel.id}>`, inline: true },
+                                { name: 'Channel', value: `<#${interaction.channel.id}>`, inline: true },
                                 { name: 'Amount', value: `\`${amount}\` messages` },
                                 { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                             ])
@@ -90,7 +90,7 @@ module.exports = {
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(config.MainHexColor)
                             .addFields([
-                                { name: 'Channel', value: `<#${channel.id}>`, inline: true },
+                                { name: 'Channel', value: `<#${interaction.channel.id}>`, inline: true },
                                 { name: 'Amount', value: `\`${amount}\` messages` },
                                 { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                             ])
