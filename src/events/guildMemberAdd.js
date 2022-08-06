@@ -52,7 +52,7 @@ module.exports = {
             const db = require('../models/captchas')
             const res = await db.findOne({ userId: member.user.id })
             const unixTime = require('unix-time');
-            const date = new Date()
+            let date = new Date()
             date.setHours(date.getHours() + 1)
 
             if (res) {
@@ -63,7 +63,7 @@ module.exports = {
                 }
                 new db({
                     userId: member.user.id,
-                    expiers: date,
+                    expires: date,
                     code: id
                 }).save().then(async () => {
                     const embed = new Discord.MessageEmbed()
