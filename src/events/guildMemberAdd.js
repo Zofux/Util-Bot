@@ -6,14 +6,14 @@ module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
         const logs = require('../models/logChannels')
-        const log = await logs.findOne({ guildId: interaction.guild.id })
+        const log = await logs.findOne({ guildId: member.guild.id })
         let doLog = false
         let logChannel;
         if (log) {
             doLog = true
         }
         if (doLog) {
-            logChannel = interaction.guild.channels.cache.get(log.channelId)
+            logChannel = member.guild.channels.cache.get(log.channelId)
             if (!logChannel) doLog = false
         }
         let embed = new Discord.MessageEmbed()
