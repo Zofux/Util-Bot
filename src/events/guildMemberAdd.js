@@ -5,7 +5,7 @@ const config = require("../../config.json")
 module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
-        const logs = require('../../models/logChannels')
+        const logs = require('../models/logChannels')
         const log = await logs.findOne({ guildId: interaction.guild.id })
         let doLog = false
         let logChannel;
@@ -25,7 +25,7 @@ module.exports = {
             logChannel.send({ embeds: [embed] })
         }
 
-        const verificationChannels = require('../../models/verificationChannels')
+        const verificationChannels = require('../models/verificationChannels')
         const verificationChannel = await verificationChannels.findOne({ guildId: member.guild.id })
         if (!verificationChannel) {
             return 
