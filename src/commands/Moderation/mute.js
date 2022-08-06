@@ -182,7 +182,6 @@ module.exports = {
                         new: true,
                         upsert: true
                     }).then(async () => {
-                        const logChannel = interaction.guild.channels.cache.get(config.log)
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(`#ffdd33`)
                             .addFields([
