@@ -5,18 +5,23 @@ const config = require("../../config.json")
 module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
-        if (!config.log) {
-            return console.log(`I currently have no valid value for the "log" in my "config.json"`)
-        } else if (config.log) {
-            const logChannel = member.guild.channels.cache.get(config.log)
-            if (!logChannel) {
-                return console.log(`The given "log" in my "config.json" is not a channel in this server`)
-            }
-            let embed = new Discord.MessageEmbed()
-                .setDescription(`:inbox_tray: <@${member.user.id}> Joined the server`)
-                //.addField(`Account created`, `${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`)
-                .setColor(config.SuccessHexColor)
-                .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
+        const logs = require('../../models/logChannels')
+        const log = await logs.findOne({ guildId: interaction.guild.id })
+        let doLog = false
+        let logChannel;
+        if (log) {
+            doLog = true
+        }
+        if (doLog) {
+            logChannel = interaction.guild.channels.cache.get(log.channelId)
+            if (!logChannel) doLog = false
+        }
+        let embed = new Discord.MessageEmbed()
+            .setDescription(`:inbox_tray: <@${member.user.id}> Joined the server`)
+            //.addField(`Account created`, `${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`)
+            .setColor(config.SuccessHexColor)
+            .setAuthor(`${member.user.username}`, member.user.displayAvatarURL())
+        if (doLog) {
             logChannel.send({ embeds: [embed] })
         }
 

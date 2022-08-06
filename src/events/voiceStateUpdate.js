@@ -33,12 +33,12 @@ module.exports = {
                         if (!channel) {
 
                             await db.findOneAndDelete({ voiceChannel: res.voiceChannel });
-                            client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
+                            client.guilds.cache.get(newState.guild.id).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                                 type: 'GUILD_VOICE',
                                 parent: data.categoryId,
                                 permissionOverwrites: [
                                     {
-                                        id: config.guild,
+                                        id: newState.guild.id,
                                         deny: ["VIEW_CHANNEL"]
                                     },
                                     {
@@ -60,12 +60,12 @@ module.exports = {
                         }
                         return newState.member.voice.setChannel(channel);
                     } else if (!res) {
-                        client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
+                        client.guilds.cache.get(newState.guild.id).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                             type: 'GUILD_VOICE',
                             parent: data.categoryId,
                             permissionOverwrites: [
                                 {
-                                    id: config.guild,
+                                    id: newState.guild.id,
                                     deny: ["VIEW_CHANNEL"]
                                 },
                                 {
@@ -117,15 +117,15 @@ module.exports = {
                 if (newState.channelId === data.channelId) {
                     db.findOne({ userId: newState.member.user.id }, (err, res) => {
                         if (res) {
-                            const channel = client.guilds.cache.get(config.guild).channels.cache.get(res.voiceChannel)
+                            const channel = client.guilds.cache.get(newState.guild.id).channels.cache.get(res.voiceChannel)
                             return newState.member.voice.setChannel(channel);
                         } else if (!res) {
-                            client.guilds.cache.get(config.guild).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
+                            client.guilds.cache.get(newState.guild.id).channels.create(`🔊｜${newState.member.user.username}'s channel`, {
                                 type: 'GUILD_VOICE',
                                 parent: data.categoryId,
                                 permissionOverwrites: [
                                     {
-                                        id: config.guild,
+                                        id: newState.guild.id,
                                         deny: ["VIEW_CHANNEL"]
                                     },
                                     {

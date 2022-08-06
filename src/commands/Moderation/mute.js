@@ -15,46 +15,17 @@ module.exports = {
             option.setName(`reason`).setDescription(`The reason for the mute`).setRequired(true)),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-        if (!config.log) {
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(`No verify channel`)
-                .setDescription(`${config.crossEmoji} I currently have no valid value for the \`log\` in my \`config.json\``)
-                .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
-                .setColor(config.ErrorHexColor)
-                .setFooter(`Made by Zofux`)
-            return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else if (config.log) {
-            const logChannel = interaction.guild.channels.cache.get(config.log)
-            if (!logChannel) {
-                const embed = new Discord.MessageEmbed()
-                    .setAuthor(`No log channel`)
-                    .setDescription(`${config.crossEmoji} The given \`log\` in my \`config.json\` is not a channel in this server`)
-                    .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
-                    .setColor(config.ErrorHexColor)
-                    .setFooter(`Made by Zofux`)
-                return interaction.editReply({ embeds: [embed], ephemeral: true })
-            }
-        }
 
-        if (!config.log) {
-            const embed = new Discord.MessageEmbed()
-                .setAuthor(`No verify channel`)
-                .setDescription(`${config.crossEmoji} I currently have no valid value for the \`log\` in my \`config.json\``)
-                .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
-                .setColor(config.ErrorHexColor)
-                .setFooter(`Made by Zofux`)
-            return interaction.editReply({ embeds: [embed], ephemeral: true })
-        } else if (config.log) {
-            const logChannel = interaction.guild.channels.cache.get(config.log)
-            if (!logChannel) {
-                const embed = new Discord.MessageEmbed()
-                    .setAuthor(`No log channel`)
-                    .setDescription(`${config.crossEmoji} The given \`log\` in my \`config.json\` is not a channel in this server`)
-                    .addField("Valid format (in the config.json)", "```log: \"#ID of the Text channel\"```")
-                    .setColor(config.ErrorHexColor)
-                    .setFooter(`Made by Zofux`)
-                return interaction.editReply({ embeds: [embed], ephemeral: true })
-            }
+        const logs = require('../../models/logChannels')
+        const log = await logs.findOne({ guildId: interaction.guild.id })
+        let doLog = false
+        let logChannel;
+        if (log) {
+            doLog = true
+        }
+        if (doLog) {
+            logChannel = interaction.guild.channels.cache.get(log.channelId)
+            if (!logChannel) doLog = false
         }
 
         const user = interaction.options.getUser(`user`)
@@ -172,7 +143,6 @@ module.exports = {
                             { type: `mute`, date: unixTime(date), reason: reason, id: id, moderator: `${interaction.user.username}#${interaction.user.discriminator}` }
                         ]
                     }).save().then(async () => {
-                        const logChannel = interaction.guild.channels.cache.get(config.log)
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(`#ffdd33`)
                             .addFields([
@@ -184,7 +154,11 @@ module.exports = {
                             .setAuthor(`Mute | ${user.username}#${user.discriminator}`)
                             .setFooter(interaction.guild.name)
                             .setTimestamp()
-                        logChannel.send({ embeds: [logEmbed] });
+
+                        if (doLog) {
+                            logChannel.send({ embeds: [logEmbed] });
+                        }
+
                         user.send({ embeds: [logEmbed] })
 
                         const embed = new Discord.MessageEmbed()
@@ -219,7 +193,11 @@ module.exports = {
                             .setAuthor(`Mute | ${user.username}#${user.discriminator}`)
                             .setFooter(interaction.guild.name)
                             .setTimestamp()
-                        logChannel.send({ embeds: [logEmbed] });
+
+                        if (doLog) {
+                            logChannel.send({ embeds: [logEmbed] });
+                        }
+
                         user.send({ embeds: [logEmbed] })
 
                         const embed = new Discord.MessageEmbed()

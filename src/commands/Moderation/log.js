@@ -45,6 +45,14 @@ module.exports = {
                             guildId: interaction.guild.id,
                             channelId: channel.id
                         }).save().then(async () => {
+                            const logEmbed = new Discord.MessageEmbed()
+                                .setDescription(`This is now the current log channel`)
+                                .setColor(config.MainHexColor)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            channel.send({ embeds: [logEmbed] })
+
                             const SuccessEmbed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} Successfully set the log channel to <#${channel.id}>`)
                                 .setColor(config.SuccessHexColor)
@@ -61,6 +69,14 @@ module.exports = {
                         }, {
                             upsert: true
                         }).then(async () => {
+                            const logEmbed = new Discord.MessageEmbed()
+                                .setDescription(`This is now the current log channel`)
+                                .setColor(config.MainHexColor)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setFooter("Made by Zofux")
+                                .setTimestamp()
+                            channel.send({ embeds: [logEmbed] })
+
                             const SuccessEmbed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} Successfully updated the log channel to <#${channel.id}>`)
                                 .setColor(config.SuccessHexColor)
