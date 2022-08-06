@@ -18,7 +18,6 @@ module.exports = {
 
             }
 
-
             if (message.content === `<@${client.user.id}>`) return message.channel.send({ content: "All you need to do to get started using my commands is to run `/help`" })
 
             const randomXp = Math.floor(Math.random() * 10) + 1;
@@ -61,7 +60,7 @@ module.exports = {
                     })
                 } else {
                     await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
-                        client.guilds.cache.get(config.guild).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
+                        client.guilds.cache.get(res.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} You have been verified`)
                                 .setColor(config.SuccessHexColor)

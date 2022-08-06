@@ -29,12 +29,12 @@ module.exports = async (interaction, client) => {
 
         const id = Math.floor(Math.random() * 90000) + 10000;
 
-        client.guilds.cache.get(config.guild).channels.create(`ticket-${id}`, {
+        client.guilds.cache.get(interaction.guild.id).channels.create(`ticket-${id}`, {
             type: 'GUILD_TEXT',
             parent: data.categoryId,
             permissionOverwrites: [
                 {
-                    id: config.guild,
+                    id: interaction.guild.id,
                     deny: ["VIEW_CHANNEL"],
                     allow: ["SEND_MESSAGES"]
                 },
@@ -177,7 +177,7 @@ module.exports = async (interaction, client) => {
 
             if (array[0].Locked === false) {
 
-                interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: false }).then(async () => {
+                interaction.channel.permissionOverwrites.edit(interaction.guild.id, { SEND_MESSAGES: false }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has locked the ticket`)
                         .setColor(config.MainHexColor)
@@ -196,7 +196,7 @@ module.exports = async (interaction, client) => {
             }
             if (array[0].Locked === true) {
 
-                interaction.channel.permissionOverwrites.edit(config.guild, { SEND_MESSAGES: true }).then(async () => {
+                interaction.channel.permissionOverwrites.edit(interaction.guild.id, { SEND_MESSAGES: true }).then(async () => {
                     const embed = new Discord.MessageEmbed()
                         .setDescription(`<@${interaction.user.id}> has unlocked the ticket`)
                         .setColor(config.MainHexColor)
