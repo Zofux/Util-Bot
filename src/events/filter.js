@@ -23,14 +23,14 @@ module.exports = {
             await message.delete()
 
             const logs = require('../models/logChannels')
-            const log = await logs.findOne({ guildId: interaction.guild.id })
+            const log = await logs.findOne({ guildId: message.guild.id })
             let doLog = false
             let logChannel;
             if (log) {
                 doLog = true
             }
             if (doLog) {
-                logChannel = interaction.guild.channels.cache.get(log.channelId)
+                logChannel = message.guild.channels.cache.get(log.channelId)
                 if (!logChannel) doLog = false
             }
             const infractions = await db.find({ userId: message.author.id })
@@ -47,7 +47,7 @@ module.exports = {
                 const id = randomstring.generate(7)
 
                 new mute({
-                    guildId: interaction.guild.id,
+                    guildId: message.guild.id,
                     userId: message.author.id,
                     expires: date,
                 }).save().then(async () => {

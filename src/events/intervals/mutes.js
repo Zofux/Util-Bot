@@ -37,7 +37,7 @@ module.exports = async (client) => {
                         doLog = true
                     }
                     if (doLog) {
-                        logChannel = interaction.guild.channels.cache.get(log.channelId)
+                        logChannel = guild.channels.cache.get(log.channelId)
                         if (!logChannel) doLog = false
                     }
 
