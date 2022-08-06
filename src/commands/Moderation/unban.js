@@ -42,7 +42,7 @@ module.exports = {
         const id = randomstring.generate(7)
 
         try {
-            await interaction.guild.members.unban(userId).then(user => {
+            await interaction.guild.members.unban(userId).then(async user => {
                 const db = require('../../models/infractions')
                 const res = await db.findOne({ guildId: interaction.guild.id, userId: user.id })
 
@@ -117,7 +117,7 @@ module.exports = {
 
         } catch {
             const embed = new Discord.MessageEmbed()
-                .setDescription(`${config.crossEmoji} No user with the id: \`${userId}\` is banned in this server`)
+                .setDescription(`${config.crossEmoji} No user with the id: \`${userId}\` is not banned in this server`)
                 .setColor(config.ErrorHexColor)
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setFooter(interaction.guild.name)

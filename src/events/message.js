@@ -47,7 +47,7 @@ module.exports = {
                         const embed = new Discord.MessageEmbed()
                             .setDescription(`${config.crossEmoji} **${server.name}** doesn't have a verification channel`)
                             .setColor(config.ErrorHexColor)
-                            .setAuthor("Wrong Code")
+                            .setAuthor("No Channel")
                         message.author.send({ embeds: [embed] })
                     }
 
@@ -59,8 +59,9 @@ module.exports = {
                         message.author.send({ embeds: [embed] })
                     })
                 } else {
+                    const guildId = res.guildId
                     await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
-                        client.guilds.cache.get(res.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
+                        client.guilds.cache.get(verificationChannel.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
                             const embed = new Discord.MessageEmbed()
                                 .setDescription(`${config.checkEmoji} You have been verified`)
                                 .setColor(config.SuccessHexColor)
