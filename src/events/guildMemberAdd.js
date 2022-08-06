@@ -62,6 +62,7 @@ module.exports = {
                     return
                 }
                 new db({
+                    guildId: member.guild.id,
                     userId: member.user.id,
                     expires: date,
                     code: id
