@@ -4,8 +4,6 @@ const config = require("../../../config.json")
 module.exports = async (client) => {
 
     const chechMutes = async () => {
-        if (!config.log) return console.log("Cannot run auto unmute without a valid log channel within the config.json")
-        if (!config.muteRole || !config.memberRole) return console.log("Cannot run auto unmute without a valid mute and member role within the config.json")
         const now = new Date()
 
         const conditional = {
