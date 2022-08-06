@@ -25,7 +25,7 @@ module.exports = {
             logChannel.send({ embeds: [embed] })
         }
 
-        const verificationChannels = require('../models/verificationChannels')
+        const verificationChannels = require('../../models/verificationChannels')
         const verificationChannel = await verificationChannels.findOne({ guildId: member.guild.id })
         if (!verificationChannel) {
             return 
@@ -33,7 +33,7 @@ module.exports = {
             if (!member.guild.channels.cache.get(verificationChannel.channelId)) {
                 return await verificationChannels.findOneAndDelete({ guildId: member.guild.id })
             }
-            
+
             var randomstring = require("randomstring");
             const id = randomstring.generate(6)
 

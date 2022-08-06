@@ -8,7 +8,7 @@ module.exports = {
         .setDescription(`Verify yourself and gain access to the server!`),
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true })
-        const verificationChannels = require('../models/verificationChannels')
+        const verificationChannels = require('../../models/verificationChannels')
         const verificationChannel = await verificationChannels.findOne({ guildId: interaction.guild.id })
         if (!verificationChannel) {
             const embed = new Discord.MessageEmbed()
