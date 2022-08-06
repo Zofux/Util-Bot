@@ -42,7 +42,28 @@ module.exports = {
         const id = randomstring.generate(7)
 
         try {
-            await interaction.guild.members.unban(userId).then(async () => {
+            await interaction.guild.bans.fetch().then(async bans => {
+                if (bans.size == 0) {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} Nobody is banned from this server`)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setFooter(interaction.guild.name)
+                        .setTimestamp()
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                }
+                let bannedId = bans.find(ban => ban.user.id == userId)
+                if (!bannedId) {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} \`${userId}\` is not banned from this server`)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setFooter(interaction.guild.name)
+                        .setTimestamp()
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                }
+                await interaction.guild.bans.remove(userId, reason).catch(err => console.log(err));
+
                 const db = require('../../models/infractions')
                 const res = await db.findOne({ guildId: interaction.guild.id, userId: userId })
 
@@ -115,7 +136,8 @@ module.exports = {
                 }
             })
 
-        } catch {
+        } catch (err) {
+            console.log(err)
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} No user with the id: \`${userId}\` is not banned in this server`)
                 .setColor(config.ErrorHexColor)
