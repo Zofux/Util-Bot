@@ -42,7 +42,7 @@ module.exports = {
         const id = randomstring.generate(7)
 
         try {
-            await interaction.guild.members.unban(userId).then(async user => {
+            await interaction.guild.members.remove(userId).then(async user => {
                 const db = require('../../models/infractions')
                 const res = await db.findOne({ guildId: interaction.guild.id, userId: user.id })
 

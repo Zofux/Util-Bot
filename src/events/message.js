@@ -59,7 +59,6 @@ module.exports = {
                         message.author.send({ embeds: [embed] })
                     })
                 } else {
-                    const guildId = res.guildId
                     await db.findOneAndDelete({ userId: message.author.id }).then(async () => {
                         client.guilds.cache.get(verificationChannel.guildId).members.cache.get(message.author.id).roles.add(config.memberRole).then(() => {
                             const embed = new Discord.MessageEmbed()
