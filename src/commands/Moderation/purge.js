@@ -25,6 +25,15 @@ module.exports = {
 
         const amount = interaction.options.getNumber("amount")
 
+        if (amount < 1) {
+            const embed = new Discord.MessageEmbed()
+            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+            .setDescription(`${config.crossEmoji} Cannot purge less than **1** message`)
+            .setColor(config.ErrorHexColor)
+            .setFooter(`Made by Zofux`)
+        return interaction.editReply({ embeds: [embed], ephemeral: true })
+        }
+
         if (amount <= 100) {
             interaction.channel.bulkDelete(amount, true).then(async () => {
                 if (doLog) {

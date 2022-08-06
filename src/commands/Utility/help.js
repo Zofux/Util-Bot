@@ -50,7 +50,7 @@ module.exports = {
                 `\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B`)
             .addFields(
                 { name: '🗂️ Utility', value: "`help`, `verify`, `warnings`, `level`, `echo`, `embed`, `welcome message`, `welcome embed`" },
-                { name: '🛠️ Moderation', value: "`ban`, `kick`, `mute`, `unmute`, `warn`, `clearwarns`, `slowmode`, `filter add`, `filter remove`, `filter display`, `log set`, `log display`" },
+                { name: '🛠️ Moderation', value: "`ban`, `unban`, `kick`, `mute`, `unmute`, `warn`, `clearwarns`, `purge`, `slowmode`, `filter add`, `filter remove`, `filter display`, `log set`, `log display`" },
                 { name: '🎸 Music', value: "`play`, `clear`, `pause`, `queue`, `resume`, `shuffle`, `skip`" },
                 { name: '🔊 Voice Channels', value: "`voice channel`, `voice lock`, `voice mute`, `voice kick`, `voice ban`" },
                 { name: '📩 Tickets', value: "`ticket create`" },
