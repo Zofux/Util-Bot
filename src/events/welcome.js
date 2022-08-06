@@ -13,13 +13,13 @@ module.exports = {
             if (res.embed === false) {
                 let message = res.content;
                 message = message.replaceAll(`{user.username}`, member.user.username)
-                message = message.replaceAll(`{user.tag}`, `<@${memer.user.id}>`)
+                message = message.replaceAll(`{user.tag}`, `<@${member.user.id}>`)
                 message = message.replaceAll(`{user.discriminator}`, member.user.discriminator)
                 message = message.replaceAll(`{server.name}`, member.guild.name)
                 message = message.replaceAll(`{server.members}`, member.guild.memberCount)
                 channel.send({ content: message })
             } else if (res.embed === true) {
-                
+
             }
         }
     }
