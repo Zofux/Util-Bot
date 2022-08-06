@@ -44,7 +44,7 @@ module.exports = {
         try {
             await interaction.guild.members.unban(userId).then(async () => {
                 const db = require('../../models/infractions')
-                const res = await db.findOne({ guildId: interaction.guild.id, userId: user.id })
+                const res = await db.findOne({ guildId: interaction.guild.id, userId: userId })
 
                 if (!res) {
                     new db({
