@@ -1,5 +1,5 @@
 # Util-Bot
-This is a custom Discord Bot I am working on quite often, I have tried to make it as simple as possible so that anyone can download the code and start using it.
+This is a custom Discord Bot I am working on quite often, I have tried to make it as simple as possible so that anyone can download the code and start using it. Make sure that you run `npm install` before you start the bot with `node .`
 
 ***config.json*** template:
 ```js
