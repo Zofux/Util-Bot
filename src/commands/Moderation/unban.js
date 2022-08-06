@@ -42,13 +42,13 @@ module.exports = {
         const id = randomstring.generate(7)
 
         try {
-            await interaction.guild.members.remove(userId).then(async user => {
+            await interaction.guild.members.bans.remove(userId).then(async () => {
                 const db = require('../../models/infractions')
                 const res = await db.findOne({ guildId: interaction.guild.id, userId: user.id })
 
                 if (!res) {
                     new db({
-                        userId: user.id,
+                        userId: userId,
                         guildId: interaction.guild.id,
                         infractions: [
                             { type: `unban`, date: unixTime(new Date()), reason: reason, id: id, moderator: `${interaction.user.username}#${interaction.user.discriminator}` }
@@ -57,11 +57,11 @@ module.exports = {
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(config.SuccessHexColor)
                             .addFields([
-                                { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
+                                { name: 'User', value: `\`${userId}\``, inline: true },
                                 { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                                 { name: 'Reason', value: reason }
                             ])
-                            .setAuthor(`Unban | ${user.username}#${user.discriminator}`)
+                            .setAuthor(`Unban | ${userId}`)
                             .setFooter(interaction.guild.name)
                             .setTimestamp()
                         if (doLog) {
@@ -69,7 +69,7 @@ module.exports = {
                         }
 
                         const embed = new Discord.MessageEmbed()
-                            .setDescription(`${config.checkEmoji} Successfully **Unbanned** <@${user.id}> with id \`${id}\``)
+                            .setDescription(`${config.checkEmoji} Successfully **Unbanned** \`${userId}\` with id \`${id}\``)
                             .setColor(config.SuccessHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setFooter(interaction.guild.name)
@@ -82,7 +82,7 @@ module.exports = {
                         type: `unban`, date: unixTime(new Date()), reason: reason, id: id, moderator: `${interaction.user.username}#${interaction.user.discriminator}`
                     }
                     await db.findOneAndUpdate({
-                        guildId: interaction.guild.id, userId: user.id
+                        guildId: interaction.guild.id, userId: userId
                     }, {
                         $push: { infractions: infraction }
                     }, {
@@ -92,11 +92,11 @@ module.exports = {
                         const logEmbed = new Discord.MessageEmbed()
                             .setColor(config.SuccessHexColor)
                             .addFields([
-                                { name: 'User', value: `${user.username}#${user.discriminator} (<@${user.id}>)`, inline: true },
+                                { name: 'User', value: `\`${userId}\``, inline: true },
                                 { name: 'Moderator', value: `${interaction.user.username}#${interaction.user.discriminator}`, inline: true },
                                 { name: 'Reason', value: reason }
                             ])
-                            .setAuthor(`Unban | ${user.username}#${user.discriminator}`)
+                            .setAuthor(`Unban | ${userId}`)
                             .setFooter(interaction.guild.name)
                             .setTimestamp()
                         if (doLog) {
@@ -104,7 +104,7 @@ module.exports = {
                         }
 
                         const embed = new Discord.MessageEmbed()
-                            .setDescription(`${config.checkEmoji} Successfully **Unbanned** <@${user.id}> with id \`${id}\``)
+                            .setDescription(`${config.checkEmoji} Successfully **Unbanned** \`${userId}\` with id \`${id}\``)
                             .setColor(config.SuccessHexColor)
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                             .setFooter(interaction.guild.name)
