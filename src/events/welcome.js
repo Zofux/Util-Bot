@@ -54,11 +54,13 @@ module.exports = {
                     if (res.image) {
                         if (res.image === "{user.avatar}") embed.setImage(member.user.displayAvatarURL())
                         if (res.image === "{server.icon}") embed.setImage(member.guild.iconURL())
+                        if (res.image === "{bot.avatar}") embed.setImage(client.user.displayAvatarURL())
                     }
 
                     if (res.thumbnail) {
                         if (res.thumbnail === "{user.avatar}") embed.setThumbnail(member.user.displayAvatarURL())
                         if (res.thumbnail === "{server.icon}") embed.setThumbnail(member.guild.iconURL())
+                        if (res.thumbnail === "{bot.avatar}") embed.setThumbnail(client.user.displayAvatarURL())
                     }
 
                     await channel.send({ embeds: [embed] })
