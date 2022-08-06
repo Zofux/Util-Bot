@@ -22,6 +22,17 @@ module.exports = {
         if (found) {
             await message.delete()
 
+            const logs = require('../../models/logChannels')
+            const log = await logs.findOne({ guildId: interaction.guild.id })
+            let doLog = false
+            let logChannel;
+            if (log) {
+                doLog = true
+            }
+            if (doLog) {
+                logChannel = interaction.guild.channels.cache.get(log.channelId)
+                if (!logChannel) doLog = false
+            }
             const infractions = await db.find({ userId: message.author.id })
             if (infractions.length >= 2) {
                 const muted = message.guild.roles.cache.get(config.muteRole)
@@ -36,6 +47,7 @@ module.exports = {
                 const id = randomstring.generate(7)
 
                 new mute({
+                    guildId: interaction.guild.id,
                     userId: message.author.id,
                     expires: date,
                 }).save().then(async () => {
@@ -66,7 +78,6 @@ module.exports = {
                     message.member.roles.add(muted)
                     message.member.roles.remove(member)
 
-                    const logChannel = message.guild.channels.cache.get(config.log)
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor("#ffdd33")
                         .addFields([
@@ -78,7 +89,9 @@ module.exports = {
                         .setAuthor(`Mute | ${message.author.username}#${message.author.discriminator}`)
                         .setFooter(message.guild.name)
                         .setTimestamp()
-                    logChannel.send({ embeds: [logEmbed] });
+                    if (doLog) {
+                        logChannel.send({ embeds: [logEmbed] });
+                    }
                 })
 
             } else {
@@ -91,7 +104,8 @@ module.exports = {
                     expires: date,
                     reason: reason
                 }).save().then(async () => {
-                    const logChannel = message.guild.channels.cache.get(config.log)
+
+
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor("#ffdd33")
                         .addFields([
@@ -103,7 +117,10 @@ module.exports = {
                         .setAuthor(`Auto Warn | ${message.author.username}#${message.author.discriminator}`)
                         .setFooter(message.guild.name)
                         .setTimestamp()
-                    logChannel.send({ embeds: [logEmbed] });
+
+                    if (doLog) {
+                        logChannel.send({ embeds: [logEmbed] });
+                    }
                 })
             }
 

@@ -110,6 +110,7 @@ module.exports = {
             return interaction.editReply({ embeds: [embed], ephemeral: true })
         } else {
             new mutes({
+                guildId: interaction.guild.id,
                 userId: user.id,
                 expires: date
             }).save().then(async () => {

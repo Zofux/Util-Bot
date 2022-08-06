@@ -19,9 +19,9 @@ module.exports = async (client) => {
 
         if (results && results.length) {
             for (const result of results) {
-                const { userId } = result
+                const { userId, guildId } = result
 
-                const guild = client.guilds.cache.get(config.guild)
+                const guild = client.guilds.cache.get(guildId)
                 const member = (await guild.members.fetch()).get(userId)
                 if (member) {
                     const muted = guild.roles.cache.get(config.muteRole)
@@ -31,7 +31,18 @@ module.exports = async (client) => {
                     member.roles.remove(muted)
 
 
-                    const logChannel = guild.channels.cache.get(config.log)
+                    const logs = require('../../models/logChannels')
+                    const log = await logs.findOne({ guildId: guildId })
+                    let doLog = false
+                    let logChannel;
+                    if (log) {
+                        doLog = true
+                    }
+                    if (doLog) {
+                        logChannel = interaction.guild.channels.cache.get(log.channelId)
+                        if (!logChannel) doLog = false
+                    }
+
                     const logEmbed = new Discord.MessageEmbed()
                         .setColor(config.SuccessHexColor)
                         .addFields([
@@ -42,7 +53,9 @@ module.exports = async (client) => {
                         .setAuthor(`Unmute | ${member.user.username}#${member.user.discriminator}`)
                         .setFooter(guild.name)
                         .setTimestamp()
-                    logChannel.send({ embeds: [logEmbed] });
+                    if (doLog) {
+                        logChannel.send({ embeds: [logEmbed] });
+                    }
                 }
             }
             await muteSchema.deleteMany(conditional)
