@@ -12,7 +12,10 @@ module.exports = {
             const verificationChannels = require('../models/verificationChannels')
             const verificationChannel = await verificationChannels.findOne({ guildId: message.guild.id })
             if (verificationChannel) {
-                if (message.channel.id === verificationChannel.channelId) return message.delete()
+                if (!message.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                    if (message.channel.id === verificationChannel.channelId) return message.delete()
+                }
+
             }
 
 
