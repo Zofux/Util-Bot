@@ -22,7 +22,7 @@ module.exports = {
         if (found) {
             await message.delete()
 
-            const logs = require('../../models/logChannels')
+            const logs = require('../models/logChannels')
             const log = await logs.findOne({ guildId: interaction.guild.id })
             let doLog = false
             let logChannel;
