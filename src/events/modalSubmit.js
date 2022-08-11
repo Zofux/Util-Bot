@@ -24,7 +24,7 @@ module.exports = {
         }
 
         if (modal.customId === "staff") {
-
+            console.log(modal)
             const id = Math.floor(Math.random() * 90000) + 10000;
             const channel = createChannel(id)
 
