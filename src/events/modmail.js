@@ -22,7 +22,7 @@ module.exports = {
                     parent: config.modMailCategoryId,
                     permissionOverwrites: [
                         {
-                            id: modal.guild.id,
+                            id: config.guild,
                             deny: ["VIEW_CHANNEL"]
                         },
                         {
