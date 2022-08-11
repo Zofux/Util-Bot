@@ -44,8 +44,8 @@ module.exports = {
                     .setAuthor(`Info-${modal.user.username}`, modal.user.displayAvatarURL())
                     .setDescription(
                         `**User:** <@${modal.user.id}>\`(${modal.user.id})\`\n` +
-                        `**Joined the server:** <t:${Math.floor((modal.member.joinedTimestamp) / 1000)}:R>\n`
-                        `**Created Account:** <t:${Math.floor((modal.user.createdTimestamp) / 1000)}:R>\n`
+                        `**Joined the server:** <t:${unixTime(modal.member.joinedTimestamp)}:R>\n` +
+                        `**Created Account:** <t:${unixTime(modal.user.createdTimestamp)}:R>`
                     )
                     .setColor(config.MainHexColor)
                 const embed1 = new Discord.MessageEmbed()
