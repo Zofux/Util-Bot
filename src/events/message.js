@@ -9,6 +9,11 @@ module.exports = {
         if (message.author.bot) return;
 
         if (message.guild) {
+            const counting = require('../models/count')
+            const count = await counting.findOne({ guildId: message.guild.id })
+            if (count) {
+                if (message.channel.id === count.channelId) return
+            }
             const verificationChannels = require('../models/verificationChannels')
             const verificationChannel = await verificationChannels.findOne({ guildId: message.guild.id })
             if (verificationChannel) {
