@@ -27,7 +27,6 @@ client.player.on("trackStart", (queue, track) => {
         .setDescription(`[${track.title}](${track.url}) by ${track.author} [${track.duration}]`)
         .setFooter(`Volume: ${queue.volume}%`)
     queue.metadata.channel.send({ embeds: [embed] })
-    console.log(queue.metadata)
 })
 
 const Levels = require("discord-xp")
