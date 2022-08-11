@@ -25,7 +25,7 @@ module.exports = {
             logChannel.send({ embeds: [embed] })
         }
 
-        const verificationChannels = require('../models/verificationChannels')
+        /*const verificationChannels = require('../models/verificationChannels')
         const verificationChannel = await verificationChannels.findOne({ guildId: member.guild.id })
         if (!verificationChannel) {
             return 
@@ -80,6 +80,6 @@ module.exports = {
                     })
                 })
             }
-        }
+        }*/
     }
 }
