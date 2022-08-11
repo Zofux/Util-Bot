@@ -29,7 +29,7 @@ module.exports = {
             )
             .setColor(config.MainHexColor)
 
-        const Button = new Discord.MessageActionRow()
+        const Button = new MessageActionRow()
             .addComponents(
                 new Discord.MessageButton()
                     .setCustomId("verify")
