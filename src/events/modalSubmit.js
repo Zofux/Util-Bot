@@ -33,9 +33,6 @@ module.exports = {
             const goal = modal.getTextInputValue('goal')
             const why = modal.getTextInputValue('why')
 
-            console.log(age)
-            console.log(timeZone)
-
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`Info-${modal.user.username}`, modal.user.displayAvatarURL())
                 .setDescription(
@@ -45,7 +42,7 @@ module.exports = {
                 .setColor(config.MainHexColor)
             const embed1 = new Discord.MessageEmbed()
                 .setColor(config.MainHexColor)
-                .setDescription(age.value)
+                .setDescription(age[0])
 
             const embed2 = new Discord.MessageEmbed()
                 .setColor(config.MainHexColor)
