@@ -17,7 +17,7 @@ module.exports = {
                 .setColor(config.MainHexColor)
                 .setDescription("Thank you for your message, our staff team will be with you shortly. Please send any additional details that could issue")
             message.author.send({ embeds: [embed] }).then(async () => {
-                client.guilds.cache.get(modal.guild.id).channels.create(message.author.id, {
+                client.guilds.cache.get(config.guild).channels.create(message.author.id, {
                     type: 'GUILD_TEXT',
                     parent: config.modMailCategoryId,
                     permissionOverwrites: [
