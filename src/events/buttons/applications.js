@@ -25,7 +25,7 @@ module.exports = async (interaction, client) => {
             const channel = interaction.guild.channels.cache.get(config.applicationStatusChannelId)
 
             channel.send(`> <@${res.userId}> congratulations! Your \`${res.type} Application\` has been **accepted** by <@${interaction.user.id}>\n> \n> *You should expect instructions soon*`).then(async () => {
-                await channel.delete()
+                await interaction.channel.delete()
             })
         })
     } else if (interaction.customId === "deny") {
@@ -39,7 +39,7 @@ module.exports = async (interaction, client) => {
             const channel = interaction.guild.channels.cache.get(config.applicationStatusChannelId)
 
             channel.send(`> <@${res.userId}> Your \`${res.type} Application\` has been **denied** by <@${interaction.user.id}>\n> \n> *Have a issue with this? Contact our modmail*`).then(async () => {
-                await channel.delete()
+                await interaction.channel.delete()
             })
         })
     }
