@@ -10,13 +10,7 @@ module.exports = {
         if (message.guild) {
             const member = message.guild.members.cache.get(message.channel.name)
             if (!member) {
-                const embed = new Discord.MessageEmbed()
-                    .setDescription(`${config.crossEmoji} That user isn't in this server`)
-                    .setColor(config.ErrorHexColor)
-                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                    .setFooter(interaction.guild.name)
-                    .setTimestamp()
-                return interaction.editReply({ embeds: [embed], ephemeral: true })
+                return
             }
 
             const mail = new Discord.MessageEmbed()
