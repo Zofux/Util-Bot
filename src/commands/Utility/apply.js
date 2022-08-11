@@ -10,8 +10,6 @@ module.exports = {
         .addSubcommand(subCommand => 
             subCommand.setName("staff").setDescription("Apply for a posistion in our staff team")),
     async execute(interaction, client) {
-        await interaction.deferReply({ ephemeral: true })
-
         if (interaction.options.getSubcommand() === "staff") {
             const modal = new Modal()
                 .setCustomId("staff")
