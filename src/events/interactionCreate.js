@@ -18,6 +18,7 @@ module.exports = {
         } else if (interaction.isButton()) {
             require('./tickets/TicketOptions')(interaction, client)
             require('./buttons/verify')(interaction, client)
+            require('./buttons/applications')(interaction, client)
         } else if (interaction.isSelectMenu()) {
             require('./menus/helpMenu')(interaction, client)
         }
