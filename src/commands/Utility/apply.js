@@ -72,7 +72,7 @@ module.exports = {
                 showModal(modal, {
                     client: client,
                     interaction: interaction,
-                }):
+                });
         }
     }
 }
