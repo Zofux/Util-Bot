@@ -10,7 +10,7 @@ module.exports = {
         if (!res) return
         else if (res) {
             if (message.channel.id !== res.channelId) return
-            else if (message.channe.id === res.channelId) {
+            else if (message.channel.id === res.channelId) {
                 if (parseInt(message.content) !== (res.count + 1)) return
                 else if (parseInt(message.content) === (res.count + 1)) {
 
