@@ -33,27 +33,32 @@ module.exports = {
                     .setAuthor(`Info-${modal.user.username}`, modal.user.displayAvatarURL())
                     .setDescription(
                         `**User:** <@${modal.user.id}>\`(${modal.user.id})\`\n` +
-                        `**Joined:** <t:${unixTime(modal.user.joinedTimestamp)}:R>`
+                        `**Joined:** <t:${unixTime(modal.member.joinedTimestamp)}:R>`
                     )
                     .setColor(config.MainHexColor)
                 const embed1 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
+                    .setAuthor("Are you above the age of 16?")
                     .setDescription(age[0])
 
                 const embed2 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
+                    .setAuthor("What time zone are you in")
                     .setDescription(timeZone)
 
                 const embed3 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
+                    .setAuthor("Why do you want to become a moderator")
                     .setDescription(part)
 
                 const embed4 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
+                    .setAuthor("What are you goals as a moderator")
                     .setDescription(goal)
 
                 const embed5 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
+                    .setAuthor("Why should we choose you?")
                     .setDescription(why)
                     .setTimestamp()
 
@@ -71,8 +76,22 @@ module.exports = {
                             .setStyle("DANGER")
                     )
 
-                channel.send({ embeds: [embed, embed1, embed2, embed3, embed4, embed5], components: [Button] })
-                modal.reply({ content: "Thx <3", ephemeral: true })
+                channel.send({ embeds: [embed, embed1, embed2, embed3, embed4, embed5], components: [Button] }).then(() => {
+                    new db({
+                        userId: modal.user.id,
+                        date: new Date(),
+                        id: id,
+                        channelId: channel.id,
+                        type: "Staff"
+                    }).save()
+                    const reply = new Discord.MessageEmbed()
+                        .setDescription(`Great <@${modal.user.id}>! Your \`Staff Application\` with the id \`${id}\` has been submitted.`)
+                        .setFooter("You are now awaiting a response from our management team")
+                        .setColor(config.MainHexColor)
+                        .setAuthor(modal.user.username, modal.user.displayAvatarURL())
+                    modal.reply({ embeds: [reply], ephemeral: true })
+                })
+
             })
         }
     }
