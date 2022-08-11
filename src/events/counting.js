@@ -14,33 +14,38 @@ module.exports = {
                 if (parseInt(message.content) !== (res.count + 1)) return await message.delete()
                 else if (parseInt(message.content) === (res.count + 1)) {
 
-                    const webhooks = await message.channel.fetchWebhooks();
-                    const webhook = webhooks.find(wh => wh.token)
+                    if (message.author.id === res.lastUserId) return await message.delete()
+                    else if (message.author.id !== res.lastUserId) {
+                        const webhooks = await message.channel.fetchWebhooks();
+                        const webhook = webhooks.find(wh => wh.token)
 
-                    if (!webhook) {
-                        const embed = new Discord.MessageEmbed()
-                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                            .setDescription(`${config.crossEmoji} This channel doesn't have a working webhook yet`)
-                            .setColor(config.ErrorHexColor)
-                            .setFooter(`Made by Zofux`)
-                        return message.reply({ embeds: [embed] })
+                        if (!webhook) {
+                            const embed = new Discord.MessageEmbed()
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setDescription(`${config.crossEmoji} This channel doesn't have a working webhook yet`)
+                                .setColor(config.ErrorHexColor)
+                                .setFooter(`Made by Zofux`)
+                            return message.reply({ embeds: [embed] })
+                        }
+
+                        await webhook.send({
+                            content: message.content,
+                            username: message.author.username,
+                            avatarURL: message.author.displayAvatarURL()
+                        }).then(async () => {
+                            await message.delete()
+                            await db.findOneAndUpdate({
+                                guildId: message.guild.id
+                            }, {
+                                $inc: { count: 1 },
+                                $set: { lastUserId: message.author.id }
+                            }, {
+                                upsert: true
+                            })
+                        })
                     }
 
-                    await webhook.send({
-                        content: message.content,
-                        username: message.author.username,
-                        avatarURL: message.author.displayAvatarURL()
-                    }).then(async () => {
-                        await message.delete()
-                        await db.findOneAndUpdate({
-                            guildId: message.guild.id
-                        }, {
-                            $inc: { count: 1 },
-                            $set: { lastUserId: message.author.id }
-                        }, {
-                            upsert: true
-                        })
-                    })
+
 
                 }
             }
