@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const db = require('../models/count')
 const config = require("../../config.json")
-const webhookClient = new Discord.WebhookClient({ url: config })
 
 module.exports = {
     name: 'messageCreate',
