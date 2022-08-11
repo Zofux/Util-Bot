@@ -39,19 +39,19 @@ module.exports = {
 
                         new TextInputComponent()
                         .setCustomId("part")
-                        .setLabel("Why do you want to be a part of our staff team?")
+                        .setLabel("Why do you want to become a moderator")
                         .setStyle("LONG")
                         .setRequired(true),
 
                         new TextInputComponent()
                         .setCustomId("goal")
-                        .setLabel("What do you believe the goal of a staff team is?")
+                        .setLabel("What are your goals as a moderator")
                         .setStyle("LONG")
                         .setRequired(true),
 
                         new TextInputComponent()
                         .setCustomId("goal")
-                        .setLabel("Why should we choose you over other applications")
+                        .setLabel("Who should we choose you?")
                         .setStyle("LONG")
                         .setRequired(true),
                 )
