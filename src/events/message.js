@@ -29,7 +29,7 @@ module.exports = {
                 })
             }
 
-        } else {
+        } /*else {
             const res = await db.findOne({ userId: message.author.id })
             if (!res) {
                 const embed = new Discord.MessageEmbed()
@@ -73,6 +73,6 @@ module.exports = {
 
 
             }
-        }
+        }*/
     }
 }
