@@ -28,7 +28,7 @@ module.exports = {
             const id = Math.floor(Math.random() * 90000) + 10000;
             const channel = createChannel(id)
 
-            const age = modal.getSelectMenyValues('age')
+            const age = modal.getSelectMenuValues('age')
             const timeZone = modal.getTextInputValue('time-zone')
             const part = modal.getTextInputValue('part')
             const goal = modal.getTextInputValue('goal')
