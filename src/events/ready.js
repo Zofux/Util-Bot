@@ -25,7 +25,7 @@ module.exports = {
                 "Refer to <#756197262320730152> for more detailed rules.\n\n" +
                 "**Note:** Server Admins have the authority to remove any user that doesn't present an acceptable behavior based on their judgement.\n\n" +
                 `\`-\` **If you have any questions feel free to dm <@${client.user.id}>\n\n**` +
-                "**Click** the button bellow to verify that you agree with our rules, and that you feel ready to join our server"
+                "Click the button bellow to verify that you agree with our rules, and that you feel ready to join our server"
             )
             .setColor(config.MainHexColor)
 
