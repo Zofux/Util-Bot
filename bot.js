@@ -31,7 +31,7 @@ client.player.on("trackStart", (queue, track) => {
     queue.metadata.channel.send({ embeds: [embed] })
 })
 
-client.player.on("connectionError", (err) => {
+client.player.on("connectionError", (queue, err) => {
     console.log(err)
 })
 
