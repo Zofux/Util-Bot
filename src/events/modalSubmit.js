@@ -7,7 +7,7 @@ module.exports = {
     name: 'modalSubmit',
     async execute(modal, client) {
         function createChannel(id) {
-            client.guilds.cache.get(newState.guild.id).channels.create(`${id}-${modal.customId}`, {
+            client.guilds.cache.get(modal.guild.id).channels.create(`${id}-${modal.customId}`, {
                 type: 'GUILD_TEXT',
                 parent: config.applicationCategoryId,
                 permissionOverwrites: [
