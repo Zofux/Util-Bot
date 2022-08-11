@@ -14,6 +14,7 @@ module.exports = {
         .addSubcommand(subCommand =>
             subCommand.setName("current").setDescription("Display the current count")),
     async execute(interaction, client) {
+        await interaction.deferReply({ ephemeral: true })
         if (interaction.options.getSubcommand() === "channel") {
             const channel = interaction.options.getChannel("channel")
 
