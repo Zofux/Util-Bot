@@ -3,7 +3,7 @@ const config = require('../../../config.json')
 const db = require('../../models/applications')
 
 module.exports = async (interaction, client) => {
-    const res = await db.findOne({ channelId: channel.id, status: "Pending" })
+    const res = await db.findOne({ channelId: interaction.channel.id, status: "Pending" })
     if (!res) {
         const embed = new Discord.MessageEmbed()
             .setDescription(`${config.crossEmoji} This application **isn't** in my database anymore`)
@@ -16,7 +16,7 @@ module.exports = async (interaction, client) => {
 
     if (interaction.customId === "accept") {
         await db.findOneAndUpdate({
-            channelId: channel.id, status: "Pending"
+            channelId: interaction.channel.id, status: "Pending"
         }, {
             $set: { status: "Accepted" }
         }, {
@@ -30,7 +30,7 @@ module.exports = async (interaction, client) => {
         })
     } else if (interaction.customId === "deny") {
         await db.findOneAndUpdate({
-            channelId: channel.id, status: "Pending"
+            channelId: interaction.channel.id, status: "Pending"
         }, {
             $set: { status: "Denied" }
         }, {
