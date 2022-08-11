@@ -7,6 +7,17 @@ module.exports = {
     name: 'modalSubmit',
     async execute(modal, client) {
 
+        const res = await db.findOne({ userId: modal.user.id })
+        if (res) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} You currently have an active \`<@${res.type} Application>\` with id \`${res.id}\`. \n\n*Please wait for our management team to review it before you apply again.*`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter("Made by Zofux")
+                .setTimestamp()
+            return interaction.editReply({ embeds: [embed], ephemeral: true })
+        }
+
         if (modal.customId === "staff") {
             const id = Math.floor(Math.random() * 90000) + 10000;
             client.guilds.cache.get(modal.guild.id).channels.create(`${id}-${modal.customId}`, {
