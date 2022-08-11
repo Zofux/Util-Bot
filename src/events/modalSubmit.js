@@ -24,7 +24,6 @@ module.exports = {
         }
 
         if (modal.customId === "staff") {
-            console.log(modal)
             const id = Math.floor(Math.random() * 90000) + 10000;
             const channel = createChannel(id)
 
@@ -33,6 +32,9 @@ module.exports = {
             const part = modal.getTextInputValue('part')
             const goal = modal.getTextInputValue('goal')
             const why = modal.getTextInputValue('why')
+
+            console.log(age)
+            console.log(timeZone)
 
             const embed = new Discord.MessageEmbed()
                 .setAuthor(`Info-${modal.user.username}`, modal.user.displayAvatarURL())
