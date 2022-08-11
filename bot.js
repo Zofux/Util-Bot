@@ -31,6 +31,10 @@ client.player.on("trackStart", (queue, track) => {
     queue.metadata.channel.send({ embeds: [embed] })
 })
 
+client.player.on("connectionError", (err) => {
+    console.log(err)
+})
+
 const Levels = require("discord-xp")
 Levels.setURL(process.env.database)
 
