@@ -6,12 +6,9 @@ const config = require("../../config.json")
 module.exports = {
     name: 'modalSubmit',
     async execute(modal, client) {
-        function createChannel(name) {
-
-        }
-
         if (modal.customId === "staff") {
             console.log(modal)
+            modal.reply({ content: "Thx <3", ephemeral: true })
         }
     }
 }
