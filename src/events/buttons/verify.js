@@ -10,7 +10,7 @@ module.exports = async (interaction, client) => {
             .setFooter(interaction.guild.name)
             .setTimestamp()
         return await interaction.reply({ embeds: [embed], ephemeral: true }).then(() => {
-            const memberRole = interaction.guild.roles.chache.get(config.memberRole)
+            const memberRole = interaction.guild.roles.cache.get(config.memberRole)
             interaction.member.roles.add(memberRole)
         })
     }
