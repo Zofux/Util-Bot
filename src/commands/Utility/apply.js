@@ -16,12 +16,6 @@ module.exports = {
                 .setTitle("Staff Application")
                 .addComponents(
                     new TextInputComponent()
-                        .setCustomId("region")
-                        .setLabel("What is your world region?")
-                        .setStyle("SHORT")
-                        .setRequired(true),
-
-                    new TextInputComponent()
                         .setCustomId("time-zone")
                         .setLabel("What time zone are you in?")
                         .setStyle("SHORT")
