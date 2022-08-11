@@ -31,7 +31,7 @@ module.exports = {
 
         const Button = new MessageActionRow()
             .addComponents(
-                new Discord.MessageButton()
+                new MessageButton()
                     .setCustomId("verify")
                     .setLabel("Click to Verify!")
                     .setEmoji("<:check:767340274539429888>")
