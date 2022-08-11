@@ -7,7 +7,7 @@ module.exports = {
     name: 'modalSubmit',
     async execute(modal, client) {
 
-        const res = await db.findOne({ userId: modal.user.id })
+        const res = await db.findOne({ userId: modal.user.id, status: "Pending"})
         if (res) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} You currently have an active \`<@${res.type} Application>\` with id \`${res.id}\`. \n\n*Please wait for our management team to review it before you apply again.*`)
@@ -44,8 +44,8 @@ module.exports = {
                     .setAuthor(`Info-${modal.user.username}`, modal.user.displayAvatarURL())
                     .setDescription(
                         `**User:** <@${modal.user.id}>\`(${modal.user.id})\`\n` +
-                        `**Joined the server:** <t:${unixTime(modal.member.joinedTimestamp)}:R>\n`
-                        `**Created Account:** <t:${unixTime(modal.user.createdTimestamp)}:R>\n`
+                        `**Joined the server:** <t:${Math.floor((modal.member.joinedTimestamp) / 1000)}:R>\n`
+                        `**Created Account:** <t:${Math.floor((modal.user.createdTimestamp) / 1000)}:R>\n`
                     )
                     .setColor(config.MainHexColor)
                 const embed1 = new Discord.MessageEmbed()
@@ -94,7 +94,8 @@ module.exports = {
                         date: new Date(),
                         id: id,
                         channelId: channel.id,
-                        type: "Staff"
+                        type: "Staff",
+                        status: "Pending"
                     }).save()
                     const reply = new Discord.MessageEmbed()
                         .setDescription(`Great <@${modal.user.id}>! Your \`Staff Application\` with the id \`${id}\` has been submitted.`)

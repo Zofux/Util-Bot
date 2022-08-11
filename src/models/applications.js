@@ -5,7 +5,8 @@ const model = new mongoose.Schema({
     date: String,
     id: String,
     channelId: String,
-    type: String
+    type: String,
+    status: String
 })
 
 module.exports = mongoose.model('Applications', model)
