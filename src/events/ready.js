@@ -35,9 +35,9 @@ module.exports = {
                     .setCustomId("verify")
                     .setLabel("Click to Verify!")
                     .setEmoji("<:check:767340274539429888>")
-                    .setStyle("SUCCESS")
+                    .setStyle("SECONDARY")
             )
 
-        guild.channels.cache.get("756196866928148540").send({ embed: [embed], components: [Button] })
+        guild.channels.cache.get("756196866928148540").send({ embeds: [embed], components: [Button] })
     }
 }
