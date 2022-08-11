@@ -11,7 +11,7 @@ module.exports = {
         else if (res) {
             if (message.channel.id !== res.channelId) return
             else if (message.channel.id === res.channelId) {
-                if (parseInt(message.content) !== (res.count + 1)) return
+                if (parseInt(message.content) !== (res.count + 1)) return await message.delete()
                 else if (parseInt(message.content) === (res.count + 1)) {
 
                     const webhooks = await message.channel.fetchWebhooks();
