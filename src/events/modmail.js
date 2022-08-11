@@ -25,7 +25,10 @@ module.exports = {
                 .setColor(config.MainHexColor)
                 .setDescription(message.content)
             member.send({ embeds: [mail] }).then(async () => {
-                await message.delete()
+                await message.delete().then(() => {
+                    message.channel.send({ embeds: [mail] })
+                })
+                
             })
 
         } else if (!message.guild) {
