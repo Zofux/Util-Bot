@@ -36,12 +36,12 @@ module.exports = {
                             {
                                 label: "Above 16",
                                 description: "You are above the age of 16 years",
-                                value: false,
+                                value: "true",
                             },
                             {
                                 label: "Under 16",
                                 description: "You are under the age of 16 years",
-                                value: false,
+                                value: "false",
                             }
                         ),
 
