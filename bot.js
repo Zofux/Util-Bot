@@ -22,7 +22,7 @@ client.player = new Player(client, {
         highWaterMark: 1 << 25
     }
 })
-client.player.on("trackStart", (queue, track) => {
+/*client.player.on("trackStart", (queue, track) => {
     const embed = new MessageEmbed()
         .setColor(config.MainHexColor)
         .setAuthor("Now Playing", track.requestedBy.displayAvatarURL())
@@ -33,7 +33,7 @@ client.player.on("trackStart", (queue, track) => {
 
 client.player.on("connectionError", (queue, err) => {
     console.log(err)
-})
+})*/
 
 const Levels = require("discord-xp")
 Levels.setURL(process.env.database)
