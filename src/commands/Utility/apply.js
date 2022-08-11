@@ -50,8 +50,8 @@ module.exports = {
                         .setRequired(true),
 
                         new TextInputComponent()
-                        .setCustomId("goal")
-                        .setLabel("Who should we choose you?")
+                        .setCustomId("why")
+                        .setLabel("Why should we choose you?")
                         .setStyle("LONG")
                         .setRequired(true),
                 )
