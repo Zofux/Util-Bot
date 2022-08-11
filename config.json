@@ -1,18 +1,18 @@
 {
-    "guild": "892751160182730772",
-    "clientId": "892754578162982922",
+    "guild": "756195742741430352",
+    "clientId": "758061521686233218",
 
-    "muteRole": "903991654074167357",
-    "memberRole": "892756988335898634",
-    "moderatorRole": "892755931576803370",
-    "ticketModeratorRole": "892755931576803370",
+    "muteRole": "756208491462656031",
+    "memberRole": "756196997022744656",
+    "moderatorRole": "810255783543308339",
+    "ticketModeratorRole": "810255783543308339",
     
     "yourName": "Zofux",
 
-    "crossEmoji": "<:cross:896045962940780555>",
-    "checkEmoji": "<:check:896045976039608320>",
+    "crossEmoji": "<:x_:767340003935256596>",
+    "checkEmoji": "<:check:767340274539429888>",
 
-    "MainHexColor": "#5865F2",
+    "MainHexColor": "#e7509e",
     "SuccessHexColor": "#43d490",
     "ErrorHexColor": "#fc3232"
 }
