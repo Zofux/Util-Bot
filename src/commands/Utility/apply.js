@@ -51,12 +51,6 @@ module.exports = {
 
                         new TextInputComponent()
                         .setCustomId("goal")
-                        .setLabel("What are your strengths and weaknesses?")
-                        .setStyle("LONG")
-                        .setRequired(true),
-
-                        new TextInputComponent()
-                        .setCustomId("goal")
                         .setLabel("Why should we choose you over other applications")
                         .setStyle("LONG")
                         .setRequired(true),
