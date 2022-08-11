@@ -8,7 +8,7 @@ module.exports = {
         if (message.author.bot) return;
 
         const guild = client.guilds.cache.get(config.guild)
-        const channel = guild.channels.find(c => c.name === message.author.id)
+        const channel = guild.channels.cache.find(c => c.name === message.author.id)
 
         if (!channel) {
             const embed = new Discord.MessageEmbed()
