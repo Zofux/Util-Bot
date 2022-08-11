@@ -29,7 +29,8 @@ module.exports = {
                 await db.findOneAndUpdate({ guildId: interaction.guild.id }, {
                     guildId: interaction.guild.id,
                     count: 0,
-                    channelId: channel.id
+                    channelId: channel.id,
+                    lastUserId: client.user.id
                 }, {
                     upsert: true,
                     new: true

@@ -35,7 +35,8 @@ module.exports = {
                         await db.findOneAndUpdate({
                             guildId: message.guild.id
                         }, {
-                            $inc: { count: 1 }
+                            $inc: { count: 1 },
+                            $set: { lastUserId: message.author.id }
                         }, {
                             upsert: true
                         })
