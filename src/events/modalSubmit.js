@@ -43,7 +43,7 @@ module.exports = {
                 .setColor(config.MainHexColor)
             const embed1 = new Discord.MessageEmbed()
                 .setColor(config.MainHexColor)
-                .setDescription(age)
+                .setDescription(age.value)
 
             const embed2 = new Discord.MessageEmbed()
                 .setColor(config.MainHexColor)
