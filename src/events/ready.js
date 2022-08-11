@@ -38,6 +38,6 @@ module.exports = {
                     .setStyle("SECONDARY")
             )
 
-        guild.channels.cache.get("756196866928148540").send({ embeds: [embed], components: [Button] })
+        //guild.channels.cache.get("756196866928148540").send({ embeds: [embed], components: [Button] })
     }
 }
