@@ -20,7 +20,7 @@ module.exports = {
         if (interaction) {
             if (interaction.options.getSubcommand() === "channel") {
                 const db = require("../../models/modmail")
-                const channel = interaction.options.getChannel("channel")
+                const channel = interaction.options.getChannel("category")
 
                 if (channel.type !== "GUILD_CATEGORY") {
                     const embed = new Discord.MessageEmbed()
