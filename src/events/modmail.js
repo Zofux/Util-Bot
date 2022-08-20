@@ -73,12 +73,28 @@ module.exports = {
                             }
                         ]
                     }).then(async (mailChannel) => {
+                        const Button = new Discord.MessageActionRow()
+                            .addComponents(
+                                new Discord.MessageButton()
+                                    .setCustomId("Close ModMail")
+                                    .setLabel("close-mail")
+                                    .setStyle("DANGER")
+                                    .setEmoji("📩")
+                            )
+                            const infoEmbed = new Discord.MessageEmbed()
+                            .setAuthor(`ModMail-${message.author.username}`, message.author.displayAvatarURL())
+                            .setDescription(
+                                `**User:** <@${message.author.id}>\`(${message.author.id})\`\n` +
+                                `*Click the button bellow to close the ModMail*`
+                            )
+                            .setColor(config.MainHexColor)
+
                         const mail = new Discord.MessageEmbed()
                             .setAuthor(message.author.username, message.author.displayAvatarURL())
                             .setThumbnail(message.author.displayAvatarURL())
                             .setColor(config.MainHexColor)
                             .setDescription(message.content)
-                        mailChannel.send({ embeds: [mail] })
+                        mailChannel.send({ embeds: [infoEmbed], components: [Button] }).then(() => mailChannel.send({ embeds: [mail] }))
 
                         await db.findOneAndUpdate({
                             guildId: guild.id
