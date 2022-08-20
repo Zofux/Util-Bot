@@ -72,7 +72,7 @@ module.exports = {
                                 allow: ["VIEW_CHANNEL", "READ_MESSAGE_HISTORY", "SEND_MESSAGES"],
                             }
                         ]
-                    }).then((mailChannel) => {
+                    }).then(async (mailChannel) => {
                         const mail = new Discord.MessageEmbed()
                             .setAuthor(message.author.username, message.author.displayAvatarURL())
                             .setThumbnail(message.author.displayAvatarURL())
