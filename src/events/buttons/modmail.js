@@ -18,7 +18,7 @@ module.exports = async (interaction, client) => {
             const member = interaction.guild.members.cache.get(array[0].userId)
 
             await db.findOneAndUpdate({
-                guildId: guild.id, "mail.channelId": interaction.channel.id
+                guildId: interaction.guild.id, "mail.channelId": interaction.channel.id
             }, {
                 $pull: { mail: { userId: array[0].userId, channelId: array[0].channelId } }
             }, {
