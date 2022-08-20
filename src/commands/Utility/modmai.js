@@ -20,7 +20,7 @@ module.exports = {
         if (interaction) {
             if (interaction.options.getSubcommand() === "channel") {
                 const db = require("../../models/modmail")
-                const channel = interaction.options.getChannel("category")
+                const channel = interaction.options.getChannel("channel")
 
                 if (channel.type !== "GUILD_CATEGORY") {
                     const embed = new Discord.MessageEmbed()
@@ -29,13 +29,13 @@ module.exports = {
                         .setColor(config.ErrorHexColor)
                         .setFooter(`Made by Zofux`)
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
-                } else if (channel.type === "GUILD_CATRGORY") {
+                } else if (channel.type === "GUILD_CATEGORY") {
                     const res = await db.findOne({ guildId: interaction.guild.id })
                     if (res) {
                         await db.findOneAndUpdate({
                             guildId: interaction.guild.id
                         }, {
-                            $set: { channelId: channel.id }
+                            $set: { categoryId: channel.id }
                         }, {
                             upsert: true
                         }).then(async () => {
@@ -50,7 +50,7 @@ module.exports = {
                     } else if (!res) {
                         new db({
                             guildId: interaction.guild.id,
-                            channelId: channel.id,
+                            categoryId: channel.id,
                             mail: []
                         }).save().then(async () => {
                             const SuccessEmbed = new Discord.MessageEmbed()
