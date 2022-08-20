@@ -108,21 +108,21 @@ module.exports = {
                             .setTimestamp()
                         return message.reply({ embeds: [embed] })
                     })
-                }
-
-                const mail = new Discord.MessageEmbed()
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .setThumbnail(message.author.displayAvatarURL())
-                    .setColor(config.MainHexColor)
-                    .setDescription(message.content)
-                channel.send({ embeds: [mail] }).then(() => {
-                    const embed = new Discord.MessageEmbed()
-                        .setAuthor(client.user.username, client.user.displayAvatarURL())
-                        .setThumbnail(client.user.displayAvatarURL())
+                } else if (channel) {
+                    const mail = new Discord.MessageEmbed()
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setThumbnail(message.author.displayAvatarURL())
                         .setColor(config.MainHexColor)
-                        .setDescription("Your message has been sent")
-                    message.reply({ embeds: [embed] })
-                })
+                        .setDescription(message.content)
+                    channel.send({ embeds: [mail] }).then(() => {
+                        const embed = new Discord.MessageEmbed()
+                            .setAuthor(client.user.username, client.user.displayAvatarURL())
+                            .setThumbnail(client.user.displayAvatarURL())
+                            .setColor(config.MainHexColor)
+                            .setDescription("Your message has been sent")
+                        message.reply({ embeds: [embed] })
+                    })
+                }
 
             }
         }
