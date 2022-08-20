@@ -90,38 +90,38 @@ module.exports = {
                     })
                 })
             } else if (res) {
-                const embed = new Discord.MessageEmbed()
-                    .setAuthor(client.user.username, client.user.displayAvatarURL())
-                    .setThumbnail(client.user.displayAvatarURL())
-                    .setColor(config.MainHexColor)
-                    .setDescription("Your message has been sent")
-                message.reply({ embeds: [embed] }).then(async () => {
-                    const array = await res.mail.filter(o => o.userId === message.author.id)
-                    const channel = guild.channels.cache.get(array[0].channelId)
-                    if (!channel) {
-                        await db.findOneAndUpdate({
-                            guildId: guild.id, "mail.userId": message.author.id
-                        }, {
-                            $pull: { mail: { userId: message.author.id, channelId: array[0].channelId } }
-                        }, {
-                            upsert: true
-                        }).then(async () => {
-                            const embed = new Discord.MessageEmbed()
-                                .setDescription(`${config.crossEmoji} It would look like your modmail channel has been deleted in **${guild.name}**, please **try again** while i sort things out.`)
-                                .setColor(config.ErrorHexColor)
-                                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                                .setFooter("Made by Zofux")
-                                .setTimestamp()
-                            return message.reply({ embeds: [embed] })
-                        })
-                    }
+                const array = await res.mail.filter(o => o.userId === message.author.id)
+                const channel = guild.channels.cache.get(array[0].channelId)
+                if (!channel) {
+                    await db.findOneAndUpdate({
+                        guildId: guild.id, "mail.userId": message.author.id
+                    }, {
+                        $pull: { mail: { userId: message.author.id, channelId: array[0].channelId } }
+                    }, {
+                        upsert: true
+                    }).then(async () => {
+                        const embed = new Discord.MessageEmbed()
+                            .setDescription(`${config.crossEmoji} It would look like your modmail channel has been deleted in **${guild.name}**, please **try again** while i sort things out.`)
+                            .setColor(config.ErrorHexColor)
+                            .setAuthor(message.author.username, message.author.displayAvatarURL())
+                            .setFooter("Made by Zofux")
+                            .setTimestamp()
+                        return message.reply({ embeds: [embed] })
+                    })
+                }
 
-                    const mail = new Discord.MessageEmbed()
-                        .setAuthor(message.author.username, message.author.displayAvatarURL())
-                        .setThumbnail(message.author.displayAvatarURL())
+                const mail = new Discord.MessageEmbed()
+                    .setAuthor(message.author.username, message.author.displayAvatarURL())
+                    .setThumbnail(message.author.displayAvatarURL())
+                    .setColor(config.MainHexColor)
+                    .setDescription(message.content)
+                channel.send({ embeds: [mail] }).then(() => {
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(client.user.username, client.user.displayAvatarURL())
+                        .setThumbnail(client.user.displayAvatarURL())
                         .setColor(config.MainHexColor)
-                        .setDescription(message.content)
-                    channel.send({ embeds: [mail] })
+                        .setDescription("Your message has been sent")
+                    message.reply({ embeds: [embed] })
                 })
 
             }
