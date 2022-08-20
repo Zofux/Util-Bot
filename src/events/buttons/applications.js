@@ -3,18 +3,18 @@ const config = require('../../../config.json')
 const db = require('../../models/applications')
 
 module.exports = async (interaction, client) => {
-    const res = await db.findOne({ channelId: interaction.channel.id, status: "Pending" })
-    if (!res) {
-        const embed = new Discord.MessageEmbed()
-            .setDescription(`${config.crossEmoji} This application **isn't** in my database anymore`)
-            .setColor(config.ErrorHexColor)
-            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-            .setFooter("Made by Zofux")
-            .setTimestamp()
-        return await interaction.reply({ embeds: [embed] })
-    }
-
     if (interaction.customId === "accept") {
+        const res = await db.findOne({ channelId: interaction.channel.id, status: "Pending" })
+        if (!res) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} This application **isn't** in my database anymore`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter("Made by Zofux")
+                .setTimestamp()
+            return await interaction.reply({ embeds: [embed] })
+        }
+
         await db.findOneAndUpdate({
             channelId: interaction.channel.id, status: "Pending"
         }, {
@@ -29,6 +29,17 @@ module.exports = async (interaction, client) => {
             })
         })
     } else if (interaction.customId === "deny") {
+        const res = await db.findOne({ channelId: interaction.channel.id, status: "Pending" })
+        if (!res) {
+            const embed = new Discord.MessageEmbed()
+                .setDescription(`${config.crossEmoji} This application **isn't** in my database anymore`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                .setFooter("Made by Zofux")
+                .setTimestamp()
+            return await interaction.reply({ embeds: [embed] })
+        }
+
         await db.findOneAndUpdate({
             channelId: interaction.channel.id, status: "Pending"
         }, {

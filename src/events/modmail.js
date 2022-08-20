@@ -94,7 +94,7 @@ module.exports = {
                             .setThumbnail(message.author.displayAvatarURL())
                             .setColor(config.MainHexColor)
                             .setDescription(message.content)
-                        mailChannel.send({ embeds: [infoEmbed], components: [Button] }).then(() => mailChannel.send({ embeds: [mail] }))
+                        mailChannel.send({ content: "@everyone", embeds: [infoEmbed], components: [Button] }).then(() => mailChannel.send({ embeds: [mail] }))
 
                         await db.findOneAndUpdate({
                             guildId: guild.id
