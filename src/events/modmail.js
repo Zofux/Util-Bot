@@ -95,7 +95,7 @@ module.exports = {
                     .setThumbnail(client.user.displayAvatarURL())
                     .setColor(config.MainHexColor)
                     .setDescription("Your message has been sent")
-                message.reply({ embeds: [embed] }).then(() => {
+                message.reply({ embeds: [embed] }).then(async () => {
                     const array = await res.mail.filter(o => o.userId === message.author.id)
                     const channel = guild.channels.cache.get(array[0].channelId)
                     if (!channel) {
