@@ -29,11 +29,13 @@ module.exports = {
                                 label: "Above 16",
                                 description: "You are above the age of 16 years",
                                 value: "yes",
+                                type: 4,
                             },
                             {
                                 label: "Under 16",
                                 description: "You are under the age of 16 years",
                                 value: "no",
+                                type: 4,
                             }
                         ),
 
@@ -58,7 +60,6 @@ module.exports = {
                 showModal(modal, {
                     client: client,
                     interaction: interaction,
-                    type: 4
                 });
         }
     }
