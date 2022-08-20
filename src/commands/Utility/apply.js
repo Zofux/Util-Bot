@@ -21,23 +21,11 @@ module.exports = {
                         .setStyle("SHORT")
                         .setRequired(true),
 
-                    new SelectMenuComponent()
+                        new TextInputComponent()
                         .setCustomId("age")
-                        .setPlaceholder("How old are you?")
-                        .addOptions(
-                            {
-                                label: "Above 16",
-                                description: "You are above the age of 16 years",
-                                value: "yes",
-                                type: 4,
-                            },
-                            {
-                                label: "Under 16",
-                                description: "You are under the age of 16 years",
-                                value: "no",
-                                type: 4,
-                            }
-                        ),
+                        .setLabel("How old are you?")
+                        .setStyle("SHORT")
+                        .setRequired(true),
 
                         new TextInputComponent()
                         .setCustomId("part")

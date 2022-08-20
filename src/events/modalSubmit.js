@@ -34,7 +34,7 @@ module.exports = {
                     }
                 ]
             }).then((channel) => {
-                const age = modal.getSelectMenuValues('age')
+                const age = modal.getTextInputValue('age')
                 const timeZone = modal.getTextInputValue('time-zone')
                 const part = modal.getTextInputValue('part')
                 const goal = modal.getTextInputValue('goal')
@@ -50,8 +50,8 @@ module.exports = {
                     .setColor(config.MainHexColor)
                 const embed1 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
-                    .setAuthor("Are you above the age of 16?")
-                    .setDescription(age[0])
+                    .setAuthor("How old are you?")
+                    .setDescription(age)
 
                 const embed2 = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
