@@ -58,7 +58,7 @@ module.exports = {
                 showModal(modal, {
                     client: client,
                     interaction: interaction,
-                    type: 1
+                    type: 4
                 });
         }
     }
