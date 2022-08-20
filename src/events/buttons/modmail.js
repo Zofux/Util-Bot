@@ -4,7 +4,7 @@ const db = require('../../models/modmail')
 
 module.exports = async (interaction, client) => {
     if (interaction.customId === "close-mail") {
-        const res = await db.findOne({ guildId: message.guild.id, "mail.channelId": message.channel.id })
+        const res = await db.findOne({ guildId: interaction.guild.id, "mail.channelId": interaction.channel.id })
         if (!res) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This modmail channel is not in my database anymore`)
