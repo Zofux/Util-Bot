@@ -76,8 +76,8 @@ module.exports = {
                         const Button = new Discord.MessageActionRow()
                             .addComponents(
                                 new Discord.MessageButton()
-                                    .setCustomId("Close ModMail")
-                                    .setLabel("close-mail")
+                                    .setCustomId("close-mail")
+                                    .setLabel("Close ModMail")
                                     .setStyle("DANGER")
                                     .setEmoji("📩")
                             )
