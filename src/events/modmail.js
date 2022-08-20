@@ -102,7 +102,7 @@ module.exports = {
                         await db.findOneAndUpdate({
                             guildId: guild.id, "mail.userId": message.author.id
                         }, {
-                            $pull: { mail: { userId: message.author.id, channelId: mailChannel.id } }
+                            $pull: { mail: { userId: message.author.id, channelId: array[0].channelId } }
                         }, {
                             upsert: true
                         }).then(async () => {
