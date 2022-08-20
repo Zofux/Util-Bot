@@ -59,7 +59,7 @@ module.exports = {
                     .setColor(config.MainHexColor)
                     .setDescription("Thank you for your message, our staff team will be with you shortly. Please send any additional details that could issue")
                 message.reply({ embeds: [embed] }).then(async () => {
-                    client.guilds.cache.get(config.guild).channels.create(message.author.id, {
+                    client.guilds.cache.get(config.guild).channels.create(message.author.username, {
                         type: 'GUILD_TEXT',
                         parent: data.categoryId,
                         permissionOverwrites: [
@@ -101,7 +101,7 @@ module.exports = {
                         upsert: true
                     }).then(async () => {
                         const embed = new Discord.MessageEmbed()
-                            .setDescription(`${config.crossEmoji} It would look like your modmail channel has been deleted in **${guild.name}**, please **try again** while i sort things out.`)
+                            .setDescription(`${config.crossEmoji} It would look like your modmail channel has been deleted in **${guild.name}**, please **try again** while I sort things out.`)
                             .setColor(config.ErrorHexColor)
                             .setAuthor(message.author.username, message.author.displayAvatarURL())
                             .setFooter("Made by Zofux")
