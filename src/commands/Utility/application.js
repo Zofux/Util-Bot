@@ -13,7 +13,7 @@ module.exports = {
         .addSubcommand(subCommand =>
             subCommand.setName("create").setDescription("Create a new application")
                 .addChannelOption(option => option.setName("category").setDescription("The category you want all applications to be saved under").setRequired(true))
-                .addStringOption("name").setDescription("The name you want to give your application").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name you want to give your application").setRequired(true)))
         .addSubcommand(subCommand =>
             subCommand.setName("delete").setDescription("Delete a application in the server")
                 .addStringOption(option => option.setName("name").setDescription("The name of the application you want to delete").setRequired(true))),
