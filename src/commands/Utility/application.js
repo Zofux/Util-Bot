@@ -145,7 +145,7 @@ module.exports = {
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setDescription(
                         `Here are all the applications in **${interaction.guild.name}**\n\n` +
-                        `${res.map(o => `${o.name} with **${o.numberOfQuestions}** questions\n`)}` +
+                        res.map(o => `${o.name} with **${o.numberOfQuestions}** questions\n`) +
                         "\n\nYou can use `/apply application:<application name>` to apply"
                     )
                     .setDescription("Made by Zofux")
