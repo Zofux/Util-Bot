@@ -6,13 +6,17 @@ module.exports = {
     once: true,
     async execute(client) {
         console.log("Ready!")
-        client.user.setPresence({ activities: [{ name: `${config.yourName}`, type: "LISTENING" }] })
+        const guild = client.guilds.cache.get(config.guild)
+
+        const setStatus = async () => {
+            client.user.setPresence({ activities: [{ name: `${guild.memberCount}`, type: "WATCHING" }] })
+            setTimeout(setStatus(), 1000 * 60)
+        }
+        setStatus()
 
         await require('./intervals/mutes')(client)
         await require('./intervals/autos')(client)
 
-
-        const guild = client.guilds.cache.get(config.guild)
         const embed = new MessageEmbed()
             .setAuthor(guild.name, guild.iconURL())
             .setDescription(

@@ -16,6 +16,15 @@ module.exports = {
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
         if (interaction.options.getSubcommand() === "channel") {
+            if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} You cannot use this command, as you do not have the \`MANAGE_GUILD\` permission in this server.`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
+
             const channel = interaction.options.getChannel("channel")
 
             if (channel.type !== "GUILD_TEXT") {
