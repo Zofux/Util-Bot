@@ -130,7 +130,7 @@ module.exports = {
             }
         } else if (interaction.options.getSubcommand() === "list") {
             const res = await db.find({ guildId: interaction.guild.id })
-            if (!res) {
+            if (!res[0]) {
                 const embed = new Discord.MessageEmbed()
                     .setDescription(`${config.crossEmoji} There are no applications in this server`)
                     .setColor(config.ErrorHexColor)
@@ -138,7 +138,7 @@ module.exports = {
                     .setFooter(interaction.guild.name)
                     .setTimestamp()
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
-            } else if (res) {
+            } else if (res[0]) {
                 const embed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
