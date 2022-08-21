@@ -63,13 +63,10 @@ module.exports = async (interaction, client) => {
                                 .setStyle("DANGER")
                         )
 
-                    const member = client.guilds.cache.get(config.guild).members.cache.get(interaction.user.id)
-
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(`Info-${interaction.user.username}`, interaction.user.displayAvatarURL())
                         .setDescription(
                             `**User:** <@${interaction.user.id}>\`(${interaction.user.id})\`\n` +
-                            `**Joined the server:** <t:${unixTime(member.joinedTimestamp)}:R>\n` +
                             `**Created Account:** <t:${unixTime(interaction.user.createdTimestamp)}:R>`
                         )
                         .setColor(config.MainHexColor)
