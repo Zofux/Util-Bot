@@ -63,7 +63,7 @@ module.exports = {
                             guildId: interaction.guild.id,
                             name: name.toLowerCase(),
                             category: channel.id,
-                            numberOfQuestions: count,
+                            numberOfQuestions: (count - 1),
                             questions: questions,
                             applications: []
                         }).save().then(() => {

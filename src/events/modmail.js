@@ -28,7 +28,7 @@ module.exports = {
                 const currentApplication = await applications.findOne({ userId: member.user.id })
                 if (currentApplication) {
                     const embed = new Discord.MessageEmbed()
-                        .setDescription(`${config.crossEmoji} <@${member.user.id}> currently have an active **${currentApplication.application} application** and therefore has there ModMail paused`)
+                        .setDescription(`${config.crossEmoji} <@${member.user.id}> currently has an active **${currentApplication.application} application** and therefore has there ModMail paused`)
                         .setColor(config.ErrorHexColor)
                         .setAuthor(message.author.username, message.author.displayAvatarURL())
                         .setFooter(message.guild.name)
