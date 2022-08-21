@@ -71,16 +71,16 @@ module.exports = async (interaction, client) => {
             await interaction.update({ embeds: [embed] })
         }
 
-        if (interaction.values.includes("suggestions")) {
+        if (interaction.values.includes("community")) {
             const embed = new Discord.MessageEmbed()
-                .setAuthor(`${client.user.username} - Commands [Suggestions]`, client.user.displayAvatarURL())
+                .setAuthor(`${client.user.username} - Commands [Communtiy]`, client.user.displayAvatarURL())
                 .setColor(config.MainHexColor)
                 .setDescription(
-                    "Here are all the commands that fall under the category of **Suggestions**, use the menu below to go to another category" +
+                    "Here are all the commands that fall under the category of **Community**, use the menu below to go to another category" +
                     "\n\n\`[]\` : **Optional Argument**\n\`<>\` : **Required Argument**\n\u200B"
                 )
                 .addFields([
-                    { name: "💡 Suggestion Commands", value: "`/suggestion reply <id> <status> [reply]` Reply to a suggestion\n`/suggestion channel <channel>` Setup the suggestion channel" },
+                    { name: "🔥 Community Commands", value: "`/suggestion reply <id> <status> [reply]` Reply to a suggestion\n`/suggestion channel <channel>` Setup the suggestion channel\n`/apply <application>` Apply for something\n`/application create <category> <name>` Create an application\n`/application delete <name>` Delete an application\n`/application list` Get a list of all applications in the current server" },
                 ])
                 .setFooter("Made by Zofux")
 

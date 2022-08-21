@@ -36,8 +36,8 @@ module.exports = {
                         value: "tickets"
                     },
                     {
-                        label: "💡 Suggestions",
-                        value: "suggestions"
+                        label: "🔥 Community",
+                        value: "community"
                     },
                 )
             )
@@ -54,7 +54,7 @@ module.exports = {
                 //{ name: '🎸 Music', value: "`play`, `clear`, `pause`, `queue`, `resume`, `shuffle`, `skip`" },
                 { name: '🔊 Voice Channels', value: "`voice channel`, `voice lock`, `voice mute`, `voice kick`, `voice ban`" },
                 { name: '📩 Tickets', value: "`ticket create`" },
-                { name: '💡 Suggestions', value: "`suggestion reply`, `suggestion channel`" }
+                { name: '🔥 Community', value: "`suggestion reply`, `suggestion channel`, `apply`, `application create`, `application delete`, `application list`" }
             )
             .setFooter("Made by Zofux")
 
