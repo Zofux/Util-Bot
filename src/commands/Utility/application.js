@@ -35,7 +35,7 @@ module.exports = {
                 let count = 1
                 let questions = []
 
-                interaction.reply(`\`📝\` What is going to be question **#${count}**?\nIf you dont respond within **20 minutes** the application will get deleted`)
+                interaction.editReply(`\`📝\` What is going to be question **#${count}**?\nIf you dont respond within **20 minutes** the application will get deleted`)
 
                 const filter = m => m.author.id === interaction.user.id
                 const collector = interaction.channel.createMessageCollector({ filter, time: 72000000 })
