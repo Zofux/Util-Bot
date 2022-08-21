@@ -32,7 +32,7 @@ module.exports = {
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (!current) {
-                const underReview = await db.findOne({ guildId: interaction.guild.id, applications: interaction.user.id })
+                const underReview = await db.findOne({ guildId: interaction.guild.id, "applications.userId": interaction.user.id })
                 if (underReview) {
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
