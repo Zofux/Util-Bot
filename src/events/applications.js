@@ -27,15 +27,15 @@ module.exports = {
                         const Button = new Discord.MessageActionRow()
                             .addComponents(
                                 new Discord.MessageButton()
-                                    .setCustomId("cancel-app")
-                                    .setLabel("Cacel")
-                                    .setStyle("DANGER")
-                            )
-                            .addComponents(
-                                new Discord.MessageButton()
                                     .setCustomId("submit-app")
                                     .setLabel("Submit")
                                     .setStyle("PRIMARY")
+                            )
+                            .addComponents(
+                                new Discord.MessageButton()
+                                    .setCustomId("cancel-app")
+                                    .setLabel("Cancel")
+                                    .setStyle("DANGER")
                             )
 
                         let questionEmbed = new Discord.MessageEmbed()
