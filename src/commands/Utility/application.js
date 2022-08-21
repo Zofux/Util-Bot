@@ -144,9 +144,9 @@ module.exports = {
                     .setColor(config.MainHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setDescription(
-                        `Here are all the applications in **${interaction.guild.name}**\n\n` +
-                        res.map(o => `${o.name} with **${o.numberOfQuestions}** questions\n`) +
-                        "\n\nYou can use `/apply application:<application name>` to apply"
+                        `Here are all the applications in **${interaction.guild.name}**:\n\n` +
+                        res.map(o => `\`${o.name}\` with **${o.numberOfQuestions}** questions\n`) +
+                        "\nYou can use `/apply application:<application name>` to apply"
                     )
                     .setFooter("Made by Zofux")
                 return interaction.editReply({ embeds: [embed] })
