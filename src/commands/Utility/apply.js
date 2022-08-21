@@ -8,7 +8,7 @@ module.exports = {
         .setName(`apply`)
         .setDescription(`Start an application`)
         .addStringOption(option =>
-            option.setName("application").setName("The name of the application you want to apply for").setRequired(true)),
+            option.setName("application").setDescription("The name of the application you want to apply for").setRequired(true)),
     async execute(interaction, client) {
         await interaction.deferReply({ ephemeral: true })
 
