@@ -27,7 +27,7 @@ module.exports = {
             if (current) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                    .setDescription(`${config.crossEmoji} Sorry but you currently have an active **${current.application} Application**, send me **"cancel"** in my dm's to cancel the current application`)
+                    .setDescription(`${config.crossEmoji} Sorry but you currently have an active **${current.application} application**, send me **"cancel"** in my dm's to cancel the current application`)
                     .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
@@ -38,14 +38,14 @@ module.exports = {
                 new currentApplications({
                     userId: interaction.user.id,
                     guildId: interaction.guild.id,
-                    application: application,
+                    application: application.toLowerCase(),
                     count: 0,
                     expires: date,
                     questions: []
                 }).save().then(async () => {
                     let questionEmbed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
-                        .setDescription(res.questions[0])
+                        .setDescription(`**${res.questions[0]}**`)
                     interaction.user.send({ embeds: [questionEmbed] }).then(() => {
                         const embed = new Discord.MessageEmbed()
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
