@@ -8,11 +8,7 @@ module.exports = {
         console.log("Ready!")
         const guild = client.guilds.cache.get(config.guild)
 
-        const setStatus = async () => {
-            client.user.setPresence({ activities: [{ name: `${guild.memberCount} members`, type: "WATCHING" }] })
-            setTimeout(setStatus(), 1000 * 60)
-        }
-        setStatus()
+        client.user.setPresence({ activities: [{ name: `${guild.name}`, type: "WATCHING" }] })
 
         await require('./intervals/mutes')(client)
         await require('./intervals/autos')(client)
