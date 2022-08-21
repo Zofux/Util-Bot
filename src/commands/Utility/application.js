@@ -35,7 +35,10 @@ module.exports = {
                 let count = 1
                 let questions = []
 
-                interaction.editReply(`\`📝\` What is going to be question **#${count}**?\nIf you dont respond within **20 minutes** the application will get deleted`)
+                let firstEmbed = new Discord.MessageEmbed()
+                .setColor(config.MainHexColor) 
+                .setDescription(`\`📝\` What is going to be question **#${count}**?\nIf you dont respond within **20 minutes** the application will get deleted`)
+                interaction.editReply({ embeds: [firstEmbed] })
 
                 const filter = m => m.author.id === interaction.user.id
                 const collector = interaction.channel.createMessageCollector({ filter, time: 72000000 })
@@ -48,6 +51,7 @@ module.exports = {
                         collector.stop()
                         return m.channel.send(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
                     }
+                    //let secondEmbed = new Discord.MessageEmbed()
                     m.channel.send(`\`📝\` What is going to be question **#${++count}**? Type **Cancel** to cancel this application or **Done** to save it.`).then(() => {
                         questions.push(m.content)
                         console.log(questions)
