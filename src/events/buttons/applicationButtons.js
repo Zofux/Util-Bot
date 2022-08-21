@@ -63,11 +63,13 @@ module.exports = async (interaction, client) => {
                                 .setStyle("DANGER")
                         )
 
+                    const member = client.guilds.cache.get(config.guild).members.cache.get(interaction.user.id)
+
                     const embed = new Discord.MessageEmbed()
                         .setAuthor(`Info-${interaction.user.username}`, interaction.user.displayAvatarURL())
                         .setDescription(
                             `**User:** <@${interaction.user.id}>\`(${interaction.user.id})\`\n` +
-                            `**Joined the server:** <t:${unixTime(interaction.member.joinedTimestamp)}:R>\n` +
+                            `**Joined the server:** <t:${unixTime(member.joinedTimestamp)}:R>\n` +
                             `**Created Account:** <t:${unixTime(interaction.user.createdTimestamp)}:R>`
                         )
                         .setColor(config.MainHexColor)
@@ -86,10 +88,10 @@ module.exports = async (interaction, client) => {
                     }, { upsert: true }).then(async () => {
                         await db.findOneAndDelete({ userId: interaction.user.id }).then(() => {
                             const confirmEmbed = new Discord.MessageEmbed()
-                            .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                            .setDescription(`${config.checkEmoji} You have **submitted** your application, you are now awaiting a response!`)
-                            .setColor(config.SuccessHexColor)
-                            .setFooter(`Made by Zofux`)
+                                .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                                .setDescription(`${config.checkEmoji} You have **submitted** your application, you are now awaiting a response!`)
+                                .setColor(config.SuccessHexColor)
+                                .setFooter(`Made by Zofux`)
                             return interaction.reply({ embeds: [confirmEmbed] })
                         })
                     })
