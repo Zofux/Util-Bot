@@ -20,7 +20,7 @@ module.exports = {
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true }).then(async () => await db.findOneAndDelete({ userId: message.author.id }))
             } else if (application) {
-                if ((res.count + 1) === application.numberOfQuestions) {
+                if (res.count === application.numberOfQuestions) {
                     await db.findOneAndUpdate({ userId: message.author.id }, {
                         $push: { questions: { question: application.questions[res.count], answer: message.content } }
                     }, { upsert: true }).then(() => {
@@ -43,6 +43,7 @@ module.exports = {
                             .setDescription(`Do you wish to **submit** this application?`)
                         return message.author.send({ embeds: [questionEmbed], components: [Button] })
                     })
+                    return
                 }
 
                 await db.findOneAndUpdate({ userId: message.author.id }, {
