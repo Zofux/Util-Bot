@@ -21,7 +21,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true }).then(async () => await db.findOneAndDelete({ userId: message.author.id }))
             } else if (application) {
                 if ((res.count + 1) === application.numberOfQuestions) {
-                    await db.findOneAndUpdate({ name: res.application }, {
+                    await db.findOneAndUpdate({ userId: message.author.id }, {
                         $push: { questions: { question: application.questions[res.count], answer: message.content } }
                     }, { upsert: true }).then(() => {
                         const Button = new Discord.MessageActionRow()
@@ -45,7 +45,7 @@ module.exports = {
                     })
                 }
 
-                await db.findOneAndUpdate({ name: res.application }, {
+                await db.findOneAndUpdate({ userId: message.author.id }, {
                     $inc: { count: 1 },
                     $push: { questions: { question: application.questions[res.count], answer: message.content } }
                 }, { upsert: true }).then(() => {
