@@ -9,7 +9,7 @@ module.exports = {
         const guild = client.guilds.cache.get(config.guild)
 
         const setStatus = async () => {
-            client.user.setPresence({ activities: [{ name: `${guild.memberCount}`, type: "WATCHING" }] })
+            client.user.setPresence({ activities: [{ name: `${guild.memberCount} members`, type: "WATCHING" }] })
             setTimeout(setStatus(), 1000 * 60)
         }
         setStatus()
