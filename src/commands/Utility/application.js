@@ -42,11 +42,13 @@ module.exports = {
                 
                 collector.on("collect", m => {
                     if (m.content.toLowerCase() === "cancel") {
-                        return collector.stop().then(() => m.channel.send("This application has been **Stopped**"))
+                        collector.stop()
+                        return m.channel.send("This application has been **Stopped**")
                     } else if (m.content.toLowerCase() === "done") {
-                        return collector.stop().then(() => m.channel.send(`This application has been **Saved**, use \`/apply application:${name}\` to use it`))
+                        collector.stop()
+                        return m.channel.send(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
                     }
-                    m.channel.send(`\`\`📝\` What is going to be question **#${++count}**? Type **Cancel** to cancel this application or **Done** to save it.`).then(() => {
+                    m.channel.send(`\`📝\` What is going to be question **#${++count}**? Type **Cancel** to cancel this application or **Done** to save it.`).then(() => {
                         questions.push(m.content)
                         console.log(questions)
                         console.log(count)
