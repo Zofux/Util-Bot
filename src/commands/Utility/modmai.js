@@ -19,6 +19,15 @@ module.exports = {
 
         if (interaction) {
             if (interaction.options.getSubcommand() === "channel") {
+                if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} You cannot use this command, as you do not have the \`MANAGE_GUILD\` permission in this server.`)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setTimestamp()
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                }
+
                 const db = require("../../models/modmail")
                 const channel = interaction.options.getChannel("category")
 

@@ -17,6 +17,14 @@ module.exports = {
     async execute(interaction, client) {
         await interaction.deferReply()
         if (interaction.options.getSubcommand() === "create") {
+            if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} You cannot use this command, as you do not have the \`MANAGE_GUILD\` permission in this server.`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
             const channel = interaction.options.getChannel("category")
 
             if (channel.type !== "GUILD_CATEGORY") {
@@ -88,6 +96,15 @@ module.exports = {
                 })
             }
         } else if (interaction.options.getSubcommand() === "delete") {
+            if (!interaction.member.permissions.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} You cannot use this command, as you do not have the \`MANAGE_GUILD\` permission in this server.`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            }
+
             const name = interaction.options.getString("name")
             const res = await db.findOne({ guildId: interaction.guild.id, name: name })
             if (!res) {
