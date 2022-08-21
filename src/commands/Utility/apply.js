@@ -45,6 +45,7 @@ module.exports = {
                 }).save().then(async () => {
                     let questionEmbed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
+                        .setAuthor(`Application Started - Type "Cancel" to cancel the application`)
                         .setDescription(`**${res.questions[0]}**`)
                     interaction.user.send({ embeds: [questionEmbed] }).then(() => {
                         const embed = new Discord.MessageEmbed()
