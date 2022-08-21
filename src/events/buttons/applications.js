@@ -3,19 +3,20 @@ const config = require('../../../config.json')
 const db = require('../../models/applications')
 
 module.exports = async (interaction, client) => {
-    const logs = require('../../models/logChannels')
-    const log = await logs.findOne({ guildId: interaction.guild.id })
-    let doLog = false
-    let logChannel;
-    if (log) {
-        doLog = true
-    }
-    if (doLog) {
-        logChannel = interaction.guild.channels.cache.get(log.channelId)
-        if (!logChannel) doLog = false
-    }
 
     if (interaction.customId === "accept") {
+        const logs = require('../../models/logChannels')
+        const log = await logs.findOne({ guildId: interaction.guild.id })
+        let doLog = false
+        let logChannel;
+        if (log) {
+            doLog = true
+        }
+        if (doLog) {
+            logChannel = interaction.guild.channels.cache.get(log.channelId)
+            if (!logChannel) doLog = false
+        }
+
         const res = await db.findOne({ guildId: interaction.guild.id, "applications.channelId": interaction.channel.id })
         const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
 
@@ -59,6 +60,18 @@ module.exports = async (interaction, client) => {
             return interaction.reply({ embeds: [embed], ephemeral: true }).then(async () => interaction.channel.delete())
         })
     } else if (interaction.customId === "deny") {
+        const logs = require('../../models/logChannels')
+        const log = await logs.findOne({ guildId: interaction.guild.id })
+        let doLog = false
+        let logChannel;
+        if (log) {
+            doLog = true
+        }
+        if (doLog) {
+            logChannel = interaction.guild.channels.cache.get(log.channelId)
+            if (!logChannel) doLog = false
+        }
+
         const res = await db.findOne({ guildId: interaction.guild.id, "applications.channelId": interaction.channel.id })
         if (!res) {
             const embed = new Discord.MessageEmbed()
