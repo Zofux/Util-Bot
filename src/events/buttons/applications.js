@@ -73,6 +73,8 @@ module.exports = async (interaction, client) => {
         }
 
         const res = await db.findOne({ guildId: interaction.guild.id, "applications.channelId": interaction.channel.id })
+        const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
+
         if (!res) {
             const embed = new Discord.MessageEmbed()
                 .setDescription(`${config.crossEmoji} This application **isn't** in my database anymore`)
