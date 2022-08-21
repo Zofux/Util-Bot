@@ -18,6 +18,7 @@ module.exports = {
             subCommand.setName("delete").setDescription("Delete a application in the server")
                 .addStringOption(option => option.setName("name").setDescription("The name of the application you want to delete").setRequired(true))),
     async execute(interaction, client) {
+        await interaction.deferReply()
         if (interaction.options.getSubcommand() === "create") {
             const channel = interaction.options.getChannel("category")
 
