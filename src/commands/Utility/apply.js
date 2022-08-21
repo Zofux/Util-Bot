@@ -13,7 +13,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true })
 
         const application = interaction.options.getString("application")
-        const res = await db.findOne({ name: application, guildId: interaction.guild.id })
+        const res = await db.findOne({ name: application.toLowerCase(), guildId: interaction.guild.id })
         if (!res) {
             const embed = new Discord.MessageEmbed()
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
@@ -42,7 +42,7 @@ module.exports = {
                     count: 0,
                     expires: date,
                     questions: []
-                }).then(async () => {
+                }).save().then(async () => {
                     let questionEmbed = new Discord.MessageEmbed()
                         .setColor(config.MainHexColor)
                         .setDescription(res.questions[0])

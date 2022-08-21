@@ -61,7 +61,7 @@ module.exports = {
 
                         new db({
                             guildId: interaction.guild.id,
-                            name: name,
+                            name: name.toLowerCase(),
                             category: channel.id,
                             numberOfQuestions: count,
                             questions: questions,
@@ -72,6 +72,7 @@ module.exports = {
                                 .setDescription(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
                             return m.channel.send({ embeds: [responseEmbed] })
                         })
+                        return;
                     } else if (count >= 10) {
                         let responseEmbed = new Discord.MessageEmbed()
                             .setColor(config.MainHexColor)
