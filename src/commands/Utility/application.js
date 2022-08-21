@@ -145,7 +145,7 @@ module.exports = {
                     .setDescription(
                         `Here are all the applications in **${interaction.guild.name}**:\n` +
                         res.map(o => `\n\`${o.name}\` with **${o.numberOfQuestions}** questions`) +
-                        "\nYou can use `/apply application:<application name>` to apply"
+                        "\n\nYou can use `/apply application:<application name>` to apply"
                     )
                     .setFooter("Made by Zofux")
                 return interaction.editReply({ embeds: [embed] })
