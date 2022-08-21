@@ -139,13 +139,12 @@ module.exports = {
                     .setTimestamp()
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (res[0]) {
-                console.log(res)
                 const embed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                     .setDescription(
-                        `Here are all the applications in **${interaction.guild.name}**:\n\n` +
-                        res.map(o => `\`${o.name}\` with **${o.numberOfQuestions}** questions\n`) +
+                        `Here are all the applications in **${interaction.guild.name}**:\n` +
+                        res.map(o => `\n\`${o.name}\` with **${o.numberOfQuestions}** questions`) +
                         "\nYou can use `/apply application:<application name>` to apply"
                     )
                     .setFooter("Made by Zofux")
