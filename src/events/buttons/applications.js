@@ -37,14 +37,14 @@ module.exports = async (interaction, client) => {
             upsert: true
         }).then(async () => {
             const logEmbed = new Discord.MessageEmbed()
-                .setDescription(`<@${interaction.user.id}> **accepted** <@${array[0].userId}>'s \`${res.name}\``)
+                .setDescription(`<@${interaction.user.id}> **accepted** <@${array[0].userId}>'s \`${res.name} application\``)
                 .setColor(config.SuccessHexColor)
                 .setAuthor("Application | Accepted")
                 .setTimestamp()
             if (doLog) logChannel.send({ embeds: [logEmbed] })
 
             const infoEmbed = new Discord.MessageEmbed()
-                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name}\` has been **accepted** by <@${interaction.user.id}>`)
+                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **accepted** by <@${interaction.user.id}>`)
                 .setColor(config.SuccessHexColor)
                 .setAuthor("Application | Accepted")
                 .setFooter(`Guild ID: ${interaction.guild.id}`)
@@ -78,14 +78,14 @@ module.exports = async (interaction, client) => {
             upsert: true
         }).then(async () => {
             const logEmbed = new Discord.MessageEmbed()
-                .setDescription(`<@${interaction.user.id}> **denied** <@${array[0].userId}>'s \`${res.name}\``)
+                .setDescription(`<@${interaction.user.id}> **denied** <@${array[0].userId}>'s \`${res.name} application\``)
                 .setColor(config.ErrorHexColor)
                 .setAuthor("Application | Denied")
                 .setTimestamp()
             if (doLog) logChannel.send({ embeds: [logEmbed] })
 
             const infoEmbed = new Discord.MessageEmbed()
-                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name}\` has been **denied** by <@${interaction.user.id}>`)
+                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **denied** by <@${interaction.user.id}>`)
                 .setColor(config.ErrorHexColor)
                 .setAuthor("Application | Denied")
                 .setFooter(`Guild ID: ${interaction.guild.id}`)
