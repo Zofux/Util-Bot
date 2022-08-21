@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const config = require('../../../config.json')
-const db = require('../../models/applications')
+const db = require('../../models/currentApplications')
 
 module.exports = async (interaction, client) => {
     if (interaction.customId === "cancel-app") {
