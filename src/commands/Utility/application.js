@@ -13,7 +13,9 @@ module.exports = {
                 .addStringOption(option => option.setName("name").setDescription("The name you want to give your application").setRequired(true)))
         .addSubcommand(subCommand =>
             subCommand.setName("delete").setDescription("Delete a application in the server")
-                .addStringOption(option => option.setName("name").setDescription("The name of the application you want to delete").setRequired(true))),
+                .addStringOption(option => option.setName("name").setDescription("The name of the application you want to delete").setRequired(true)))
+        .addSubcommand(subCommand =>
+            subCommand.setName("list").setDescription("Get a list of all the applications in the current server")),
     async execute(interaction, client) {
         await interaction.deferReply()
         if (interaction.options.getSubcommand() === "create") {
@@ -125,6 +127,28 @@ module.exports = {
                         .setTimestamp()
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 })
+            }
+        } else if (interaction.options.getSubcommand() === "list") {
+            const res = await db.find({ guildId: interaction.guild.id })
+            if (!res) {
+                const embed = new Discord.MessageEmbed()
+                    .setDescription(`${config.crossEmoji} There are no applications in this server`)
+                    .setColor(config.ErrorHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setFooter(interaction.guild.name)
+                    .setTimestamp()
+                return interaction.editReply({ embeds: [embed], ephemeral: true })
+            } else if (res) {
+                const embed = new Discord.MessageEmbed()
+                    .setColor(config.MainHexColor)
+                    .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                    .setDescription(
+                        `Here are all the applications in **${interaction.guild.name}**\n\n` +
+                        `${res.map(o => `${o.name} with **${o.numberOfQuestions}** questions\n`)}` +
+                        "\n\nYou can use `/apply application:<application name>` to apply"
+                    )
+                    .setDescription("Made by Zofux")
+                return interaction.editReply({ embeds: [embed] })
             }
         }
     }
