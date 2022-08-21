@@ -148,7 +148,7 @@ module.exports = {
                         res.map(o => `${o.name} with **${o.numberOfQuestions}** questions\n`) +
                         "\n\nYou can use `/apply application:<application name>` to apply"
                     )
-                    .setDescription("Made by Zofux")
+                    .setFooter("Made by Zofux")
                 return interaction.editReply({ embeds: [embed] })
             }
         }
