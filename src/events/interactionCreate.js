@@ -20,6 +20,7 @@ module.exports = {
             require('./buttons/verify')(interaction, client)
             require('./buttons/applications')(interaction, client)
             require('./buttons/modmail')(interaction, client)
+            require('./buttons/applicationButtons')(interaction, client)
         } else if (interaction.isSelectMenu()) {
             require('./menus/helpMenu')(interaction, client)
         }
