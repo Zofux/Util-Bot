@@ -7,15 +7,11 @@
     "moderatorRole": "756606234706051072",
     "ticketModeratorRole": "810255783543308339",
     "applicationsRole": "825434877133848636",
-    
-    "yourName": "Zofux",
-    "applicationCategoryId": "1007326982549291129",
-    "applicationStatusChannelId": "1007358520578035832",
 
     "crossEmoji": "<:x_:1010920876918722641>",
     "checkEmoji": "<:check:1010920893398130738>",
 
     "MainHexColor": "#e7509e",
-    "SuccessHexColor": "#f01f1f",
-    "ErrorHexColor": "#bf3b3b"
+    "SuccessHexColor": "#1ff061",
+    "ErrorHexColor": "#fa3232"
 }

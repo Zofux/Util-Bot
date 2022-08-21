@@ -4,22 +4,21 @@ This is a custom Discord Bot I am working on quite often, I have tried to make i
 ***config.json*** template:
 ```js
 {
-    "guild": "892751160182730772",
-    "clientId": "892754578162982922",
+    "guild": "756195742741430352",
+    "clientId": "758061521686233218",
 
-    "muteRole": "903991654074167357",
-    "memberRole": "892756988335898634",
-    "moderatorRole": "892755931576803370",
-    "ticketModeratorRole": "892755931576803370",
-    
-    "yourName": "Zofux",
+    "muteRole": "756208491462656031",
+    "memberRole": "756196997022744656",
+    "moderatorRole": "756606234706051072",
+    "ticketModeratorRole": "810255783543308339",
+    "applicationsRole": "825434877133848636",
 
-    "crossEmoji": "<:cross:896045962940780555>",
-    "checkEmoji": "<:check:896045976039608320>",
+    "crossEmoji": "<:x_:1010920876918722641>",
+    "checkEmoji": "<:check:1010920893398130738>",
 
-    "MainHexColor": "#5865F2",
-    "SuccessHexColor": "#43d490",
-    "ErrorHexColor": "#fc3232"
+    "MainHexColor": "#e7509e",
+    "SuccessHexColor": "#f01f1f",
+    "ErrorHexColor": "#bf3b3b"
 }
 ```
 
