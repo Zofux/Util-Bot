@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const db = require('../models/modmail')
 const config = require("../../config.json")
+const applications = require("../models/currentApplications")
 
 module.exports = {
     name: 'messageCreate',
@@ -24,6 +25,17 @@ module.exports = {
                     return message.reply({ embeds: [embed] })
                 }
 
+                const currentApplication = await applications.findOne({ userId: member.user.id })
+                if (currentApplication) {
+                    const embed = new Discord.MessageEmbed()
+                        .setDescription(`${config.crossEmoji} <@${member.user.id}> currently have an active **${currentApplication.application} Application** and therefore has there ModMail paused`)
+                        .setColor(config.ErrorHexColor)
+                        .setAuthor(message.author.username, message.author.displayAvatarURL())
+                        .setFooter(message.guild.name)
+                        .setTimestamp()
+                    return message.reply({ embeds: [embed] })
+                }
+
                 const mail = new Discord.MessageEmbed()
                     .setAuthor(message.author.username, message.author.displayAvatarURL())
                     .setThumbnail(message.author.displayAvatarURL())
@@ -39,6 +51,9 @@ module.exports = {
 
         } else if (!message.guild) {
             const guild = client.guilds.cache.get(config.guild)
+            const currentApplication = await applications.findOne({ userId: message.author.id })
+            if (currentApplication) return;
+
             const res = await db.findOne({ guildId: guild.id, "mail.userId": message.author.id })
 
             if (!res) {
@@ -81,7 +96,7 @@ module.exports = {
                                     .setStyle("DANGER")
                                     .setEmoji("📩")
                             )
-                            const infoEmbed = new Discord.MessageEmbed()
+                        const infoEmbed = new Discord.MessageEmbed()
                             .setAuthor(`ModMail-${message.author.username}`, message.author.displayAvatarURL())
                             .setDescription(
                                 `**User:** <@${message.author.id}>\`(${message.author.id})\`\n` +

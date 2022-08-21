@@ -1,15 +1,12 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 const config = require(`../../../config.json`)
-const { Modal, TextInputComponent, SelectMenuComponent, showModal } = require('discord-modals'); // Import all
 const db = require('../../models/applications')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName(`application`)
         .setDescription(`Manage applications in your server`)
-        .addSubcommand(subCommand =>
-            subCommand.setName("staff").setDescription("Apply for a posistion in our staff team"))
         .addSubcommand(subCommand =>
             subCommand.setName("create").setDescription("Create a new application")
                 .addChannelOption(option => option.setName("category").setDescription("The category you want all applications to be saved under").setRequired(true))
@@ -31,28 +28,60 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (channel.type === "GUILD_CATEGORY") {
                 const name = interaction.options.getString("name")
+                const application = await db.findOne({ name: name, guildId: interaction.guild.id })
+                if (application) {
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setDescription(`${config.crossEmoji} There is already a application with that name in this server`)
+                        .setColor(config.ErrorHexColor)
+                        .setFooter(`Made by Zofux`)
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                }
 
                 let count = 1
                 let questions = []
 
                 let firstEmbed = new Discord.MessageEmbed()
-                .setColor(config.MainHexColor) 
-                .setDescription(`\`📝\` What is going to be question **#${count}**?\nIf you dont respond within **20 minutes** the application will get deleted`)
+                    .setColor(config.MainHexColor)
+                    .setDescription(`\`📝\` What is going to be question **#${count}**?\n\nIf you dont respond within **20 minutes** the application will get deleted`)
                 interaction.editReply({ embeds: [firstEmbed] })
 
                 const filter = m => m.author.id === interaction.user.id
                 const collector = interaction.channel.createMessageCollector({ filter, time: 72000000 })
-                
+
                 collector.on("collect", m => {
                     if (m.content.toLowerCase() === "cancel") {
                         collector.stop()
-                        return m.channel.send("This application has been **Stopped**")
+                        let responseEmbed = new Discord.MessageEmbed()
+                            .setColor(config.MainHexColor)
+                            .setDescription("This application has been **Stopped**")
+                        return m.channel.send({ embeds: [responseEmbed] })
                     } else if (m.content.toLowerCase() === "done") {
                         collector.stop()
-                        return m.channel.send(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
+
+                        new db({
+                            guildId: interaction.guild.id,
+                            name: name,
+                            category: channel.id,
+                            numberOfQuestions: count,
+                            questions: questions,
+                            applications: []
+                        }).save().then(() => {
+                            let responseEmbed = new Discord.MessageEmbed()
+                                .setColor(config.MainHexColor)
+                                .setDescription(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
+                            return m.channel.send({ embeds: [responseEmbed] })
+                        })
+                    } else if (count >= 10) {
+                        let responseEmbed = new Discord.MessageEmbed()
+                            .setColor(config.MainHexColor)
+                            .setDescription("The maximum of 10 questions has been reached, type **Done** to save it or **Cancel** to cancel the process")
+                        return m.channel.send({ embeds: [responseEmbed] })
                     }
-                    //let secondEmbed = new Discord.MessageEmbed()
-                    m.channel.send(`\`📝\` What is going to be question **#${++count}**? Type **Cancel** to cancel this application or **Done** to save it.`).then(() => {
+                    let secondEmbed = new Discord.MessageEmbed()
+                        .setColor(config.MainHexColor)
+                        .setDescription(`\`📝\` What is going to be question **#${++count}**?\n\nType **Cancel** to cancel this application or **Done** to save it.`)
+                    m.channel.send({ embeds: [secondEmbed] }).then(() => {
                         questions.push(m.content)
                         console.log(questions)
                         console.log(count)
@@ -81,46 +110,6 @@ module.exports = {
                     return interaction.editReply({ embeds: [embed], ephemeral: true })
                 })
             }
-        }
-        else if (interaction.options.getSubcommand() === "staff") {
-            const modal = new Modal()
-                .setCustomId("staff")
-                .setTitle("Staff Application")
-                .addComponents(
-                    new TextInputComponent()
-                        .setCustomId("time-zone")
-                        .setLabel("What time zone are you in?")
-                        .setStyle("SHORT")
-                        .setRequired(true),
-
-                    new TextInputComponent()
-                        .setCustomId("age")
-                        .setLabel("How old are you?")
-                        .setStyle("SHORT")
-                        .setRequired(true),
-
-                    new TextInputComponent()
-                        .setCustomId("part")
-                        .setLabel("Why do you want to become a moderator")
-                        .setStyle("LONG")
-                        .setRequired(true),
-
-                    new TextInputComponent()
-                        .setCustomId("goal")
-                        .setLabel("What are your goals as a moderator")
-                        .setStyle("LONG")
-                        .setRequired(true),
-
-                    new TextInputComponent()
-                        .setCustomId("why")
-                        .setLabel("Why should we choose you?")
-                        .setStyle("LONG")
-                        .setRequired(true),
-                )
-            showModal(modal, {
-                client: client,
-                interaction: interaction,
-            });
         }
     }
 }

@@ -4,6 +4,7 @@ const model = new mongoose.Schema({
     guildId: String,
     name: String,
     category: String,
+    numberOfQuestions: Number,
     questions: Array,
     applications: Array
 })
