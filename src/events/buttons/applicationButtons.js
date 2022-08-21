@@ -82,7 +82,7 @@ module.exports = async (interaction, client) => {
                     })
 
                     await applications.findOneAndUpdate({ name: res.application }, {
-                        $push: { applications: interaction.user.id }
+                        $push: { applications: {userId: interaction.user.id, channelId: channel.id } }
                     }, { upsert: true }).then(async () => {
                         await db.findOneAndDelete({ userId: interaction.user.id }).then(() => {
                             const confirmEmbed = new Discord.MessageEmbed()
