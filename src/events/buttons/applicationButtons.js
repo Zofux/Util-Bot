@@ -67,7 +67,8 @@ module.exports = async (interaction, client) => {
                         .setAuthor(`Info-${interaction.user.username}`, interaction.user.displayAvatarURL())
                         .setDescription(
                             `**User:** <@${interaction.user.id}>\`(${interaction.user.id})\`\n` +
-                            `**Created Account:** <t:${unixTime(interaction.user.createdTimestamp)}:R>`
+                            `**Created Account:** <t:${unixTime(interaction.user.createdTimestamp)}:R>\n` +
+                            `**Application type:** \`${res.application}\``
                         )
                         .setColor(config.MainHexColor)
                     channel.send({ embeds: [embed], components: [Button] })
