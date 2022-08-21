@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
 
 const model = new mongoose.Schema({
-    userId: String,
-    date: String,
-    id: String,
-    channelId: String,
-    type: String,
-    status: String
+    guildId: String,
+    name: String,
+    questions: Array,
+    applications: Array
 })
 
 module.exports = mongoose.model('Applications', model)
