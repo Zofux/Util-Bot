@@ -69,7 +69,7 @@ module.exports = {
                         }).save().then(() => {
                             let responseEmbed = new Discord.MessageEmbed()
                                 .setColor(config.MainHexColor)
-                                .setDescription(`This application has been **Saved**, use \`/apply application:${name}\` to use it`)
+                                .setDescription(`This application has been **Saved**, use \`/apply application:${name.toLowerCase()}\` to use it`)
                             return m.channel.send({ embeds: [responseEmbed] })
                         })
                         return;
@@ -84,8 +84,6 @@ module.exports = {
                         .setDescription(`\`📝\` What is going to be question **#${++count}**?\n\nType **Cancel** to cancel this application or **Done** to save it.`)
                     m.channel.send({ embeds: [secondEmbed] }).then(() => {
                         questions.push(m.content)
-                        console.log(questions)
-                        console.log(count)
                     })
                 })
             }
