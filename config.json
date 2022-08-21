@@ -12,10 +12,10 @@
     "applicationCategoryId": "1007326982549291129",
     "applicationStatusChannelId": "1007358520578035832",
 
-    "crossEmoji": "<:x_:767340003935256596>",
-    "checkEmoji": "<:check:767340274539429888>",
+    "crossEmoji": "<:x_:1010920876918722641>",
+    "checkEmoji": "<:check:1010920893398130738>",
 
     "MainHexColor": "#e7509e",
     "SuccessHexColor": "#43d490",
-    "ErrorHexColor": "#fc3232"
+    "ErrorHexColor": "#bf3b3b"
 }
