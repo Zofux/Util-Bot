@@ -139,6 +139,7 @@ module.exports = {
                     .setTimestamp()
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (res[0]) {
+                console.log(res)
                 const embed = new Discord.MessageEmbed()
                     .setColor(config.MainHexColor)
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
