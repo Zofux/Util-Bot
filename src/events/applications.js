@@ -15,11 +15,20 @@ module.exports = {
             if (!application) {
                 const embed = new Discord.MessageEmbed()
                     .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
-                    .setDescription(`${config.crossEmoji} The **${res.application} application** has been deleted, and therefore can't be used anymore.`)
+                    .setDescription(`${config.crossEmoji} The **${res.application} application** has been deleted, and therefore can't be used anymore. If you are trying to contact modmail... try again`)
                     .setColor(config.ErrorHexColor)
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true }).then(async () => await db.findOneAndDelete({ userId: message.author.id }))
             } else if (application) {
+                if (message.content.toLowerCase() === "cancel") {
+                    await db.findOneAndDelete({ userId: message.author.id }).then(() => {
+                        let responseEmbed = new Discord.MessageEmbed()
+                            .setColor(config.MainHexColor)
+                            .setDescription("This application has been **Stopped**")
+                        return message.author.send({ embeds: [responseEmbed] })
+                    })
+                    return;
+                }
                 if ((res.count + 1) === application.numberOfQuestions) {
                     await db.findOneAndUpdate({ userId: message.author.id }, {
                         $push: { questions: { question: application.questions[res.count], answer: message.content } }

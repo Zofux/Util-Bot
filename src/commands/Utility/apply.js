@@ -33,7 +33,7 @@ module.exports = {
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (!current) {
                 let date = new Date()
-                date.setHours(date.getHours() + 1)
+                date.setHours(date.getHours() + 2)
 
                 new currentApplications({
                     userId: interaction.user.id,
@@ -47,6 +47,7 @@ module.exports = {
                         .setColor(config.MainHexColor)
                         .setAuthor(`Application Started - Type "Cancel" to cancel the application`)
                         .setDescription(`**${res.questions[0]}**`)
+                        .setFooter("You have two hours to complete the application")
                     interaction.user.send({ embeds: [questionEmbed] }).then(() => {
                         const embed = new Discord.MessageEmbed()
                             .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
