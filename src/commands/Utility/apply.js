@@ -32,6 +32,16 @@ module.exports = {
                     .setFooter(`Made by Zofux`)
                 return interaction.editReply({ embeds: [embed], ephemeral: true })
             } else if (!current) {
+                const underReview = await db.findOne({ guildId: interaction.guild.id, applications: interaction.user.id })
+                if (underReview) {
+                    const embed = new Discord.MessageEmbed()
+                        .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
+                        .setDescription(`${config.crossEmoji} You currently have an application under review`)
+                        .setColor(config.ErrorHexColor)
+                        .setFooter(`Made by Zofux`)
+                    return interaction.editReply({ embeds: [embed], ephemeral: true })
+                }
+
                 let date = new Date()
                 date.setHours(date.getHours() + 2)
 
