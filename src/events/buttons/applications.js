@@ -18,7 +18,6 @@ module.exports = async (interaction, client) => {
         }
 
         const res = await db.findOne({ guildId: interaction.guild.id, "applications.channelId": interaction.channel.id })
-        const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
 
         if (!res) {
             const embed = new Discord.MessageEmbed()
@@ -29,6 +28,8 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             return await interaction.reply({ embeds: [embed] })
         }
+
+        const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
 
         await db.findOneAndUpdate({
             guildId: interaction.guild.id, "applications.channelId": interaction.channelId
@@ -44,20 +45,24 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             if (doLog) logChannel.send({ embeds: [logEmbed] })
 
-            const infoEmbed = new Discord.MessageEmbed()
-                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **accepted** by <@${interaction.user.id}>`)
-                .setColor(config.SuccessHexColor)
-                .setAuthor("Application | Accepted")
-                .setFooter(`Guild ID: ${interaction.guild.id}`)
-                .setTimestamp()
-            interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] })
-
             const embed = new Discord.MessageEmbed()
                 .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
                 .setDescription(`${config.checkEmoji} This application has been accepted`)
                 .setColor(config.SuccessHexColor)
                 .setFooter(`Made by Zofux`)
-            return interaction.reply({ embeds: [embed], ephemeral: true }).then(async () => interaction.channel.delete())
+            interaction.reply({ embeds: [embed], ephemeral: true }).then(async () => interaction.channel.delete())
+
+            try {
+                const infoEmbed = new Discord.MessageEmbed()
+                    .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **accepted** by <@${interaction.user.id}>`)
+                    .setColor(config.SuccessHexColor)
+                    .setAuthor("Application | Accepted")
+                    .setFooter(`Guild ID: ${interaction.guild.id}`)
+                    .setTimestamp()
+                interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] })
+            } catch (err) {
+                console.log(ErrorHexColor)
+            }
         })
     } else if (interaction.customId === "deny") {
         const logs = require('../../models/logChannels')
@@ -73,7 +78,6 @@ module.exports = async (interaction, client) => {
         }
 
         const res = await db.findOne({ guildId: interaction.guild.id, "applications.channelId": interaction.channel.id })
-        const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
 
         if (!res) {
             const embed = new Discord.MessageEmbed()
@@ -84,6 +88,8 @@ module.exports = async (interaction, client) => {
                 .setTimestamp()
             return await interaction.reply({ embeds: [embed] })
         }
+
+        const array = await res.applications.filter(o => o.channelId === interaction.channel.id)
 
         await db.findOneAndUpdate({
             guildId: interaction.guild.id, "applications.channelId": interaction.channel.id
