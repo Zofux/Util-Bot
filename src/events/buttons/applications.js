@@ -52,17 +52,13 @@ module.exports = async (interaction, client) => {
                 .setFooter(`Made by Zofux`)
             interaction.reply({ embeds: [embed], ephemeral: true }).then(async () => interaction.channel.delete())
 
-            try {
-                const infoEmbed = new Discord.MessageEmbed()
-                    .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **accepted** by <@${interaction.user.id}>`)
-                    .setColor(config.SuccessHexColor)
-                    .setAuthor("Application | Accepted")
-                    .setFooter(`Guild ID: ${interaction.guild.id}`)
-                    .setTimestamp()
-                interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] })
-            } catch (err) {
-                console.log(ErrorHexColor)
-            }
+            const infoEmbed = new Discord.MessageEmbed()
+                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **accepted** by <@${interaction.user.id}>`)
+                .setColor(config.SuccessHexColor)
+                .setAuthor("Application | Accepted")
+                .setFooter(`Guild ID: ${interaction.guild.id}`)
+                .setTimestamp()
+            await interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] }).catch((err) => { return console.log(err) })
         })
     } else if (interaction.customId === "deny") {
         const logs = require('../../models/logChannels')
@@ -112,17 +108,13 @@ module.exports = async (interaction, client) => {
                 .setFooter(`Made by Zofux`)
             interaction.reply({ embeds: [embed], ephemeral: true }).then(async () => interaction.channel.delete())
 
-            try {
-                const infoEmbed = new Discord.MessageEmbed()
-                    .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **denied** by <@${interaction.user.id}>`)
-                    .setColor(config.ErrorHexColor)
-                    .setAuthor("Application | Denied")
-                    .setFooter(`Guild ID: ${interaction.guild.id}`)
-                    .setTimestamp()
-                return interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] })
-            } catch (err) {
-                console.log(err)
-            }
+            const infoEmbed = new Discord.MessageEmbed()
+                .setDescription(`Hey, <@${array[0].userId}>. Your \`${res.name} application\` has been **denied** by <@${interaction.user.id}>`)
+                .setColor(config.ErrorHexColor)
+                .setAuthor("Application | Denied")
+                .setFooter(`Guild ID: ${interaction.guild.id}`)
+                .setTimestamp()
+            await interaction.guild.members.cache.get(array[0].userId).send({ embeds: [infoEmbed] }).catch((err) => { return console.log(err) })
         })
     }
 }
