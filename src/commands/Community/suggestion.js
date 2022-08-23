@@ -108,7 +108,7 @@ module.exports = {
                                     .setAuthor("Suggestion | Rejected")
                                     .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                     .setTimestamp()
-                                interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                await interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).catch((err) => { return console.log(err) }).then(async () => {
                                     await db.findOneAndUpdate({
                                         id: res.id
                                     }, {
@@ -135,7 +135,7 @@ module.exports = {
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
 
-                                    interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                    await interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).catch((err) => { return console.log(err) }).then(async () => {
                                         await db.findOneAndUpdate({
                                             id: res.id
                                         }, {
@@ -166,7 +166,7 @@ module.exports = {
                                     .setAuthor("Suggestion | Accepted")
                                     .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                     .setTimestamp()
-                                interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                await interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).catch((err) => { return console.log(err) }).then(async () => {
                                     await db.findOneAndUpdate({
                                         id: res.id
                                     }, {
@@ -192,7 +192,7 @@ module.exports = {
                                         .setAuthor("Suggestion | Accepted")
                                         .setFooter(`Guild ID: ${interaction.guild.id} | sID: ${res.id}`)
                                         .setTimestamp()
-                                    interaction.guild.members.cache.get(res.userId).send({ embeds: [infoEmbed] }).then(async () => {
+                                    await interaction.guild.members.cache.get(res.userId).catch((err) => { return console.log(err) }).send({ embeds: [infoEmbed] }).then(async () => {
                                         await db.findOneAndUpdate({
                                             id: res.id
                                         }, {
