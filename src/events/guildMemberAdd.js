@@ -5,6 +5,8 @@ const config = require("../../config.json")
 module.exports = {
     name: 'guildMemberAdd',
     async execute(member) {
+        const memberRole = member.guild.roles.cache.get(config.memberRole)
+        member.roles.add(memberRole)
         const logs = require('../models/logChannels')
         const log = await logs.findOne({ guildId: member.guild.id })
         let doLog = false

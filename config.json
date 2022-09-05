@@ -1,15 +1,15 @@
 {
-    "guild": "756195742741430352",
-    "clientId": "758061521686233218",
+    "guild": "1016355732234436699",
+    "clientId": "892754578162982922",
 
-    "muteRole": "756208491462656031",
-    "memberRole": "756196997022744656",
-    "moderatorRole": "756606234706051072",
-    "ticketModeratorRole": "810255783543308339",
-    "applicationsRole": "825434877133848636",
+    "muteRole": "1016358426898608250",
+    "memberRole": "1016358210485104702",
+    "moderatorRole": "1016358351208206397",
+    "ticketModeratorRole": "1016358351208206397",
+    "applicationsRole": "1016357166044680353",
 
-    "crossEmoji": "<:x_:1010920876918722641>",
-    "checkEmoji": "<:check:1010920893398130738>",
+    "crossEmoji": "<:cross:1016357952514433194>",
+    "checkEmoji": "<:check:1016357932276916226>",
 
     "MainHexColor": "#e7509e",
     "SuccessHexColor": "#32fa89",
